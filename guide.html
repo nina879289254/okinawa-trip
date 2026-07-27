@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沖繩旅遊手冊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16323D; --ink-soft:#3D5661;
+    --paper:#F3ECDA; --card:#FFFDF7; --card-alt:#EDE4CC;
+    --coral:#C1502E; --coral-ink:#7A2E17;
+    --indigo:#2B5C73; --indigo-ink:#173B4C;
+    --turmeric:#B9812A; --turmeric-bg:#F6E4C1;
+    --moss:#4C6B41; --moss-bg:#E3EAD9;
+    --line:#D8CFB8; --line-strong:#C3B896;
+    --shadow: 0 1px 0 rgba(22,50,61,0.06);
+    --radius: 14px;
+    --font-display:'Noto Serif TC', serif;
+    --font-body:'Noto Sans TC', sans-serif;
+    --font-mono:'Space Mono', monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#EDE6D3; --ink-soft:#C8BFA6;
+      --paper:#12242B; --card:#1B333C; --card-alt:#213D46;
+      --coral:#E2714C; --coral-ink:#F7C7B0;
+      --indigo:#6FAFC9; --indigo-ink:#BFE0EC;
+      --turmeric:#E8B563; --turmeric-bg:#3A2E17;
+      --moss:#8FB37D; --moss-bg:#233227;
+      --line:#33474E; --line-strong:#455860;
+    }
+  }
+  :root{
+    /* fixed "ticket paper" palette — the hero + boarding-pass strip are a printed-ticket
+       motif, not general UI chrome, so they always render with these light-mode colors
+       regardless of the visitor's system light/dark setting. */
+    --navy-fixed:#173B4C; --navy-fixed-2:#2B5C73;
+    --ink-fixed:#16323D; --ink-soft-fixed:#3D5661;
+    --coral-fixed:#C1502E; --card-alt-fixed:#EDE4CC; --line-strong-fixed:#C3B896;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--font-body); line-height:1.7; font-size:15px;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:var(--font-display); font-weight:700; margin:0; color:var(--ink);}
+  a{color:var(--indigo);}
+  .wrap{max-width:820px; margin:0 auto; padding:0 18px 80px;}
+
+  /* ---------- HEADER / BOARDING PASS HERO ---------- */
+  .hero{
+    background:linear-gradient(180deg, var(--navy-fixed) 0%, var(--navy-fixed-2) 100%);
+    color:#F3ECDA; padding:28px 18px 22px; position:relative; overflow:hidden;
+  }
+  .hero:before{
+    content:""; position:absolute; inset:0;
+    background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.045) 0 2px, transparent 2px 26px);
+    pointer-events:none;
+  }
+  .hero-inner{max-width:820px; margin:0 auto; position:relative;}
+  .hero-eyebrow{
+    font-family:var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+    color:#D9C9A8; margin-bottom:8px; display:flex; gap:10px; align-items:center;
+  }
+  .hero-eyebrow .dot{width:5px;height:5px;border-radius:50%;background:#E2714C;}
+  .hero h1{font-size:28px; color:#FBF6E9; letter-spacing:.01em;}
+  .hero .sub{font-family:var(--font-display); font-size:14px; color:#C9B98F; margin-top:4px;}
+
+  .boarding-strip{
+    margin-top:20px; background:#F7F2E4; color:var(--ink-fixed); border-radius:12px;
+    display:flex; align-items:stretch; box-shadow:0 10px 24px rgba(0,0,0,0.18);
+    overflow:hidden; font-family:var(--font-mono);
+  }
+  .bs-main{flex:1; padding:16px 18px; position:relative;}
+  .bs-route{display:flex; align-items:center; gap:14px;}
+  .bs-code{font-size:22px; font-weight:700; letter-spacing:.03em;}
+  .bs-arrow{flex:1; position:relative; height:1px; background:var(--line-strong-fixed); margin:0 4px;}
+  .bs-arrow:after{content:"✈"; position:absolute; right:0; top:-9px; font-size:13px; color:var(--coral-fixed);}
+  .bs-meta{display:flex; gap:22px; margin-top:12px; font-size:11px; color:var(--ink-soft-fixed);}
+  .bs-meta b{display:block; font-size:13px; color:var(--ink-fixed); font-family:var(--font-body); font-weight:700; margin-top:2px;}
+  .bs-stub{
+    width:120px; background:var(--card-alt-fixed); border-left:2px dashed var(--line-strong-fixed);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:10px;
+    position:relative;
+  }
+  .bs-stub .n{font-size:26px; font-weight:700; color:var(--coral-fixed);}
+  .bs-stub .l{font-size:9px; letter-spacing:.1em; color:var(--ink-soft-fixed); text-transform:uppercase;}
+  .bs-stub:before, .bs-stub:after{
+    content:""; position:absolute; left:-7px; width:14px; height:14px; border-radius:50%;
+    background:var(--navy-fixed);
+  }
+  .bs-stub:before{top:-7px;} .bs-stub:after{bottom:-7px;}
+
+  /* ---------- TAB NAV ---------- */
+  .tabbar{
+    position:sticky; top:0; z-index:20; background:var(--paper);
+    border-bottom:1px solid var(--line); padding-top:10px;
+  }
+  .tabbar-scroll{
+    max-width:820px; margin:0 auto; display:flex; gap:6px; overflow-x:auto; padding:0 18px 10px;
+    scrollbar-width:none;
+  }
+  .tabbar-scroll::-webkit-scrollbar{display:none;}
+  .tab-btn{
+    font-family:var(--font-body); font-weight:700; font-size:13px; color:var(--ink-soft);
+    background:transparent; border:1px solid transparent; padding:8px 14px; border-radius:999px;
+    white-space:nowrap; cursor:pointer; transition:all .15s;
+  }
+  .tab-btn.active{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+  .tab-btn:not(.active):hover{border-color:var(--line-strong); color:var(--ink);}
+
+  section.tab-panel{display:none; padding-top:22px;}
+  section.tab-panel.active{display:block; animation:fadein .25s ease;}
+  @keyframes fadein{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
+
+  .section-head{margin:26px 0 12px;}
+  .section-head:first-child{margin-top:0;}
+  .section-head h2{font-size:19px;}
+  .section-head .desc{color:var(--ink-soft); font-size:13px; margin-top:2px;}
+  .eyebrow-label{
+    font-family:var(--font-mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--coral); margin-bottom:4px; display:block; font-weight:700;
+  }
+
+  /* generic card */
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:16px 18px; margin-bottom:14px; box-shadow:var(--shadow);
+  }
+  .card h3{font-size:16px; margin-bottom:6px;}
+  .kv-row{display:flex; gap:8px; font-size:13px; color:var(--ink-soft); margin-bottom:3px;}
+  .kv-row .k{flex-shrink:0; width:64px; font-weight:700; color:var(--ink);}
+  .tag{
+    display:inline-block; font-size:11px; font-family:var(--font-mono); padding:2px 9px;
+    border-radius:999px; background:var(--card-alt); color:var(--ink-soft); margin-right:6px; margin-top:4px;
+  }
+  .tag.coral{background:rgba(193,80,46,0.13); color:var(--coral-ink);}
+  .tag.moss{background:var(--moss-bg); color:var(--moss);}
+  .tag.reserve{background:var(--turmeric-bg); color:var(--turmeric-ink,var(--turmeric)); font-weight:700;}
+  .tag.walkin{background:var(--card-alt); color:var(--ink-soft); font-weight:700;}
+
+  /* ---------- OVERVIEW quick grid ---------- */
+  .quick-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .quick-card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:14px;
+  }
+  .quick-card .num{font-family:var(--font-display); font-size:26px; color:var(--coral); line-height:1;}
+  .quick-card .label{font-size:12px; color:var(--ink-soft); margin-top:4px;}
+
+  .day-mini-row{
+    display:flex; align-items:center; gap:12px; padding:11px 4px; border-bottom:1px dashed var(--line);
+    cursor:pointer;
+  }
+  .day-mini-row:last-child{border-bottom:none;}
+  .day-mini-row .d{
+    font-family:var(--font-mono); font-weight:700; font-size:13px; background:var(--navy-fixed); color:#F3ECDA;
+    border-radius:7px; padding:5px 9px; flex-shrink:0;
+  }
+  .day-mini-row .t{flex:1; font-size:13.5px;}
+  .day-mini-row .t small{display:block; color:var(--ink-soft); font-size:11.5px; margin-top:1px;}
+  .day-mini-row .arrow{color:var(--ink-soft); font-family:var(--font-mono);}
+
+  .callout{
+    border-radius:var(--radius); padding:14px 16px; margin-bottom:14px; font-size:13.5px;
+    border:1px solid var(--line);
+  }
+  .callout.warn{background:var(--turmeric-bg); border-color:transparent; color:#5A3E10;}
+  .callout.warn b{color:var(--turmeric);}
+  @media (prefers-color-scheme: dark){ .callout.warn{color:#EAD6AC;} }
+
+  /* ---------- ITINERARY (boarding-pass day card) ---------- */
+  .day-card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px; margin-bottom:18px;
+    overflow:hidden; box-shadow:var(--shadow);
+  }
+  .day-head{
+    display:flex; align-items:center; gap:14px; padding:14px 16px; cursor:pointer;
+    background:var(--card-alt);
+  }
+  .day-head .badge{
+    font-family:var(--font-mono); font-weight:700; font-size:12px; background:var(--coral); color:#FBF1E8;
+    padding:5px 10px; border-radius:7px; flex-shrink:0;
+  }
+  .day-head .info{flex:1;}
+  .day-head .info .ttl{font-family:var(--font-display); font-weight:700; font-size:16px;}
+  .day-head .info .date{font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); margin-top:2px;}
+  .day-head .chev{font-size:14px; color:var(--ink-soft); transition:transform .2s;}
+  .day-card.open .chev{transform:rotate(90deg);}
+  .day-body{display:none; padding:4px 16px 16px;}
+  .day-card.open .day-body{display:block;}
+
+  .perforation{
+    height:1px; border-top:1px dashed var(--line-strong); margin:0 -16px 12px; position:relative;
+  }
+  .perforation:before, .perforation:after{
+    content:""; position:absolute; top:-7px; width:14px; height:14px; border-radius:50%; background:var(--paper);
+  }
+  .perforation:before{left:-7px;} .perforation:after{right:-7px;}
+
+  table.sched{width:100%; border-collapse:collapse; font-size:13px;}
+  table.sched td{padding:7px 6px; vertical-align:top; border-bottom:1px solid var(--line);}
+  table.sched tr:last-child td{border-bottom:none;}
+  table.sched td.time{
+    font-family:var(--font-mono); font-weight:700; color:var(--indigo); white-space:nowrap; width:82px;
+  }
+
+  .day-tags{margin-top:10px;}
+
+  /* ---------- CHECKLIST ---------- */
+  .progress-wrap{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px 16px; margin-bottom:18px;
+  }
+  .progress-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;}
+  .progress-top .pct{font-family:var(--font-display); font-size:22px; color:var(--coral);}
+  .progress-bar{height:8px; background:var(--card-alt); border-radius:99px; overflow:hidden;}
+  .progress-bar .fill{height:100%; background:var(--coral); width:0%; transition:width .3s;}
+
+  .checklist-group{margin-bottom:20px;}
+  .checklist-group h3{
+    font-size:14px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.06em;
+    font-family:var(--font-mono); font-weight:700; margin-bottom:8px;
+  }
+  .check-item{
+    display:flex; align-items:flex-start; gap:11px; padding:10px 4px; border-bottom:1px solid var(--line);
+    cursor:pointer;
+  }
+  .check-item:last-child{border-bottom:none;}
+  .check-item .box{
+    width:19px; height:19px; border:2px solid var(--line-strong); border-radius:5px; flex-shrink:0; margin-top:2px;
+    display:flex; align-items:center; justify-content:center; transition:all .15s;
+  }
+  .check-item.checked .box{background:var(--moss); border-color:var(--moss);}
+  .check-item.checked .box:after{content:"✓"; color:#fff; font-size:12px; font-weight:700;}
+  .check-item .txt{flex:1; font-size:13.5px;}
+  .check-item.checked .txt{color:var(--ink-soft); text-decoration:line-through; text-decoration-color:var(--line-strong);}
+  .check-item .txt small{display:block; font-size:11.5px; color:var(--ink-soft); margin-top:2px;}
+  .check-item.checked .txt small{text-decoration:none;}
+
+  /* ---------- MAP LINKS ---------- */
+  .maplink{
+    display:inline-flex; align-items:center; gap:4px; font-family:var(--font-mono); font-size:11px;
+    color:var(--indigo); text-decoration:none; border:1px solid var(--line-strong); border-radius:999px;
+    padding:4px 11px; margin-top:8px; margin-right:6px; background:var(--card-alt); transition:all .15s;
+  }
+  .maplink:hover{background:var(--indigo); color:#fff; border-color:var(--indigo);}
+  .maplink.route{background:var(--navy-fixed); color:#F3ECDA; border-color:var(--navy-fixed); font-weight:700;}
+  .maplink.route:hover{background:var(--coral); border-color:var(--coral);}
+
+  .price{font-family:var(--font-mono); font-size:11.5px; color:var(--turmeric); letter-spacing:.02em;}
+
+  /* ---------- OVERVIEW MAP ---------- */
+  .route-map-card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:14px 16px 10px; margin-bottom:16px; box-shadow:var(--shadow);
+  }
+  .route-map-card svg{width:100%; height:auto; display:block;}
+  .route-legend{display:flex; flex-wrap:wrap; gap:10px 16px; margin-top:8px; font-size:11.5px; color:var(--ink-soft);}
+  .route-legend span{display:inline-flex; align-items:center; gap:5px;}
+  .route-legend i{width:9px; height:9px; border-radius:50%; display:inline-block;}
+
+  /* ---------- SOUVENIR TAB ---------- */
+  .souv-card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:16px 18px; margin-bottom:14px; box-shadow:var(--shadow);
+  }
+  .souv-card h3{font-size:16px; margin-bottom:8px;}
+  .souv-list{list-style:none; margin:0; padding:0;}
+  .souv-list li{
+    padding:9px 0; border-bottom:1px dashed var(--line); font-size:13.5px; display:flex; gap:8px;
+  }
+  .souv-list li:last-child{border-bottom:none;}
+  .souv-list li b{color:var(--ink); flex-shrink:0;}
+  .souv-list li .d{color:var(--ink-soft);}
+  .souv-where{
+    display:inline-block; font-size:10.5px; font-family:var(--font-mono); padding:2px 8px; border-radius:6px;
+    background:var(--turmeric-bg); color:var(--turmeric); margin-left:0; margin-top:2px;
+  }
+
+  /* ---------- EMERGENCY / INFO CARD ---------- */
+  .info-card{
+    background:var(--card-alt); border:1px solid var(--line); border-radius:var(--radius);
+    padding:16px 18px; margin-bottom:14px;
+  }
+  .info-card h3{font-size:15px; margin-bottom:8px; color:var(--coral-ink);}
+  .info-card .kv-row .k{width:84px;}
+
+  .footnote{
+    text-align:center; color:var(--ink-soft); font-size:11.5px; font-family:var(--font-mono);
+    margin-top:40px; padding-top:16px; border-top:1px dashed var(--line);
+  }
+  .draft-flag{
+    display:inline-block; margin-left:8px; font-family:var(--font-mono); font-size:10px; padding:2px 8px;
+    border-radius:99px; background:var(--turmeric-bg); color:var(--turmeric); vertical-align:middle;
+  }
+</style>
+</head>
+<body>
+
+<div style="background:#173B4C;padding:8px 16px;text-align:center;"><a href="index.html" style="color:#F3ECDA;font-family:Space Mono,monospace;font-size:12px;text-decoration:none;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 12px;">← 回到旅遊 App（記帳／編輯行程）</a></div>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span class="dot"></span> 情侶自駕・沖繩本島 5 夜 6 天</div>
+    <h1>沖繩旅遊手冊</h1>
+    <div class="sub">2026.10.01 — 10.06</div>
+
+    <div class="boarding-strip">
+      <div class="bs-main">
+        <div class="bs-route">
+          <div class="bs-code">RMQ</div>
+          <div class="bs-arrow"></div>
+          <div class="bs-code">OKA</div>
+        </div>
+        <div class="bs-meta">
+          <div>去程<b>10/1 16:40起飛</b></div>
+          <div>回程<b>10/6 16:45起飛</b></div>
+          <div>航空<b>星宇航空</b></div>
+        </div>
+      </div>
+      <div class="bs-stub">
+        <div class="n">06</div>
+        <div class="l">DAYS</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabbar">
+  <div class="tabbar-scroll" id="tabbar">
+    <button class="tab-btn active" data-tab="overview">總覽</button>
+    <button class="tab-btn" data-tab="itinerary">行程</button>
+    <button class="tab-btn" data-tab="stay">住宿</button>
+    <button class="tab-btn" data-tab="food">美食</button>
+    <button class="tab-btn" data-tab="spots">景點・購物</button>
+    <button class="tab-btn" data-tab="souvenir">伴手禮</button>
+    <button class="tab-btn" data-tab="prep">行前準備</button>
+    <button class="tab-btn" data-tab="notes">注意事項</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ============ 總覽 ============ -->
+  <section class="tab-panel active" id="tab-overview">
+    <div class="section-head">
+      <span class="eyebrow-label">Trip at a glance</span>
+      <h2>這趟旅行的骨架</h2>
+      <div class="desc">先看這頁，掌握六天的大方向，細節都在其他分頁裡。</div>
+    </div>
+
+    <div class="route-map-card">
+      <svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg">
+        <rect x="40" y="26" width="620" height="82" rx="18" fill="var(--card-alt)"/>
+        <rect x="40" y="132" width="620" height="82" rx="18" fill="var(--card-alt)"/>
+        <rect x="40" y="238" width="620" height="82" rx="18" fill="var(--card-alt)"/>
+        <text x="60" y="72" font-family="var(--font-mono)" font-size="12" letter-spacing="2" fill="var(--ink-soft)">北部 NORTH</text>
+        <text x="60" y="178" font-family="var(--font-mono)" font-size="12" letter-spacing="2" fill="var(--ink-soft)">中部 CENTRAL</text>
+        <text x="60" y="284" font-family="var(--font-mono)" font-size="12" letter-spacing="2" fill="var(--ink-soft)">南部 SOUTH</text>
+
+        <path d="M160,279 L560,67 L340,174 L230,279 L340,279 L450,279" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-dasharray="7 7"/>
+
+        <text x="160" y="255" text-anchor="middle" font-size="15">✈</text>
+        <text x="450" y="255" text-anchor="middle" font-size="15">✈</text>
+
+        <circle cx="160" cy="279" r="17" fill="var(--coral)" stroke="var(--paper)" stroke-width="3"/>
+        <text x="160" y="284" text-anchor="middle" font-family="var(--font-mono)" font-weight="700" font-size="13" fill="#fff">1</text>
+        <text x="160" y="315" text-anchor="middle" font-family="var(--font-body)" font-size="11.5" fill="var(--ink)">那覇．國際通</text>
+
+        <circle cx="560" cy="67" r="17" fill="var(--coral)" stroke="var(--paper)" stroke-width="3"/>
+        <text x="560" y="72" text-anchor="middle" font-family="var(--font-mono)" font-weight="700" font-size="13" fill="#fff">2</text>
+        <text x="560" y="52" text-anchor="middle" font-family="var(--font-body)" font-size="11.5" fill="var(--ink)">名護．古宇利．水族館</text>
+
+        <circle cx="340" cy="174" r="17" fill="var(--coral)" stroke="var(--paper)" stroke-width="3"/>
+        <text x="340" y="179" text-anchor="middle" font-family="var(--font-mono)" font-weight="700" font-size="13" fill="#fff">3</text>
+        <text x="340" y="154" text-anchor="middle" font-family="var(--font-body)" font-size="11.5" fill="var(--ink)">恩納．北谷</text>
+
+        <circle cx="230" cy="279" r="17" fill="var(--coral)" stroke="var(--paper)" stroke-width="3"/>
+        <text x="230" y="284" text-anchor="middle" font-family="var(--font-mono)" font-weight="700" font-size="13" fill="#fff">4</text>
+        <text x="230" y="315" text-anchor="middle" font-family="var(--font-body)" font-size="11.5" fill="var(--ink)">浦添．那覇</text>
+
+        <circle cx="340" cy="279" r="17" fill="var(--coral)" stroke="var(--paper)" stroke-width="3"/>
+        <text x="340" y="284" text-anchor="middle" font-family="var(--font-mono)" font-weight="700" font-size="13" fill="#fff">5</text>
+        <text x="340" y="315" text-anchor="middle" font-family="var(--font-body)" font-size="11.5" fill="var(--ink)">豊見城．瀬長島</text>
+
+        <circle cx="450" cy="279" r="17" fill="var(--coral)" stroke="var(--paper)" stroke-width="3"/>
+        <text x="450" y="284" text-anchor="middle" font-family="var(--font-mono)" font-weight="700" font-size="13" fill="#fff">6</text>
+        <text x="450" y="315" text-anchor="middle" font-family="var(--font-body)" font-size="11.5" fill="var(--ink)">那覇機場</text>
+      </svg>
+      <div class="route-legend">
+        <span>✈ 為去程／回程航班</span>
+        <span>虛線＝建議行進方向（Day2 一路開到最北的名護，Day3 開始一路往南開回那覇）</span>
+      </div>
+    </div>
+
+    <div class="quick-grid">
+      <div class="quick-card"><div class="num">4</div><div class="label">個住宿地點<br>國際通A / 名護 / 北谷 / 國際通B</div></div>
+      <div class="quick-card"><div class="num">4</div><div class="label">天需要自駕<br>Day2取車 → Day5還車</div></div>
+      <div class="quick-card"><div class="num">24-28°</div><div class="label">10月均溫（℃）<br>日夜溫差稍大，晚上備薄外套</div></div>
+      <div class="quick-card"><div class="num">左側</div><div class="label">日本靠左行駛<br>與台灣相反，第一天開車務必放慢</div></div>
+    </div>
+
+    <div class="section-head">
+      <span class="eyebrow-label">Day by day</span>
+      <h2>六天速覽</h2>
+    </div>
+
+    <div class="card" style="padding:4px 14px;">
+      <div class="day-mini-row" onclick="jumpToDay(1)"><div class="d">D1</div><div class="t">抵達那霸．國際通<small>晚餐：一心壽喜燒（需前一天訂位）｜住國際通A</small></div><div class="arrow">›</div></div>
+      <div class="day-mini-row" onclick="jumpToDay(2)"><div class="d">D2</div><div class="t">取車．名護牛排．美麗海水族館<small>住名護</small></div><div class="arrow">›</div></div>
+      <div class="day-mini-row" onclick="jumpToDay(3)"><div class="d">D3</div><div class="t">浮潛．琉球村．美國村花火<small>住北谷</small></div><div class="arrow">›</div></div>
+      <div class="day-mini-row" onclick="jumpToDay(4)"><div class="d">D4</div><div class="t">PARCO CITY．波之上海灘<small>住國際通B</small></div><div class="arrow">›</div></div>
+      <div class="day-mini-row" onclick="jumpToDay(5)"><div class="d">D5</div><div class="t">Outlet．還車．瀬長島<small>住國際通B</small></div><div class="arrow">›</div></div>
+      <div class="day-mini-row" onclick="jumpToDay(6)"><div class="d">D6</div><div class="t">市場．陶器街．返程<small>16:45 起飛</small></div><div class="arrow">›</div></div>
+    </div>
+
+    <div class="section-head"><span class="eyebrow-label">別忘記</span><h2>最容易漏掉的三件事</h2></div>
+    <div class="callout warn"><b>花火只在週六 20:00</b> — Day3(10/3) 剛好是週六，時間別壓線。</div>
+    <div class="callout warn"><b>兩間店需要提前訂位</b> — Day1「一心壽喜燒」須前一天完成訂位；Day4「Buchi Kumojiten」需IG私訊訂位，容易客滿。</div>
+    <div class="callout warn"><b>潛水員牛排只到14:00</b> — Day2午餐是時間限制最緊的一餐，10:30開門就要去排隊，且只收現金。</div>
+    <div class="callout warn"><b>身上要有日圓現金</b> — 潛水員牛排、青の洞窟浮潛費用、部分小吃攤與市場店家都不收卡，建議每人身上備 2~3 萬日圓現金分開放。</div>
+    <div class="callout warn"><b>租車是靠左行駛</b> — 方向燈在右、雨刷在左（跟台灣相反），第一天上路前可在停車場先練習轉彎、倒車，還車前務必加滿油並保留收據。</div>
+  </section>
+
+  <!-- ============ 行程 ============ -->
+  <section class="tab-panel" id="tab-itinerary">
+    <div class="section-head">
+      <span class="eyebrow-label">Day-by-day schedule</span>
+      <h2>每日時間軸</h2>
+      <div class="desc">點卡片可展開／收合完整時間表。</div>
+    </div>
+
+    <!-- DAY 1 -->
+    <div class="day-card" id="day-1">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="badge">DAY 01</div>
+        <div class="info"><div class="ttl">抵達那霸．國際通</div><div class="date">10 / 01（四）</div></div>
+        <div class="chev">›</div>
+      </div>
+      <div class="day-body">
+        <div class="perforation"></div>
+        <table class="sched">
+          <tr><td class="time">16:40</td><td>台中起飛（星宇航空）</td></tr>
+          <tr><td class="time">19:10</td><td>抵達那霸機場</td></tr>
+          <tr><td class="time">20:00</td><td>出關，搭計程車前往國際通</td></tr>
+          <tr><td class="time">20:20</td><td>國際通逛街</td></tr>
+          <tr><td class="time">晚餐</td><td>一心壽喜燒</td></tr>
+        </table>
+        <div class="day-tags"><span class="tag">不需開車</span><span class="tag reserve">需前一天訂位</span></div>
+        <a class="maplink route" href="https://www.google.com/maps/dir/?api=1&origin=那覇空港&destination=お肉の一心+那覇市久茂地1-5-1" target="_blank" rel="noopener">🗺️ 開啟本日路線（機場→國際通）</a>
+      </div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="day-card open" id="day-2">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="badge">DAY 02</div>
+        <div class="info"><div class="ttl">取車．名護牛排．美麗海水族館</div><div class="date">10 / 02（五）</div></div>
+        <div class="chev">›</div>
+      </div>
+      <div class="day-body">
+        <div class="perforation"></div>
+        <table class="sched">
+          <tr><td class="time">08:00</td><td>搭單軌到赤嶺駅</td></tr>
+          <tr><td class="time">08:30</td><td>OTS赤嶺營業所取車</td></tr>
+          <tr><td class="time">09:15</td><td>開車到名護（約1小時）</td></tr>
+          <tr><td class="time">10:15</td><td>抵達，現場排隊（10:30開門）</td></tr>
+          <tr><td class="time">10:30</td><td>午餐：潛水員牛排（Flipper）</td></tr>
+          <tr><td class="time">11:30</td><td>開車到古宇利島</td></tr>
+          <tr><td class="time">12:15</td><td>古宇利島拍照，蝦蝦飯外帶車上吃</td></tr>
+          <tr><td class="time">14:45</td><td>美ら海水族館（15:00餵食秀／17:00海豚秀）</td></tr>
+          <tr><td class="time">18:30</td><td>開車回名護</td></tr>
+          <tr><td class="time">晚餐</td><td>百年古家 大家（阿古豬涮涮鍋）</td></tr>
+        </table>
+        <div class="day-tags"><span class="tag coral">午餐只到14:00</span><span class="tag walkin">牛排不接受預約</span></div>
+        <a class="maplink route" href="https://www.google.com/maps/dir/?api=1&origin=OTS赤嶺営業所&destination=百年古家大家+名護市中山90&waypoints=Restaurant+Flipper+名護市宇茂佐162|古宇利島|沖縄美ら海水族館" target="_blank" rel="noopener">🗺️ 開啟本日路線（取車→古宇利→水族館→名護）</a>
+      </div>
+    </div>
+
+    <!-- DAY 3 -->
+    <div class="day-card" id="day-3">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="badge">DAY 03</div>
+        <div class="info"><div class="ttl">青の洞窟浮潛．琉球村．美國村花火</div><div class="date">10 / 03（六）</div></div>
+        <div class="chev">›</div>
+      </div>
+      <div class="day-body">
+        <div class="perforation"></div>
+        <table class="sched">
+          <tr><td class="time">09:20</td><td>Diving Shop Lei 集合，青の洞窟船潛</td></tr>
+          <tr><td class="time">12:00</td><td>午餐：浜の家（仲泊，海鮮）</td></tr>
+          <tr><td class="time">13:15</td><td>琉球村（14:00太鼓秀／15:00島唄秀）</td></tr>
+          <tr><td class="time">16:00</td><td>殘波岬快速拍照</td></tr>
+          <tr><td class="time">16:30</td><td>おきなわ養蜂買蜂巢冰淇淋（外帶）</td></tr>
+          <tr><td class="time">16:45</td><td>開車到北谷（車上吃冰淇淋）</td></tr>
+          <tr><td class="time">17:15</td><td>飯店check-in、放行李</td></tr>
+          <tr><td class="time">18:00</td><td>北谷公園日落海灘看夕陽</td></tr>
+          <tr><td class="time">18:30</td><td>晚餐：美浜迴轉壽司（先吃再看花火）</td></tr>
+          <tr><td class="time">19:45</td><td>デポアイランド・ボードウォーク卡位</td></tr>
+          <tr><td class="time">20:00</td><td>看花火（每週六固定施放）</td></tr>
+        </table>
+        <div class="day-tags"><span class="tag coral">花火限定週六</span><span class="tag walkin">壽司/牛排均不需訂位</span></div>
+        <a class="maplink route" href="https://www.google.com/maps/dir/?api=1&origin=真栄田岬&destination=北谷公園サンセットビーチ&waypoints=浜の家+恩納村字仲泊2097|琉球村|残波岬" target="_blank" rel="noopener">🗺️ 開啟本日路線（青の洞窟→琉球村→殘波岬→北谷）</a>
+      </div>
+    </div>
+
+    <!-- DAY 4 -->
+    <div class="day-card" id="day-4">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="badge">DAY 04</div>
+        <div class="info"><div class="ttl">PARCO CITY．波上宮．波之上海灘</div><div class="date">10 / 04（日）</div></div>
+        <div class="chev">›</div>
+      </div>
+      <div class="day-body">
+        <div class="perforation"></div>
+        <table class="sched">
+          <tr><td class="time">08:30</td><td>早餐：ポーたま飯糰</td></tr>
+          <tr><td class="time">09:00</td><td>美國村伴手禮購物</td></tr>
+          <tr><td class="time">11:00</td><td>開車到PARCO CITY</td></tr>
+          <tr><td class="time">11:30</td><td>PARCO CITY逛街，午餐：鳥玉（親子丼）</td></tr>
+          <tr><td class="time">16:00</td><td>開車到波上宮</td></tr>
+          <tr><td class="time">16:30</td><td>波上宮參拜</td></tr>
+          <tr><td class="time">16:50</td><td>波之上海灘戲水放空</td></tr>
+          <tr><td class="time">18:15</td><td>看夕陽</td></tr>
+          <tr><td class="time">18:30</td><td>晚餐：Buchi Kumojiten（久茂地燒肉）</td></tr>
+        </table>
+        <div class="day-tags"><span class="tag reserve">晚餐需IG私訊訂位</span><span class="tag">ACG夾娃娃機在PARCO</span></div>
+        <a class="maplink route" href="https://www.google.com/maps/dir/?api=1&origin=美浜アメリカンビレッジ&destination=波の上ビーチ&waypoints=PARCO+CITY+浦添|波上宮" target="_blank" rel="noopener">🗺️ 開啟本日路線（美國村→PARCO CITY→波上宮）</a>
+      </div>
+    </div>
+
+    <!-- DAY 5 -->
+    <div class="day-card" id="day-5">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="badge">DAY 05</div>
+        <div class="info"><div class="ttl">Ashibinaa Outlet．還車．瀬長島</div><div class="date">10 / 05（一）</div></div>
+        <div class="chev">›</div>
+      </div>
+      <div class="day-body">
+        <div class="perforation"></div>
+        <table class="sched">
+          <tr><td class="time">10:00</td><td>Ashibinaa Outlet逛街，午餐：豚骨一燈</td></tr>
+          <tr><td class="time">14:30</td><td>OTS臨空豊崎營業所還車</td></tr>
+          <tr><td class="time">15:00</td><td>移動到瀬長島</td></tr>
+          <tr><td class="time">15:30</td><td>瀬長島：Chura Ichigo下午茶、戀愛景點、看飛機</td></tr>
+          <tr><td class="time">18:00</td><td>看夕陽</td></tr>
+          <tr><td class="time">18:15</td><td>晚餐：OKINAWA SOBA EIBUN（壺屋）</td></tr>
+          <tr><td class="time">19:30</td><td>搭ウミカジライナー回國際通</td></tr>
+          <tr><td class="time">宵夜</td><td>ゆうか島唄居酒屋</td></tr>
+        </table>
+        <div class="day-tags"><span class="tag">還車後改搭巴士</span><span class="tag walkin">EIBUN人氣高，建議提早</span></div>
+        <a class="maplink route" href="https://www.google.com/maps/dir/?api=1&origin=あしびなーアウトレット&destination=OKINAWA+SOBA+EIBUN+那覇市壺屋1-5-14&waypoints=OTS臨空豊崎営業所|瀬長島ウミカジテラス" target="_blank" rel="noopener">🗺️ 開啟本日路線（Outlet→還車→瀬長島→壺屋）</a>
+      </div>
+    </div>
+
+    <!-- DAY 6 -->
+    <div class="day-card" id="day-6">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="badge">DAY 06</div>
+        <div class="info"><div class="ttl">市場．陶器街．返程</div><div class="date">10 / 06（二）</div></div>
+        <div class="chev">›</div>
+      </div>
+      <div class="day-body">
+        <div class="perforation"></div>
+        <table class="sched">
+          <tr><td class="time">08:00</td><td>第一牧志公設市場，午餐：とんかつ小やじ那覇店</td></tr>
+          <tr><td class="time">10:00</td><td>壺屋やちむん通（陶器購物）</td></tr>
+          <tr><td class="time">11:00</td><td>花商（點心，じーまーみ豆腐）</td></tr>
+          <tr><td class="time">11:45</td><td>國際通最後採買</td></tr>
+          <tr><td class="time">13:00</td><td>搭車前往機場</td></tr>
+          <tr><td class="time">16:45</td><td>起飛回台中</td></tr>
+        </table>
+        <div class="day-tags"><span class="tag">全天不開車</span></div>
+        <a class="maplink route" href="https://www.google.com/maps/dir/?api=1&origin=第一牧志公設市場&destination=那覇空港&waypoints=壺屋やちむん通り" target="_blank" rel="noopener">🗺️ 開啟本日路線（市場→陶器街→機場）</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ 住宿 ============ -->
+  <section class="tab-panel" id="tab-stay">
+    <div class="section-head">
+      <span class="eyebrow-label">Where we sleep</span>
+      <h2>住宿資訊</h2>
+    </div>
+
+    <div class="callout warn"><b>4間住宿、只換3次飯店</b> — Day1住國際通A、Day2住名護、Day3住北谷、Day4/5連住國際通B（Day4不用再搬一次行李）。抵達當晚(Day1)較晚(約20:00後)才會到飯店，建議訂房時備註「深夜/20:00後抵達」，避免被取消訂房。</div>
+
+    <div class="card">
+      <span class="tag">Day1 入住</span>
+      <h3>國際通住宿 A</h3>
+      <div class="kv-row"><span class="k">狀態</span><span>待確認訂房</span></div>
+      <div class="kv-row"><span class="k">建議</span><span>選國際通站(牧志/縣廳前)徒步10分內，晚上20:20才會抵達，交通方便最重要</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=国際通り+那覇" target="_blank" rel="noopener">📍 國際通位置</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day2 入住</span>
+      <h3>名護住宿</h3>
+      <div class="kv-row"><span class="k">狀態</span><span>待確認訂房</span></div>
+      <div class="kv-row"><span class="k">建議</span><span>選名護市區或名護漁港周邊，隔天不用再繞遠路，且晚餐「百年古家 大家」在名護市中山，離市區近</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=名護市+ホテル" target="_blank" rel="noopener">📍 名護位置</a>
+    </div>
+
+    <div class="card">
+      <span class="tag moss">Day3 入住</span>
+      <h3>ラ・ジェントステイ沖縄北谷・西海岸</h3>
+      <div class="kv-row"><span class="k">停車</span><span>免費</span></div>
+      <div class="kv-row"><span class="k">備案</span><span>ベッセルホテルカンパーナ沖縄（免費停車，走去美國村1分鐘）</span></div>
+      <div class="kv-row"><span class="k">提醒</span><span>17:15 check-in、放行李後再去看夕陽花火，行李箱可先卸在房間不用一直提著</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=ラ・ジェントステイ沖縄北谷・西海岸" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day4 / Day5 入住</span>
+      <h3>國際通住宿 B</h3>
+      <div class="kv-row"><span class="k">狀態</span><span>待確認訂房（與Day1不同間）</span></div>
+      <div class="kv-row"><span class="k">建議</span><span>連住2晚，Day6要拖著行李箱去市場/陶器街，選有電梯、離單軌站近的更省力</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=国際通り+那覇" target="_blank" rel="noopener">📍 國際通位置</a>
+    </div>
+
+    <div class="callout warn"><b>行李小提醒</b> — Day2/Day3/Day5是「自駕搬運行李」，行李箱放後車廂即可；但Day1晚間、Day6全天要親自提著走（國際通石板路、單軌樓梯），建議大件行李用有輪子款、貴重物品用隨身包分開放。</div>
+  </section>
+
+  <!-- ============ 美食 ============ -->
+  <section class="tab-panel" id="tab-food">
+    <div class="section-head">
+      <span class="eyebrow-label">Where we eat</span>
+      <h2>餐廳資訊</h2>
+      <div class="desc">🟡 標籤代表需要特別注意的訂位／候位狀況。</div>
+    </div>
+
+    <div class="card">
+      <span class="tag coral">Day1 晚餐</span> <span class="tag reserve">需前一天訂位</span>
+      <h3>お肉の一心（壽喜燒）</h3>
+      <div class="kv-row"><span class="k">地址</span><span>那覇市久茂地1-5-1</span></div>
+      <div class="kv-row"><span class="k">特色</span><span>1985年創業，職人現場調理，完全預約制、不接受當天預約</span></div>
+      <div class="kv-row"><span class="k">價位</span><span class="price">💰💰💰 高價位壽喜燒專門店，建議提前查詢當期套餐價格</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=お肉の一心+那覇市久茂地1-5-1" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag coral">Day2 午餐</span> <span class="tag walkin">不接受預約</span>
+      <h3>潛水員牛排（Restaurant Flipper）</h3>
+      <div class="kv-row"><span class="k">地址</span><span>名護市字宇茂佐162</span></div>
+      <div class="kv-row"><span class="k">時間</span><span>10:30~14:00（僅收現金）</span></div>
+      <div class="kv-row"><span class="k">推薦</span><span>菲力牛排／沙朗牛排</span></div>
+      <div class="kv-row"><span class="k">價位</span><span class="price">💰💰 中價位牛排（僅收現金，出發前建議先換好日圓）</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Restaurant+Flipper+名護市宇茂佐162" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag coral">Day2 點心</span>
+      <h3>蝦蝦飯 KOURI SHRIMP（古宇利島，外帶）</h3>
+      <div class="kv-row"><span class="k">介紹</span><span>古宇利島上知名蝦料理專門店，蝦仁淋上特調醬汁鋪在白飯上，是沖繩夏威夷風「Loco Moco」的蝦仁版</span></div>
+      <div class="kv-row"><span class="k">推薦</span><span>蒜味蝦飯（ガーリックシュリンプ）／檸檬胡椒蝦飯，怕辣可選原味奶油口味</span></div>
+      <div class="kv-row"><span class="k">時間</span><span>11:00~18:00</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=KOURI+SHRIMP+古宇利島" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag coral">Day2 晚餐</span> <span class="tag walkin">建議提前預約</span>
+      <h3>百年古家 大家</h3>
+      <div class="kv-row"><span class="k">地址</span><span>名護市中山90</span></div>
+      <div class="kv-row"><span class="k">推薦</span><span>特選あぐーのしゃぶしゃぶ（2人份4,880円）</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=百年古家大家+名護市中山90" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag coral">Day3 午餐</span>
+      <h3>浜の家（仲泊，海鮮）</h3>
+      <div class="kv-row"><span class="k">地址</span><span>恩納村字仲泊2097</span></div>
+      <div class="kv-row"><span class="k">時間</span><span>11:00~21:30，全年無休</span></div>
+      <div class="kv-row"><span class="k">推薦</span><span>魚のバター焼き／アバサー汁</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=浜の家+恩納村字仲泊2097" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag coral">Day3 冰品</span>
+      <h3>おきなわ養蜂（蜂巢冰淇淋，外帶）</h3>
+      <div class="kv-row"><span class="k">地址</span><span>読谷村字伊良皆695</span></div>
+      <div class="kv-row"><span class="k">介紹</span><span>自家養蜂場直營，冰淇淋上插一整塊帶蜜蜂巢，可直接連巢咬下，蜂蜜濃郁不死甜</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=おきなわ養蜂+読谷村字伊良皆695" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag coral">Day3 晚餐</span> <span class="tag walkin">不需訂位</span>
+      <h3>グルメ回転寿司市場 美浜店</h3>
+      <div class="kv-row"><span class="k">地址</span><span>北谷町美浜2-4-5</span></div>
+      <div class="kv-row"><span class="k">時間</span><span>11:30~22:00，週三公休</span></div>
+      <div class="kv-row"><span class="k">備案</span><span>タコライスcafe きじむなぁ Depo Island店</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=グルメ回転寿司市場+美浜店+北谷町美浜2-4-5" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day4 早餐</span>
+      <h3>ポーたま（Potama）美國村店</h3>
+      <div class="kv-row"><span class="k">這是什麼</span><span>沖繩國民早餐「ポーク玉子飯糰」專賣店。用煎過的午餐肉（Spam）＋薄蛋皮夾在熱騰騰的白飯裡，外面用海苔包成長方形，現點現做，是沖繩人從小吃到大的國民美食</span></div>
+      <div class="kv-row"><span class="k">怎麼點</span><span>菜單有十幾種口味，第一次來推薦「ツナマヨ」(鮪魚美乃滋，最順口不出錯)或「あぶらみそ」(油味噌，濃郁重口味沖繩限定風味)；怕吃太飽可以兩人分食2~3顆不同口味</span></div>
+      <div class="kv-row"><span class="k">配餐</span><span>可加點サーターアンダギー（沖繩黑糖甜甜圈）或當季水果冰沙一起吃</span></div>
+      <div class="kv-row"><span class="k">時間</span><span>7:00起，全年無休</span></div>
+      <div class="kv-row"><span class="k">價位</span><span class="price">💰 一顆約200~350円，兩人約600~900円就能吃飽</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=ポーたま+美浜アメリカンビレッジ" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day4 午餐</span> <span class="tag walkin">不接受預約</span>
+      <h3>鳥玉（鳥と卵の専門店，PARCO CITY 2F）</h3>
+      <div class="kv-row"><span class="k">時間</span><span>10:00~22:00</span></div>
+      <div class="kv-row"><span class="k">推薦</span><span>黄金タルタルのチキン南蛮／親子丼</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=鳥玉+PARCO+CITY+浦添" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag coral">Day4 晚餐</span> <span class="tag reserve">需IG私訊訂位</span>
+      <h3>Buchi Kumojiten（炭火焼肉ぶち久茂地店）</h3>
+      <div class="kv-row"><span class="k">位置</span><span>久茂地／縣廳前站</span></div>
+      <div class="kv-row"><span class="k">推薦</span><span>黑毛和牛拼盤／牛舌／土鍋飯</span></div>
+      <div class="kv-row"><span class="k">價位</span><span class="price">💰💰💰 燒肉專門店，和牛拼盤價位偏高</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=炭火焼肉ぶち+久茂地店+那覇" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day5 午餐</span>
+      <h3>豚骨一燈 沖縄あしびなー店</h3>
+      <div class="kv-row"><span class="k">類型</span><span>拉麵・沾麵・餃子</span></div>
+      <div class="kv-row"><span class="k">價位</span><span class="price">💰 一碗約900~1,200円</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=豚骨一燈+沖縄あしびなー店" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day5 下午茶</span>
+      <h3>Chura Ichigo Umikaji Terrace（瀬長島）</h3>
+      <div class="kv-row"><span class="k">類型</span><span>草莓甜點，招牌是整顆草莓堆疊的草莓奶油可麗餅／草莓大福</span></div>
+      <div class="kv-row"><span class="k">備案點心</span><span>Taco Rice瀬長島店（元祖創始店）／MOTOMU'S CURRY BREAD</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Chura+Ichigo+瀬長島ウミカジテラス" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag coral">Day5 晚餐</span> <span class="tag walkin">人氣高，建議提早</span>
+      <h3>OKINAWA SOBA EIBUN</h3>
+      <div class="kv-row"><span class="k">地址</span><span>那覇市壺屋1-5-14</span></div>
+      <div class="kv-row"><span class="k">推薦</span><span>BUNBUNそば（人氣No.1）</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=OKINAWA+SOBA+EIBUN+那覇市壺屋1-5-14" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day5 宵夜</span>
+      <h3>ゆうか（島唄居酒屋）</h3>
+      <div class="kv-row"><span class="k">特色</span><span>19:00起現場三線演出，推薦炒麵</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=島唄居酒屋+ゆうか+那覇+国際通り" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag coral">Day6 午餐</span> <span class="tag walkin">不定休</span>
+      <h3>とんかつ小やじ那覇店</h3>
+      <div class="kv-row"><span class="k">地址</span><span>那覇市松尾2-8-34</span></div>
+      <div class="kv-row"><span class="k">推薦</span><span>ロースカツ定食／ヒレカツ定食1,680円</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=とんかつ小やじ那覇店+那覇市松尾2-8-34" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day6 點心</span>
+      <h3>花商（じーまーみ豆腐専門店）</h3>
+      <div class="kv-row"><span class="k">地址</span><span>那覇市牧志・新天地市場通</span></div>
+      <div class="kv-row"><span class="k">時間</span><span>モーニング9:00~11:00／ランチ11:30~17:00</span></div>
+      <div class="kv-row"><span class="k">推薦</span><span>じーまーみ豆腐（花生豆腐，現場吃或外帶）</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=花商+那覇市牧志+新天地市場通" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">順路甜點</span>
+      <h3>三矢本舗 恩納店（Day3 國道58沿線）</h3>
+      <div class="kv-row"><span class="k">這是什麼</span><span>沖繩傳統炸點「サーターアンダギー」(黑糖甜甜圈)專門店，現炸現賣，外酥內鬆軟不會太甜</span></div>
+      <div class="kv-row"><span class="k">推薦</span><span>原味／黑糖／紅芋，怕選擇困難可買綜合口味小袋</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=琉球銘菓三矢本舗+恩納店" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">順路甜點</span>
+      <h3>Sugar Crepe（Day3 美國村）</h3>
+      <div class="kv-row"><span class="k">這是什麼</span><span>美式風格可麗餅專賣店，餅皮偏厚實有嚼勁，可當下午茶或晚餐後甜點</span></div>
+      <div class="kv-row"><span class="k">推薦</span><span>草莓卡士達／香蕉巧克力口味</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Sugar+Crepe+美浜アメリカンビレッジ" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">順路甜點</span>
+      <h3>マキシプリン（國際通周邊）</h3>
+      <div class="kv-row"><span class="k">這是什麼</span><span>那覇在地布丁專賣店，招牌是杯裝的濃厚雞蛋布丁，質地介於布丁與起司蛋糕之間</span></div>
+      <div class="kv-row"><span class="k">推薦</span><span>經典原味布丁／黑糖口味，可冷藏後當國際通逛累的小點心</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=マキシプリン+那覇+国際通り" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+  </section>
+
+  <!-- ============ 景點・購物 ============ -->
+  <section class="tab-panel" id="tab-spots">
+    <div class="section-head">
+      <span class="eyebrow-label">See &amp; shop</span>
+      <h2>景點・購物</h2>
+      <div class="desc">依天數排序，含特色、推薦店家、停車、門票／秀場資訊。</div>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day2</span>
+      <h3>古宇利島</h3>
+      <div class="kv-row"><span class="k">特色</span><span>心型岩（ハートロック）、古宇利大橋跨海景觀，2km長</span></div>
+      <div class="kv-row"><span class="k">推薦店家</span><span>KOURI SHRIMP蝦蝦飯（11:00~18:00）</span></div>
+      <div class="kv-row"><span class="k">停車</span><span>古宇利大橋兩側有免費停車場</span></div>
+      <div class="kv-row"><span class="k">門票</span><span>免費（過橋不收費，僅沖縄自動車道另計過路費）</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=古宇利島+ハートロック" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day2</span>
+      <h3>沖繩美麗海水族館</h3>
+      <div class="kv-row"><span class="k">特色</span><span>黑潮之海大水槽（鯨鯊）、海豚礁湖、海龜館（免費附設）</span></div>
+      <div class="kv-row"><span class="k">秀場</span><span>海豚秀：10:30/11:30/13:00/15:00/17:00｜黑潮之海給餌秀：9:30/15:00/17:00</span></div>
+      <div class="kv-row"><span class="k">付費體驗</span><span>海豚餵食體驗1,000円/份（13:30、15:30場，售完為止）</span></div>
+      <div class="kv-row"><span class="k">停車</span><span>園區P7等多個停車場，免費</span></div>
+      <div class="kv-row"><span class="k">門票</span><span>官網購票，建議出發前查詢當期最新票價</span></div>
+      <div class="kv-row"><span class="k">時間</span><span>8:30~18:30（入館截止17:30），全年無公休</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=沖縄美ら海水族館" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day3</span>
+      <h3>青の洞窟（真栄田岬）</h3>
+      <div class="kv-row"><span class="k">特色</span><span>海蝕藍色鐘乳洞，陽光反射呈現夢幻藍光</span></div>
+      <div class="kv-row"><span class="k">預約店家</span><span>Diving Shop Lei（已選定，9:20船潛場）</span></div>
+      <div class="kv-row"><span class="k">停車</span><span>店家於前兼久漁港駐車場集合，不需自己找車位</span></div>
+      <div class="kv-row"><span class="k">費用</span><span>方案4,900円/人＋乘船費1,100円/人（現場支付，建議帶現金）</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=真栄田岬+青の洞窟" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day3</span>
+      <h3>琉球村</h3>
+      <div class="kv-row"><span class="k">特色</span><span>10棟琉球古民家群（國登錄有形文化財）、傳統體驗區</span></div>
+      <div class="kv-row"><span class="k">推薦店家</span><span>ポーポー屋（甘蔗汁）、きじむなぁ食堂</span></div>
+      <div class="kv-row"><span class="k">秀場</span><span>太鼓エイサー：10:00/12:00/14:00/16:00｜島唄・琉球舞踊：11:00/12:30/13:30/15:00</span></div>
+      <div class="kv-row"><span class="k">停車</span><span>園區附設停車場</span></div>
+      <div class="kv-row"><span class="k">門票</span><span>官網購票，建議出發前查詢當期最新票價</span></div>
+      <div class="kv-row"><span class="k">時間</span><span>9:30~17:00（門票售至16:00）</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=琉球村+恩納村" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day3</span>
+      <h3>殘波岬</h3>
+      <div class="kv-row"><span class="k">特色</span><span>高約30m斷崖綿延2km，紅白相間燈塔為地標</span></div>
+      <div class="kv-row"><span class="k">停車</span><span>免費停車場，灯台前段有未鋪裝岩石路面，避免穿拖鞋/高跟鞋</span></div>
+      <div class="kv-row"><span class="k">門票</span><span>免費</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=残波岬" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day3 / Day4</span>
+      <h3>美國村（美浜アメリカンビレッジ）</h3>
+      <div class="kv-row"><span class="k">特色</span><span>觀覽車SKYMAX60（600円/人，一圈約15分）、デポアイランド・ボードウォーク看夕陽花火</span></div>
+      <div class="kv-row"><span class="k">推薦店家</span><span>焼肉RIKIO、グルメ回転寿司市場、Sugar Crepe、ポーたま</span></div>
+      <div class="kv-row"><span class="k">花火</span><span>每週六20:00固定施放（約3分鐘），面向海面觀賞</span></div>
+      <div class="kv-row"><span class="k">停車</span><span>周邊多處付費停車場，週六晚上花火夜較擁擠，建議停飯店後步行前往</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=美浜アメリカンビレッジ+北谷町" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day4</span>
+      <h3>波上宮</h3>
+      <div class="kv-row"><span class="k">特色</span><span>琉球八社之首，那覇市代表神社，境內以シーサー代替一般狛犬</span></div>
+      <div class="kv-row"><span class="k">停車</span><span>境內／周邊有停車場</span></div>
+      <div class="kv-row"><span class="k">門票</span><span>免費參拜</span></div>
+      <div class="kv-row"><span class="k">時間</span><span>授与所約9:00~17:00</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=波上宮+那覇市" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day4</span>
+      <h3>波之上海灘</h3>
+      <div class="kv-row"><span class="k">特色</span><span>那覇市唯一海水浴場，2023年水質檢測AA級（最高等級）</span></div>
+      <div class="kv-row"><span class="k">設施</span><span>淋浴、更衣室、躺椅陽傘出租</span></div>
+      <div class="kv-row"><span class="k">游泳季節</span><span>4月下旬~10月底</span></div>
+      <div class="kv-row"><span class="k">門票</span><span>免費</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=波之上ビーチ+那覇市" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day4</span>
+      <h3>PARCO CITY</h3>
+      <div class="kv-row"><span class="k">特色</span><span>浦添最大商場，屋頂停車場有隱藏版西海岸夕陽展望台</span></div>
+      <div class="kv-row"><span class="k">推薦店家</span><span>鳥玉、和スイーツカフェ、ゴンチャ、GODIVA</span></div>
+      <div class="kv-row"><span class="k">ACG</span><span>namco夾娃娃機（藍色監獄／寶可夢／賽馬娘等IP）、ガシャポン旗艦店、VR ZONE Portal、電影院11廳</span></div>
+      <div class="kv-row"><span class="k">停車</span><span>免費停車場約4,000格</span></div>
+      <div class="kv-row"><span class="k">時間</span><span>10:00~22:00</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=PARCO+CITY+浦添市" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day5</span>
+      <h3>Ashibinaa Outlet</h3>
+      <div class="kv-row"><span class="k">特色</span><span>南歐風建築設計，多個日本首發折扣品牌</span></div>
+      <div class="kv-row"><span class="k">推薦店家</span><span>豚骨一燈、やっぱりステーキ</span></div>
+      <div class="kv-row"><span class="k">停車</span><span>免費，OTS臨空豊崎營業所就在附近</span></div>
+      <div class="kv-row"><span class="k">時間</span><span>店鋪10:00~20:00，餐廳10:00~20:30</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Ashibinaa+Outlet+豊見城市" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day5</span>
+      <h3>瀬長島 ウミカジテラス</h3>
+      <div class="kv-row"><span class="k">特色</span><span>近距離看飛機起降（海上道路是機場跑道延伸線）；「戀之島」主題景點：恋のテラス、恋が叶う絵馬（550円）、子宝岩</span></div>
+      <div class="kv-row"><span class="k">推薦店家</span><span>ポジリポ（義式）、Chura Ichigo、Taco Rice瀬長島店（元祖創始店）</span></div>
+      <div class="kv-row"><span class="k">拍照點</span><span>店號5「イルカのトリックアート」、店號40「&amp;」裝置藝術</span></div>
+      <div class="kv-row"><span class="k">停車</span><span>全島4處免費停車場約580台，午後易客滿</span></div>
+      <div class="kv-row"><span class="k">門票</span><span>免費進入，各店家/體驗另計</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=瀬長島ウミカジテラス" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day6</span>
+      <h3>第一牧志公設市場</h3>
+      <div class="kv-row"><span class="k">特色</span><span>一樓生鮮市場＋二樓代客料理食堂「持ち上げ」文化</span></div>
+      <div class="kv-row"><span class="k">推薦店家</span><span>御食事処ツバメ、かつ亭豊年、お食事処きらく</span></div>
+      <div class="kv-row"><span class="k">費用</span><span>代客料理手續費約每人400~500円</span></div>
+      <div class="kv-row"><span class="k">停車</span><span>無專屬停車場，周邊為付費停車格，浮島通為單行道</span></div>
+      <div class="kv-row"><span class="k">時間</span><span>8:00~22:00（食堂L.O.20:00，一樓代客料理L.O.19:45）</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=第一牧志公設市場" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Day6</span>
+      <h3>壺屋やちむん通</h3>
+      <div class="kv-row"><span class="k">特色</span><span>沖繩傳統陶器やちむん選物街，石疊老街風情</span></div>
+      <div class="kv-row"><span class="k">推薦店家</span><span>花商（じーまーみ豆腐）</span></div>
+      <div class="kv-row"><span class="k">停車</span><span>周邊付費停車場，建議步行前往（離國際通近）</span></div>
+      <div class="kv-row"><span class="k">門票</span><span>免費（陶器店個別消費）</span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=壺屋やちむん通り+那覇市" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+  </section>
+
+  <!-- ============ 伴手禮 ============ -->
+  <section class="tab-panel" id="tab-souvenir">
+    <div class="section-head">
+      <span class="eyebrow-label">Omiyage guide</span>
+      <h2>伴手禮採買指南</h2>
+      <div class="desc">先看「去哪裡買」再看「買什麼」，最後兩張小提醒卡片是最容易漏掉的細節。</div>
+    </div>
+
+    <div class="section-head"><span class="eyebrow-label">Where to shop</span><h2>依購買地點</h2></div>
+
+    <div class="souv-card">
+      <h3>國際通（本行程主戰場，Day1晚上／Day4/5連住／Day6整個早上）</h3>
+      <ul class="souv-list">
+        <li><b>沖繩屋 / 御菓子御殿</b><span class="d">：泡盛、黑糖、海葡萄、紅芋塔選擇最齊全的兩間大店</span></li>
+        <li><b>鹽屋</b><span class="d">：專賣雪鹽相關商品，雪鹽冰淇淋、雪鹽巧克力可以先試吃再決定要不要買整盒</span></li>
+        <li><b>Calbee+ 國際通店</b><span class="d">：現炸紅芋薯條只有店內吃得到，盒裝口味薯條可帶回國</span></li>
+        <li><b>唐吉訶德 國際通店</b><span class="d">：24小時營業，零食/藥妝/雜貨一次補齊，適合Day1晚上或Day6早上重物採買</span></li>
+        <li><b>壺屋やちむん通 / 浮島通</b><span class="d">：やちむん陶器、琉璃、手工藝品的老街小巷，適合買有質感的紀念品（詳見景點分頁）</span></li>
+      </ul>
+      <div class="callout warn" style="margin-top:8px; margin-bottom:0;"><b>丸子購物策略</b> — 重的東西（整箱Orion啤酒、雪鹽餅乾、罐頭）建議在國際通買，直接提回飯店放，不用一路扛著逛。</div>
+    </div>
+
+    <div class="souv-card">
+      <h3>那覇機場（Day6 最後採買機會）</h3>
+      <ul class="souv-list">
+        <li><b>國內線候機室伴手禮區</b><span class="d">：起飛前才想到忘記買的東西幾乎都補得到，但選擇比國際通少、價格略高</span></li>
+        <li><b>T Galleria by DFS</b><span class="d">：機場市區皆有據點，出發前可先線上預訂，機場提貨節省時間，適合買酒類、化妝品、精品</span></li>
+      </ul>
+      <div class="callout warn" style="margin-top:8px; margin-bottom:0;"><b>液體限重要注意</b> — 隨身行李內液體（含酒類、乳液、雪鹽冰淇淋伴手禮）單瓶不能超過100ml；整瓶泡盛、Orion啤酒、雪鹽罐這類大容量都務必放託運行李，不要放隨身包！</div>
+    </div>
+
+    <div class="souv-card">
+      <h3>美國村 / PARCO CITY / Ashibinaa Outlet（Day3~5 沿路可買）</h3>
+      <ul class="souv-list">
+        <li><b>美國村</b><span class="d">：SPLASH Okinawa（貝殼／琉球玻璃飾品）、JEENAR（天然玉石珊瑚飾品）、MANGO HOUSE（Kariyushi花襯衫）</span></li>
+        <li><b>PARCO CITY</b><span class="d">：GODIVA、ゴンチャ、及日系雜貨品牌，逛街累了順手買，不用特地安排時間</span></li>
+        <li><b>Ashibinaa Outlet</b><span class="d">：日本國內品牌折扣，適合買給自己的衣服鞋包，不算傳統伴手禮但CP值高</span></li>
+      </ul>
+    </div>
+
+    <div class="souv-card">
+      <h3>連鎖超市（順路經過就能買到，比純伴手禮店便宜）</h3>
+      <ul class="souv-list">
+        <li><b>唐吉訶德</b><span class="d">：零食藥妝雜貨最齊全，24小時營業最彈性</span></li>
+        <li><b>RYUBO（琉貿百貨 / Palette Kumoji）</b><span class="d">：國際通旁，定位偏精緻質感超市，適合挑選有設計感的伴手禮</span></li>
+        <li><b>San-A / 業務超市</b><span class="d">：本地人日常採買的超市，泡麵、調味料、零食價格最實惠</span></li>
+      </ul>
+    </div>
+
+    <div class="section-head"><span class="eyebrow-label">What to buy</span><h2>熱門必買清單（依類型）</h2></div>
+
+    <div class="souv-card">
+      <h3>🍬 零食甜點類</h3>
+      <ul class="souv-list">
+        <li><b>紅芋塔</b><span class="d">：認明始祖「御菓子御殿」，沖繩必買零食界的長銷冠軍</span></li>
+        <li><b>ちんすこう（金楚糕）</b><span class="d">：傳統酥餅，宮古島雪鹽口味鹹甜交織最具代表性</span></li>
+        <li><b>サーターアンダギー預拌粉</b><span class="d">：黑糖沖繩甜甜圈的DIY粉，回台灣自己炸來吃</span></li>
+        <li><b>Calbee+ 紅芋薯條</b><span class="d">：沖繩限定紫薯口味，盒裝版適合帶回國</span></li>
+        <li><b>Orion 花生豆（綜合豆）</b><span class="d">：一包三種口味（小卷／起司等），下酒零食</span></li>
+        <li><b>石垣島辣油（邊銀食堂）</b><span class="d">：拌麵、沾水餃萬用神物</span></li>
+        <li><b>沖繩限定福砂屋長崎蛋糕</b><span class="d">：送禮精緻款</span></li>
+      </ul>
+    </div>
+
+    <div class="souv-card">
+      <h3>🍹 酒類與調味料</h3>
+      <ul class="souv-list">
+        <li><b>泡盛</b><span class="d">：沖繩傳統蒸餾酒，酒精濃度高，是給長輩/懂酒朋友的體面伴手禮</span></li>
+        <li><b>Orion 啤酒</b><span class="d">：沖繩在地啤酒，整箱或單罐超市都買得到</span></li>
+        <li><b>香檬（シークヮーサー）果汁</b><span class="d">：沖繩香檬原汁，加水稀釋當飲料或做料理提味</span></li>
+        <li><b>A1 牛排醬</b><span class="d">：沖繩人家中冰箱必備，微酸重口味，煎牛排沾醬</span></li>
+      </ul>
+    </div>
+
+    <div class="souv-card">
+      <h3>💄 美妝保養</h3>
+      <ul class="souv-list">
+        <li><b>肌研沖繩限定苦瓜化妝水</b><span class="d">：曬後保濕，質地清爽不厚重</span></li>
+        <li><b>蒸氣眼罩</b><span class="d">：長途飛行/長時間開車後放鬆，薰衣草、柚子等香味可選</span></li>
+        <li><b>雪鹽系列身體保養品</b><span class="d">：雪鹽的沖繩品牌常推出護手霜、身體去角質等周邊</span></li>
+      </ul>
+    </div>
+
+    <div class="souv-card">
+      <h3>🎨 工藝品與雜貨</h3>
+      <ul class="souv-list">
+        <li><b>やちむん陶器</b><span class="d">：沖繩傳統陶器，壺屋やちむん通現場挑選最有質感，碗盤杯具皆可日常使用</span></li>
+        <li><b>琉球玻璃</b><span class="d">：氣泡感手工玻璃杯，色彩繽紛，美國村/國際通均有專賣店</span></li>
+        <li><b>シーサー（石獅）擺飾</b><span class="d">：沖繩家家戶戶屋頂上的招福辟邪石獅小型擺飾，尺寸大小選擇多</span></li>
+        <li><b>星砂紀念品</b><span class="d">：小瓶裝星形砂粒，海邊紀念品店常見的平價小物</span></li>
+      </ul>
+    </div>
+
+    <div class="callout warn"><b>退稅小提醒</b> — 同一天同一店消費滿5,000円以上（未稅）可辦理退稅，需出示護照，部分大型店家（唐吉訶德、Ashibinaa Outlet、RYUBO）有專屬退稅櫃檯，結帳前記得先問「免稅/退稅」（めんぜい）。</div>
+    <div class="callout warn"><b>行李箱空間提醒</b> — 這趟行程國際通逛3次（Day1、Day4、Day5晚上、Day6整個早上），很容易分批買、最後行李塞不下。建議Day1晚上先買不怕壓的乾貨零食，生鮮類（海葡萄、生冷食品）留到Day6最後一天買，確保新鮮度也不佔行李空間太久。</div>
+  </section>
+
+  <!-- ============ 行前準備 ============ -->
+  <section class="tab-panel" id="tab-prep">
+    <div class="section-head">
+      <span class="eyebrow-label">Pre-trip checklist</span>
+      <h2>行前準備清單</h2>
+      <div class="desc">點項目即可勾選／取消，右上角百分比即時更新。⚠️ 這份進度只存在「這次打開頁面」的當下，重新整理或換裝置就會歸零——建議兩人各自檢查一次，或截圖同步進度給對方。</div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-top">
+        <div>整體進度</div>
+        <div class="pct" id="pct">0%</div>
+      </div>
+      <div class="progress-bar"><div class="fill" id="fill"></div></div>
+    </div>
+
+    <div class="callout warn"><b>10月天氣小提醒</b> — 均溫約24~28°C，是全年雲雨量最少、最推薦的月份之一，但10月初仍有機率遇到颱風尾，10月中後風險大幅降低。出發前3~5天養成看天氣預報的習慣，並確認星宇航空的班機異動/退改政策，建議加保旅平險（含班機延誤/取消保障）。</div>
+
+    <div class="checklist-group">
+      <h3>證件文件</h3>
+      <div class="check-item" data-id="doc1"><div class="box"></div><div class="txt">護照效期 6 個月以上<small>兩人都要確認</small></div></div>
+      <div class="check-item" data-id="doc2"><div class="box"></div><div class="txt">台灣駕照日文譯本（兩人份）<small>監理所辦理，規費100円/人，可一人代辦；領件約3-7個工作天，需提前申請</small></div></div>
+      <div class="check-item" data-id="doc3"><div class="box"></div><div class="txt">星宇航空電子機票確認</div></div>
+      <div class="check-item" data-id="doc4"><div class="box"></div><div class="txt">護照、駕照日文譯本各自拍照/掃描存雲端<small>正本遺失時備用</small></div></div>
+      <div class="check-item" data-id="doc5"><div class="box"></div><div class="txt">旅遊平安險／不便險投保<small>建議含班機延誤、行李遺失保障</small></div></div>
+    </div>
+
+    <div class="checklist-group">
+      <h3>交通・租車</h3>
+      <div class="check-item" data-id="car1"><div class="box"></div><div class="txt">OTS 租車預約（赤嶺營業所取車／臨空豊崎營業所還車）</div></div>
+      <div class="check-item" data-id="car2"><div class="box"></div><div class="txt">確認「附加駕駛」登記事宜</div></div>
+      <div class="check-item" data-id="car3"><div class="box"></div><div class="txt">Diving Shop Lei 浮潛預約（9:20場，10月開放後）</div></div>
+      <div class="check-item" data-id="car4"><div class="box"></div><div class="txt">確認租車保險方案與加購ETC卡</div></div>
+      <div class="check-item" data-id="car5"><div class="box"></div><div class="txt">確認油品種類（レギュラー普通汽油最常見），加油講法先默念一次</div></div>
+      <div class="check-item" data-id="car6"><div class="box"></div><div class="txt">心裡默念口訣「靠左邊、左轉小圈、右轉大圈」<small>方向燈在右、雨刷在左，跟台灣相反</small></div></div>
+    </div>
+
+    <div class="checklist-group">
+      <h3>訂位提醒</h3>
+      <div class="check-item" data-id="res1"><div class="box"></div><div class="txt">お肉の一心（Day1晚餐）<small>須抵達前一天完成訂位</small></div></div>
+      <div class="check-item" data-id="res2"><div class="box"></div><div class="txt">Buchi Kumojiten（Day4晚餐）<small>需透過IG私訊訂位</small></div></div>
+      <div class="check-item" data-id="res3"><div class="box"></div><div class="txt">百年古家大家（Day2晚餐）<small>建議提前預約</small></div></div>
+      <div class="check-item" data-id="res4"><div class="box"></div><div class="txt">確認四間住宿是否都已訂房<small>Day1晚到記得備註「20:00後抵達」</small></div></div>
+    </div>
+
+    <div class="checklist-group">
+      <h3>通訊・金錢</h3>
+      <div class="check-item" data-id="net1"><div class="box"></div><div class="txt">日本上網SIM卡或eSIM<small>出發前先安裝好，落地即可用地圖導航</small></div></div>
+      <div class="check-item" data-id="net2"><div class="box"></div><div class="txt">兌換日圓現金，建議每人2~3萬円<small>潛水、牛排、部分小吃攤僅收現金</small></div></div>
+      <div class="check-item" data-id="net3"><div class="box"></div><div class="txt">確認信用卡海外提款/刷卡功能已開通</div></div>
+      <div class="check-item" data-id="net4"><div class="box"></div><div class="txt">OKICA或交通系IC卡（單軌+巴士用，Day1/2/5/6會用到）</div></div>
+      <div class="check-item" data-id="net5"><div class="box"></div><div class="txt">記下住宿地址日文版與訂房確認信<small>搭計程車/問路時直接出示</small></div></div>
+    </div>
+
+    <div class="checklist-group">
+      <h3>行李裝備</h3>
+      <div class="check-item" data-id="bag1"><div class="box"></div><div class="txt">泳衣・浮潛快乾衣物</div></div>
+      <div class="check-item" data-id="bag2"><div class="box"></div><div class="txt">防曬乳・曬後保養<small>浮潛建議選珊瑚礁友善配方</small></div></div>
+      <div class="check-item" data-id="bag3"><div class="box"></div><div class="txt">好走的鞋（琉球村、殘波岬等石板路）</div></div>
+      <div class="check-item" data-id="bag4"><div class="box"></div><div class="txt">拖鞋或涼鞋（海灘、飯店內用）</div></div>
+      <div class="check-item" data-id="bag5"><div class="box"></div><div class="txt">輕便雨衣或摺疊雨傘<small>10月初仍有颱風尾機率</small></div></div>
+      <div class="check-item" data-id="bag6"><div class="box"></div><div class="txt">薄長袖／防風外套<small>早晚溫差大、餐廳冷氣強</small></div></div>
+    </div>
+
+    <div class="checklist-group">
+      <h3>浮潛・戲水用品</h3>
+      <div class="check-item" data-id="swim1"><div class="box"></div><div class="txt">防水手機袋<small>古宇利島、瀬長島、海灘都用得到</small></div></div>
+      <div class="check-item" data-id="swim2"><div class="box"></div><div class="txt">快乾毛巾</div></div>
+      <div class="check-item" data-id="swim3"><div class="box"></div><div class="txt">夾鏈袋數個<small>裝濕泳衣、濕拖鞋，避免弄濕行李</small></div></div>
+      <div class="check-item" data-id="swim4"><div class="box"></div><div class="txt">帽子・太陽眼鏡</div></div>
+    </div>
+
+    <div class="checklist-group">
+      <h3>個人與3C用品</h3>
+      <div class="check-item" data-id="pc1"><div class="box"></div><div class="txt">常備藥品（腸胃藥、暈車藥、個人處方藥）</div></div>
+      <div class="check-item" data-id="pc2"><div class="box"></div><div class="txt">蚊蟲防護噴霧或止癢藥膏<small>戶外景點較多，古宇利島、琉球村都在戶外</small></div></div>
+      <div class="check-item" data-id="pc3"><div class="box"></div><div class="txt">行動電源＋充電線<small>台日插座相同（100V雙平腳），不需要轉接頭</small></div></div>
+      <div class="check-item" data-id="pc4"><div class="box"></div><div class="txt">車用手機架/導航支架<small>租車自駕四天都會用到</small></div></div>
+      <div class="check-item" data-id="pc5"><div class="box"></div><div class="txt">預留行李箱空間給伴手禮<small>建議去程行李箱只裝七八分滿</small></div></div>
+    </div>
+  </section>
+
+  <!-- ============ 注意事項 ============ -->
+  <section class="tab-panel" id="tab-notes">
+    <div class="section-head">
+      <span class="eyebrow-label">Good to know</span>
+      <h2>注意事項與備案</h2>
+    </div>
+
+    <div class="callout warn"><b>Day1</b> — 一心壽喜燒完全預約制，不接受當天預約，須前一天完成訂位。</div>
+    <div class="callout warn"><b>Day2</b> — 潛水員牛排只到14:00、僅收現金、不接受預約，10:30開門建議準時到。</div>
+    <div class="callout warn"><b>Day3</b> — 花火每週六20:00固定施放，面向海面觀賞；美浜迴轉壽司改在花火前先吃，避開賽後排隊人潮。</div>
+    <div class="callout warn"><b>Day4</b> — Buchi Kumojiten需透過IG私訊訂位，經常客滿，建議提早處理；<b>10/4剛好是週日</b>，國際通周邊部分道路週日12:00-18:00會封街辦活動、禁止一般車輛通行，若晚餐路線經過久茂地/縣廳前一帶，出發前建議先用地圖確認是否繞路。</div>
+    <div class="callout warn"><b>Day5</b> — あしびなー機場免費接駁已於2012年停駛，現為付費一般公車，還車後改搭OTS免費機場接駁／或走路到Ashibinaa。瀬長島到還車點沒有免費接駁，需自行安排交通。</div>
+    <div class="callout warn"><b>順路甜點</b> — 三矢本舗恩納店（Day3國道58沿線）、Sugar Crepe（Day3美國村）、マキシプリン（國際通周邊），皆可外帶邊走邊吃，不用刻意排時間。</div>
+
+    <div class="section-head"><span class="eyebrow-label">Driving rules</span><h2>沖繩自駕規則整理</h2></div>
+    <div class="callout warn"><b>靠左行駛</b> — 日本與台灣方向相反，心中默念「靠左邊、左轉小圈、右轉大圈」；方向燈撥桿在右、雨刷在左，打錯很正常，改回來就好。</div>
+    <div class="callout warn"><b>公車專用道</b> — 部分路段地面漆綠色是巴士專用車道，平日07:00-09:00、17:30-19:00私家車禁止使用，看到藍色標示牌先確認限行時段。</div>
+    <div class="callout warn"><b>高速公路過路費</b> — 沖繩高速公路走「一般」車道可用現金/信用卡，進站抽通行券、出站繳費；若有加購ETC卡走「ETC」車道，以時速20km內通過即可，費用會在還車時一併結算。</div>
+    <div class="callout warn"><b>還車前記得加滿油</b> — 選租車公司提供的油種（多為「レギュラー」普通汽油），加滿後保留收據；還車點與加油站位置建議在Day5行程確認好。</div>
+    <div class="callout warn"><b>停車</b> — 路邊多為收費停車格，商家附設的免費車位通常需內用消費，離開前確認是否有限時規定，避免超時罰款。</div>
+
+    <div class="section-head"><span class="eyebrow-label">Money &amp; etiquette</span><h2>金錢與禮儀小提醒</h2></div>
+    <div class="callout warn"><b>現金為王</b> — 日本許多小店、傳統市場、潛水/牛排等現場結帳店家只收現金，超商(7-11/Family Mart)ATM可用海外提款卡領日圓現金應急。</div>
+    <div class="callout warn"><b>不用給小費</b> — 日本餐廳、計程車、飯店都沒有給小費的習慣，帳單金額就是實付金額。</div>
+    <div class="callout warn"><b>插座免轉接</b> — 台灣與日本電壓、插座規格相同（雙平腳、100V），行動裝置直接充電即可，不用額外買轉接頭。</div>
+
+    <div class="section-head"><span class="eyebrow-label">In case of emergency</span><h2>緊急聯絡資訊</h2></div>
+    <div class="info-card">
+      <h3>🚨 日本緊急電話</h3>
+      <div class="kv-row"><span class="k">警察</span><span>110</span></div>
+      <div class="kv-row"><span class="k">救護／消防</span><span>119</span></div>
+      <div class="kv-row"><span class="k">說明</span><span>發生車禍即使只是小擦撞，務必先報警取得事故證明，否則保險後續可能無法理賠</span></div>
+    </div>
+    <div class="info-card">
+      <h3>🇹🇼 台北駐日經濟文化代表處 那霸分處</h3>
+      <div class="kv-row"><span class="k">地址</span><span>沖縄県那覇市久茂地3-15-9 アルテビル那覇6階</span></div>
+      <div class="kv-row"><span class="k">辦公電話</span><span>+81-98-862-7008（受理時間：週一至週五 09:00-11:30、13:00-17:00）</span></div>
+      <div class="kv-row"><span class="k">急難救助專線</span><span>+81-90-1942-1107<small style="display:block;">僅供車禍、搶劫、生命安危等緊急事件使用，一般事務請撥辦公電話</small></span></div>
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=台北駐日經濟文化代表處那覇分處" target="_blank" rel="noopener">📍 Google地圖</a>
+    </div>
+    <div class="info-card">
+      <h3>📋 出發前存進手機備用</h3>
+      <div class="kv-row"><span class="k">保單</span><span>旅平險保單號碼與24小時緊急救援電話</span></div>
+      <div class="kv-row"><span class="k">租車</span><span>OTS 租車公司24小時緊急聯絡電話（租車文件上會提供）</span></div>
+      <div class="kv-row"><span class="k">住宿</span><span>四間飯店的電話與地址（日文版方便問路/搭計程車）</span></div>
+    </div>
+  </section>
+
+  <div class="footnote">沖繩旅遊手冊・完整版 v2.0</div>
+</div>
+
+<script>
+  // tab switching
+  document.getElementById('tabbar').addEventListener('click', function(e){
+    var btn = e.target.closest('.tab-btn');
+    if(!btn) return;
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  function toggleDay(headEl){
+    headEl.parentElement.classList.toggle('open');
+  }
+
+  // checklist: click to toggle, live progress bar (in-memory for this browsing session)
+  document.querySelectorAll('.check-item').forEach(function(item){
+    item.addEventListener('click', function(){
+      item.classList.toggle('checked');
+      updateProgress();
+    });
+  });
+  function updateProgress(){
+    var items = document.querySelectorAll('.check-item');
+    var checked = document.querySelectorAll('.check-item.checked');
+    var pct = items.length ? Math.round(checked.length / items.length * 100) : 0;
+    var pctEl = document.getElementById('pct');
+    var fillEl = document.getElementById('fill');
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(fillEl) fillEl.style.width = pct + '%';
+  }
+  updateProgress();
+
+  function jumpToDay(n){
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelector('.tab-btn[data-tab="itinerary"]').classList.add('active');
+    document.getElementById('tab-itinerary').classList.add('active');
+    document.querySelectorAll('.day-card').forEach(c=>c.classList.remove('open'));
+    var card = document.getElementById('day-'+n);
+    if(card){ card.classList.add('open'); setTimeout(()=>card.scrollIntoView({behavior:'smooth', block:'start'}), 60); }
+    window.scrollTo({top:0, behavior:'auto'});
+  }
+</script>
+
+</body>
+</html>

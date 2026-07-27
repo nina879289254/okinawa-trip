@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沖繩旅遊 App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16323D; --ink-soft:#3D5661;
+    --paper:#F3ECDA; --card:#FFFDF7; --card-alt:#EDE4CC;
+    --coral:#C1502E; --coral-ink:#7A2E17;
+    --indigo:#2B5C73; --indigo-ink:#173B4C;
+    --moss:#4C6B41; --moss-bg:#E3EAD9;
+    --turmeric:#B9812A; --turmeric-bg:#F6E4C1;
+    --line:#D8CFB8; --line-strong:#C3B896;
+    --radius:14px;
+    --font-display:'Noto Serif TC', serif;
+    --font-body:'Noto Sans TC', sans-serif;
+    --font-mono:'Space Mono', monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#EDE6D3; --ink-soft:#C8BFA6;
+      --paper:#12242B; --card:#1B333C; --card-alt:#213D46;
+      --coral:#E2714C; --coral-ink:#F7C7B0;
+      --indigo:#6FAFC9; --moss:#8FB37D; --moss-bg:#233227;
+      --turmeric:#E8B563; --turmeric-bg:#3A2E17;
+      --line:#33474E; --line-strong:#455860;
+    }
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-body); line-height:1.65; font-size:15px; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:var(--font-display); font-weight:700; margin:0 0 8px; color:var(--ink);}
+  .wrap{max-width:760px; margin:0 auto; padding:0 16px 70px;}
+
+  header.hero{background:linear-gradient(180deg,#173B4C 0%,#2B5C73 100%); color:#F3ECDA; padding:22px 16px 18px;}
+  header.hero .inner{max-width:760px; margin:0 auto;}
+  header.hero h1{color:#FBF6E9; font-size:22px;}
+  header.hero .sub{font-family:var(--font-mono); font-size:12px; color:#D9C9A8;}
+  .guide-link{display:inline-block; margin-top:10px; font-family:var(--font-mono); font-size:12px; color:#FBF6E9; text-decoration:none; border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:5px 12px;}
+  .guide-link:hover{background:rgba(255,255,255,.12);}
+
+  nav.tabbar{position:sticky; top:0; z-index:10; background:var(--paper); border-bottom:1px solid var(--line); padding-top:8px;}
+  .tabbar-scroll{max-width:760px; margin:0 auto; display:flex; gap:6px; overflow-x:auto; padding:0 16px 8px; scrollbar-width:none;}
+  .tabbar-scroll::-webkit-scrollbar{display:none;}
+  .tab-btn{font-weight:700; font-size:13px; color:var(--ink-soft); background:transparent; border:1px solid transparent; padding:7px 13px; border-radius:999px; white-space:nowrap; cursor:pointer;}
+  .tab-btn.active{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+
+  section.panel{display:none; padding-top:18px;}
+  section.panel.active{display:block;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px; margin-bottom:14px;}
+  .card h3{font-size:15px;}
+  .today-banner{background:var(--coral); color:#FBF1E8; border-radius:var(--radius); padding:16px; margin-bottom:16px; font-weight:700;}
+  .today-banner .small{font-weight:400; font-size:12.5px; opacity:.9; margin-top:4px; font-family:var(--font-mono);}
+  .today-banner button{margin-top:10px; background:#fff; color:var(--coral-ink); border:none; border-radius:999px; padding:6px 14px; font-weight:700; cursor:pointer;}
+
+  .day-mini{display:flex; align-items:center; gap:10px; padding:10px 4px; border-bottom:1px dashed var(--line); cursor:pointer;}
+  .day-mini:last-child{border-bottom:none;}
+  .day-mini .d{font-family:var(--font-mono); font-weight:700; font-size:12px; background:#173B4C; color:#F3ECDA; border-radius:7px; padding:4px 8px;}
+  .day-mini.is-today .d{background:var(--coral); color:#fff;}
+  .day-mini .t{flex:1; font-size:13.5px;}
+
+  .day-card{background:var(--card); border:1px solid var(--line); border-radius:16px; margin-bottom:16px; overflow:hidden;}
+  .day-card.is-today{border-color:var(--coral); box-shadow:0 0 0 2px var(--coral) inset;}
+  .day-head{display:flex; align-items:center; gap:12px; padding:12px 14px; cursor:pointer; background:var(--card-alt);}
+  .day-head .badge{font-family:var(--font-mono); font-weight:700; font-size:11px; background:var(--coral); color:#FBF1E8; padding:4px 9px; border-radius:7px;}
+  .day-head .info{flex:1;}
+  .day-head .ttl{font-weight:700; font-size:15px;}
+  .day-head .date{font-family:var(--font-mono); font-size:10.5px; color:var(--ink-soft);}
+  .day-body{display:none; padding:8px 14px 14px;}
+  .day-card.open .day-body{display:block;}
+
+  .item-row{display:flex; gap:6px; align-items:center; margin-bottom:6px;}
+  .item-row input.t-time{width:64px; font-family:var(--font-mono); font-size:12.5px; font-weight:700; color:var(--indigo);}
+  .item-row input.t-text{flex:1; font-size:13.5px;}
+  .item-row input{border:1px solid var(--line); border-radius:8px; padding:6px 8px; background:var(--card); color:var(--ink); font-family:inherit;}
+  .del-x{background:none; border:none; color:var(--ink-soft); cursor:pointer; font-size:15px; padding:2px 6px;}
+  .add-row-btn, .add-line-btn{margin-top:6px; background:var(--card-alt); border:1px dashed var(--line-strong); color:var(--ink-soft); border-radius:8px; padding:7px 10px; font-size:12.5px; cursor:pointer; width:100%;}
+
+  .backup-block{margin-top:10px; padding-top:10px; border-top:1px dashed var(--line);}
+  .backup-block h4{font-size:12px; color:var(--turmeric); font-family:var(--font-mono); margin:0 0 6px;}
+  .backup-item{display:flex; gap:6px; align-items:center; font-size:13px; margin-bottom:5px; background:var(--turmeric-bg); border-radius:8px; padding:5px 8px;}
+  .backup-item span{flex:1;}
+
+  .day-controls{display:flex; gap:8px; margin-bottom:14px;}
+  .day-controls button{flex:1; background:var(--card); border:1px solid var(--line-strong); border-radius:10px; padding:9px; font-weight:700; font-size:13px; cursor:pointer; color:var(--ink);}
+
+  /* expense tracker */
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;}
+  .form-grid.full{grid-template-columns:1fr;}
+  .form-grid select, .form-grid input{border:1px solid var(--line); border-radius:8px; padding:8px; background:var(--card); color:var(--ink); font-family:inherit; font-size:13.5px;}
+  .add-expense-btn{width:100%; background:var(--coral); color:#fff; border:none; border-radius:10px; padding:10px; font-weight:700; cursor:pointer; margin-top:4px;}
+  .expense-row{display:flex; align-items:center; gap:8px; padding:9px 0; border-bottom:1px solid var(--line); font-size:13.5px;}
+  .expense-row:last-child{border-bottom:none;}
+  .expense-row .who{font-weight:700; width:52px; flex-shrink:0;}
+  .expense-row .note{flex:1;}
+  .expense-row .amt{font-family:var(--font-mono); font-weight:700; color:var(--indigo); white-space:nowrap;}
+  .summary-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;}
+  .summary-card{background:var(--card-alt); border-radius:var(--radius); padding:12px; text-align:center;}
+  .summary-card .num{font-family:var(--font-display); font-size:20px; color:var(--coral);}
+  .summary-card .lbl{font-size:11px; color:var(--ink-soft); margin-top:2px;}
+  .balance-line{background:var(--moss-bg); color:var(--moss); border-radius:10px; padding:10px 12px; font-weight:700; text-align:center; margin-bottom:14px; font-size:13.5px;}
+  .fx-row{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-soft); margin-bottom:14px;}
+  .fx-row input{width:80px; border:1px solid var(--line); border-radius:8px; padding:5px 7px; background:var(--card); color:var(--ink); font-family:var(--font-mono);}
+  .names-row{display:flex; gap:8px; margin-bottom:12px;}
+  .names-row input{flex:1; border:1px solid var(--line); border-radius:8px; padding:7px 9px; background:var(--card); color:var(--ink); font-weight:700;}
+
+  /* checklist */
+  .progress-wrap{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:12px 14px; margin-bottom:16px;}
+  .progress-top{display:flex; justify-content:space-between; margin-bottom:6px;}
+  .progress-top .pct{font-family:var(--font-display); font-size:19px; color:var(--coral);}
+  .progress-bar{height:7px; background:var(--card-alt); border-radius:99px; overflow:hidden;}
+  .progress-bar .fill{height:100%; background:var(--coral);}
+  .check-group{margin-bottom:16px;}
+  .check-group h4{font-size:12.5px; color:var(--ink-soft); font-family:var(--font-mono); text-transform:uppercase; margin-bottom:6px;}
+  .check-item{display:flex; align-items:center; gap:10px; padding:8px 2px; border-bottom:1px solid var(--line); cursor:pointer;}
+  .check-item:last-child{border-bottom:none;}
+  .check-item .box{width:18px; height:18px; border:2px solid var(--line-strong); border-radius:5px; flex-shrink:0; display:flex; align-items:center; justify-content:center;}
+  .check-item.checked .box{background:var(--moss); border-color:var(--moss);}
+  .check-item.checked .box:after{content:"✓"; color:#fff; font-size:11px; font-weight:700;}
+  .check-item.checked .txt{color:var(--ink-soft); text-decoration:line-through;}
+  .check-item .txt{flex:1; font-size:13px;}
+
+  .sync-dot{display:inline-flex; align-items:center; gap:5px; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft);}
+  .sync-dot i{width:7px; height:7px; border-radius:50%; background:var(--moss); display:inline-block;}
+  .sync-dot.off i{background:var(--coral);}
+  .foot{text-align:center; color:var(--ink-soft); font-size:11px; font-family:var(--font-mono); margin-top:30px;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="inner">
+    <h1>沖繩旅遊 App</h1>
+    <div class="sub" id="dateRangeLabel">2026.10.01 — 10.06</div>
+    <a class="guide-link" href="guide.html" target="_blank" rel="noopener">📖 完整參考手冊（住宿／美食／景點／伴手禮）</a>
+  </div>
+</header>
+
+<nav class="tabbar">
+  <div class="tabbar-scroll" id="tabbar">
+    <button class="tab-btn active" data-tab="overview">總覽</button>
+    <button class="tab-btn" data-tab="itinerary">行程</button>
+    <button class="tab-btn" data-tab="expense">記帳</button>
+    <button class="tab-btn" data-tab="prep">行前準備</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <section class="panel active" id="panel-overview">
+    <div id="todayBannerHolder"></div>
+    <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+      <span class="sync-dot" id="syncDot"><i></i> <span id="syncText">連線中...</span></span>
+    </div>
+    <div class="card" style="padding:4px 12px;" id="dayMiniList"></div>
+  </section>
+
+  <section class="panel" id="panel-itinerary">
+    <div class="day-controls">
+      <button id="addDayBtn">＋ 新增一天</button>
+    </div>
+    <div id="dayCardsHolder"></div>
+  </section>
+
+  <section class="panel" id="panel-expense">
+    <div class="card">
+      <h3>付款人姓名</h3>
+      <div class="names-row">
+        <input id="personA" placeholder="人物A姓名">
+        <input id="personB" placeholder="人物B姓名">
+      </div>
+      <div class="fx-row">
+        匯率 1 JPY = <input id="fxRate" type="number" step="0.001"> TWD
+        <button id="saveFxBtn" style="margin-left:auto; font-size:11px; padding:4px 10px; border-radius:8px; border:1px solid var(--line-strong); background:var(--card-alt); cursor:pointer;">儲存</button>
+      </div>
+    </div>
+
+    <div class="summary-grid" id="summaryGrid"></div>
+    <div class="balance-line" id="balanceLine"></div>
+
+    <div class="card">
+      <h3>新增一筆花費</h3>
+      <div class="form-grid">
+        <select id="expWho"></select>
+        <select id="expDay"></select>
+      </div>
+      <div class="form-grid">
+        <input id="expAmount" type="number" placeholder="金額">
+        <select id="expCurrency"><option value="JPY">日圓 JPY</option><option value="TWD">台幣 TWD</option></select>
+      </div>
+      <div class="form-grid full">
+        <input id="expNote" placeholder="備註，例如：壽喜燒晚餐">
+      </div>
+      <button class="add-expense-btn" id="addExpenseBtn">＋ 新增花費</button>
+    </div>
+
+    <div class="card">
+      <h3>所有花費紀錄</h3>
+      <div id="expenseList"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-prep">
+    <div class="progress-wrap">
+      <div class="progress-top"><div>整體進度</div><div class="pct" id="pct">0%</div></div>
+      <div class="progress-bar"><div class="fill" id="fill" style="width:0%"></div></div>
+    </div>
+    <div id="checklistHolder"></div>
+  </section>
+
+  <div class="foot">沖繩旅遊 App · 雙人同步版</div>
+</div>
+
+<!-- Firebase (compat SDK, no build tools needed) -->
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
+<script>
+/* ====================== FIREBASE SETUP ====================== */
+const firebaseConfig = {
+  apiKey: "AIzaSyCywUnJpJhP59vl5PV7qLc8tPdH5_Dp4Lc",
+  authDomain: "okinawa-1001-1006.firebaseapp.com",
+  projectId: "okinawa-1001-1006",
+  storageBucket: "okinawa-1001-1006.firebasestorage.app",
+  messagingSenderId: "369498086335",
+  appId: "1:369498086335:web:4aeb5f42e6e60e72499f0a",
+  measurementId: "G-Y92221HVXX"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const tripRef = db.collection('trips').doc('okinawa');
+
+/* ====================== SEED DATA (first-time only) ====================== */
+const SEED = {
+  meta: { personA: "Nina", personB: "男友" },
+  fxRate: 0.21,
+  days: [
+    { id:1, date:"2026-10-01", badge:"DAY 01", title:"抵達那霸．國際通",
+      items:[
+        {time:"16:40", text:"台中起飛（星宇航空）"},
+        {time:"19:10", text:"抵達那霸機場"},
+        {time:"20:00", text:"出關，搭計程車前往國際通"},
+        {time:"20:20", text:"國際通逛街"},
+        {time:"晚餐", text:"一心壽喜燒"}
+      ], backups:[] },
+    { id:2, date:"2026-10-02", badge:"DAY 02", title:"取車．名護牛排．美麗海水族館",
+      items:[
+        {time:"08:00", text:"搭單軌到赤嶺駅"},
+        {time:"08:30", text:"OTS赤嶺營業所取車"},
+        {time:"09:15", text:"開車到名護（約1小時）"},
+        {time:"10:15", text:"抵達，現場排隊（10:30開門）"},
+        {time:"10:30", text:"午餐：潛水員牛排（Flipper）"},
+        {time:"11:30", text:"開車到古宇利島"},
+        {time:"12:15", text:"古宇利島拍照，蝦蝦飯外帶車上吃"},
+        {time:"14:45", text:"美ら海水族館（15:00餵食秀／17:00海豚秀）"},
+        {time:"18:30", text:"開車回名護"},
+        {time:"晚餐", text:"百年古家 大家（阿古豬涮涮鍋）"}
+      ], backups:["牛排客滿備案：やっぱりステーキ 名護店"] },
+    { id:3, date:"2026-10-03", badge:"DAY 03", title:"青の洞窟浮潛．琉球村．美國村花火",
+      items:[
+        {time:"09:20", text:"Diving Shop Lei 集合，青の洞窟船潛"},
+        {time:"12:00", text:"午餐：浜の家（仲泊，海鮮）"},
+        {time:"13:15", text:"琉球村（14:00太鼓秀／15:00島唄秀）"},
+        {time:"16:00", text:"殘波岬快速拍照"},
+        {time:"16:30", text:"おきなわ養蜂買蜂巢冰淇淋（外帶）"},
+        {time:"16:45", text:"開車到北谷（車上吃冰淇淋）"},
+        {time:"17:15", text:"飯店check-in、放行李"},
+        {time:"18:00", text:"北谷公園日落海灘看夕陽"},
+        {time:"18:30", text:"晚餐：美浜迴轉壽司（先吃再看花火）"},
+        {time:"19:45", text:"デポアイランド・ボードウォーク卡位"},
+        {time:"20:00", text:"看花火（每週六固定施放）"}
+      ], backups:["壽司客滿備案：タコライスcafe きじむなぁ Depo Island店", "住宿備案：ベッセルホテルカンパーナ沖縄"] },
+    { id:4, date:"2026-10-04", badge:"DAY 04", title:"PARCO CITY．波上宮．波之上海灘",
+      items:[
+        {time:"08:30", text:"早餐：ポーたま飯糰"},
+        {time:"09:00", text:"美國村伴手禮購物"},
+        {time:"11:00", text:"開車到PARCO CITY"},
+        {time:"11:30", text:"PARCO CITY逛街，午餐：鳥玉（親子丼）"},
+        {time:"16:00", text:"開車到波上宮"},
+        {time:"16:30", text:"波上宮參拜"},
+        {time:"16:50", text:"波之上海灘戲水放空"},
+        {time:"18:15", text:"看夕陽"},
+        {time:"18:30", text:"晚餐：Buchi Kumojiten（久茂地燒肉）"}
+      ], backups:[] },
+    { id:5, date:"2026-10-05", badge:"DAY 05", title:"Ashibinaa Outlet．還車．瀬長島",
+      items:[
+        {time:"10:00", text:"Ashibinaa Outlet逛街，午餐：豚骨一燈"},
+        {time:"14:30", text:"OTS臨空豊崎營業所還車"},
+        {time:"15:00", text:"移動到瀬長島"},
+        {time:"15:30", text:"瀬長島：Chura Ichigo下午茶、戀愛景點、看飛機"},
+        {time:"18:00", text:"看夕陽"},
+        {time:"18:15", text:"晚餐：OKINAWA SOBA EIBUN（壺屋）"},
+        {time:"19:30", text:"搭ウミカジライナー回國際通"},
+        {time:"宵夜", text:"ゆうか島唄居酒屋"}
+      ], backups:["下午茶備案：Taco Rice瀬長島店／MOTOMU'S CURRY BREAD"] },
+    { id:6, date:"2026-10-06", badge:"DAY 06", title:"市場．陶器街．返程",
+      items:[
+        {time:"08:00", text:"第一牧志公設市場，午餐：とんかつ小やじ那覇店"},
+        {time:"10:00", text:"壺屋やちむん通（陶器購物）"},
+        {time:"11:00", text:"花商（點心，じーまーみ豆腐）"},
+        {time:"11:45", text:"國際通最後採買"},
+        {time:"13:00", text:"搭車前往機場"},
+        {time:"16:45", text:"起飛回台中"}
+      ], backups:[] }
+  ],
+  expenses: [],
+  checklist: [
+    {id:"doc1", group:"證件文件", text:"護照效期 6 個月以上", checked:false},
+    {id:"doc2", group:"證件文件", text:"台灣駕照日文譯本（兩人份）", checked:false},
+    {id:"doc3", group:"證件文件", text:"星宇航空電子機票確認", checked:false},
+    {id:"doc4", group:"證件文件", text:"護照/駕照譯本拍照存雲端", checked:false},
+    {id:"doc5", group:"證件文件", text:"旅遊平安險投保", checked:false},
+    {id:"car1", group:"交通・租車", text:"OTS 租車預約（赤嶺取車／臨空豊崎還車）", checked:false},
+    {id:"car2", group:"交通・租車", text:"確認附加駕駛登記", checked:false},
+    {id:"car3", group:"交通・租車", text:"Diving Shop Lei 浮潛預約", checked:false},
+    {id:"car4", group:"交通・租車", text:"確認油品種類與ETC卡加購", checked:false},
+    {id:"res1", group:"訂位提醒", text:"お肉の一心（Day1晚餐，須前一天訂位）", checked:false},
+    {id:"res2", group:"訂位提醒", text:"Buchi Kumojiten（Day4晚餐，IG私訊訂位）", checked:false},
+    {id:"res3", group:"訂位提醒", text:"百年古家大家（Day2晚餐，建議預約）", checked:false},
+    {id:"res4", group:"訂位提醒", text:"確認四間住宿都已訂房", checked:false},
+    {id:"net1", group:"通訊・金錢", text:"日本上網SIM卡或eSIM", checked:false},
+    {id:"net2", group:"通訊・金錢", text:"兌換日圓現金（每人2~3萬円）", checked:false},
+    {id:"net3", group:"通訊・金錢", text:"OKICA交通系IC卡", checked:false},
+    {id:"bag1", group:"行李裝備", text:"泳衣・浮潛快乾衣物", checked:false},
+    {id:"bag2", group:"行李裝備", text:"防曬乳・曬後保養", checked:false},
+    {id:"bag3", group:"行李裝備", text:"好走的鞋", checked:false},
+    {id:"bag4", group:"行李裝備", text:"輕便雨衣／薄外套", checked:false},
+    {id:"pc1", group:"個人與3C", text:"常備藥品", checked:false},
+    {id:"pc2", group:"個人與3C", text:"行動電源＋充電線", checked:false},
+    {id:"pc3", group:"個人與3C", text:"防水手機袋、夾鏈袋", checked:false}
+  ]
+};
+
+let state = null;
+
+/* ====================== REALTIME SYNC ====================== */
+const syncDot = document.getElementById('syncDot');
+const syncText = document.getElementById('syncText');
+
+tripRef.onSnapshot(function(doc){
+  if(doc.exists){
+    state = doc.data();
+  } else {
+    state = SEED;
+    tripRef.set(SEED);
+  }
+  syncDot.classList.remove('off');
+  syncText.textContent = '已同步';
+  renderAll();
+}, function(err){
+  syncDot.classList.add('off');
+  syncText.textContent = '連線失敗（檢查網路或Firestore規則）';
+  console.error(err);
+});
+
+function saveState(){
+  tripRef.set(state).catch(function(e){ console.error('save failed', e); });
+}
+
+/* ====================== TAB SWITCHING ====================== */
+document.getElementById('tabbar').addEventListener('click', function(e){
+  const btn = e.target.closest('.tab-btn');
+  if(!btn) return;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+function switchTab(name){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id==='panel-'+name));
+}
+
+/* ====================== DATE HELPERS ====================== */
+function todayStr(){
+  const d = new Date();
+  const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
+  return y+'-'+m+'-'+day;
+}
+function findTodayDay(){
+  if(!state) return null;
+  const t = todayStr();
+  return state.days.find(function(d){ return d.date === t; }) || null;
+}
+
+/* ====================== RENDER: OVERVIEW ====================== */
+function renderOverview(){
+  const holder = document.getElementById('todayBannerHolder');
+  const today = findTodayDay();
+  const t = todayStr();
+  if(today){
+    holder.innerHTML =
+      '<div class="today-banner">🎉 今天是 ' + today.badge + '：' + today.title +
+      '<div class="small">' + today.date + '</div>' +
+      '<button onclick="jumpToDay(' + today.id + ')">查看今天的行程 →</button></div>';
+  } else if(state.days.length && t < state.days[0].date){
+    const diff = Math.ceil((new Date(state.days[0].date) - new Date(t)) / 86400000);
+    holder.innerHTML = '<div class="today-banner" style="background:var(--indigo);">距離出發還有 ' + diff + ' 天</div>';
+  } else if(state.days.length && t > state.days[state.days.length-1].date){
+    holder.innerHTML = '<div class="today-banner" style="background:var(--moss);">旅程已結束，希望這趟玩得開心 🌺</div>';
+  } else {
+    holder.innerHTML = '';
+  }
+
+  const list = document.getElementById('dayMiniList');
+  list.innerHTML = state.days.map(function(d){
+    const isToday = today && today.id === d.id;
+    return '<div class="day-mini' + (isToday?' is-today':'') + '" onclick="jumpToDay(' + d.id + ')">' +
+      '<div class="d">D' + d.id + '</div><div class="t">' + escapeHtml(d.title) + '</div></div>';
+  }).join('');
+}
+
+function jumpToDay(id){
+  switchTab('itinerary');
+  document.querySelectorAll('.day-card').forEach(function(c){ c.classList.remove('open'); });
+  const el = document.getElementById('day-' + id);
+  if(el){ el.classList.add('open'); setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'start'}); }, 50); }
+  window.scrollTo({top:0, behavior:'auto'});
+}
+
+/* ====================== RENDER: ITINERARY ====================== */
+function renderItinerary(){
+  const holder = document.getElementById('dayCardsHolder');
+  const today = findTodayDay();
+  holder.innerHTML = state.days.map(function(d){
+    const isToday = today && today.id === d.id;
+    const itemsHtml = d.items.map(function(it, idx){
+      return '<div class="item-row">' +
+        '<input class="t-time" value="' + escapeAttr(it.time) + '" onchange="updateItem(' + d.id + ',' + idx + ',\'time\',this.value)">' +
+        '<input class="t-text" value="' + escapeAttr(it.text) + '" onchange="updateItem(' + d.id + ',' + idx + ',\'text\',this.value)">' +
+        '<button class="del-x" onclick="deleteItem(' + d.id + ',' + idx + ')">✕</button>' +
+        '</div>';
+    }).join('');
+    const backupsHtml = d.backups.map(function(b, idx){
+      return '<div class="backup-item"><span>' + escapeHtml(b) + '</span><button class="del-x" onclick="deleteBackup(' + d.id + ',' + idx + ')">✕</button></div>';
+    }).join('');
+    return '<div class="day-card' + (isToday?' open is-today':'') + '" id="day-' + d.id + '">' +
+      '<div class="day-head" onclick="toggleDay(' + d.id + ')">' +
+        '<div class="badge">' + d.badge + '</div>' +
+        '<div class="info"><input class="ttl-input" style="border:none;background:none;font-weight:700;font-size:15px;color:inherit;width:100%;padding:0;" value="' + escapeAttr(d.title) + '" onclick="event.stopPropagation()" onchange="updateDayTitle(' + d.id + ', this.value)">' +
+        '<div class="date-row" style="display:flex;gap:6px;align-items:center;"><input type="date" value="' + d.date + '" onclick="event.stopPropagation()" onchange="updateDayDate(' + d.id + ', this.value)" style="font-family:var(--font-mono);font-size:11px;border:none;background:none;color:var(--ink-soft);"></div></div>' +
+        '<button class="del-x" onclick="event.stopPropagation(); deleteDay(' + d.id + ')" title="刪除這一天">🗑</button>' +
+      '</div>' +
+      '<div class="day-body">' +
+        itemsHtml +
+        '<button class="add-line-btn" onclick="addItem(' + d.id + ')">＋ 新增一個行程項目</button>' +
+        '<div class="backup-block"><h4>備案清單</h4>' + backupsHtml +
+        '<button class="add-row-btn" onclick="addBackup(' + d.id + ')">＋ 新增備案</button></div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function toggleDay(id){
+  const el = document.getElementById('day-' + id);
+  if(el) el.classList.toggle('open');
+}
+function getDay(id){ return state.days.find(function(d){ return d.id === id; }); }
+
+function updateItem(dayId, idx, field, value){
+  const d = getDay(dayId); d.items[idx][field] = value; saveState();
+}
+function deleteItem(dayId, idx){
+  const d = getDay(dayId); d.items.splice(idx,1); saveState(); renderItinerary();
+}
+function addItem(dayId){
+  const d = getDay(dayId); d.items.push({time:'', text:''}); saveState(); renderItinerary();
+  const el = document.getElementById('day-' + dayId); if(el) el.classList.add('open');
+}
+function updateDayTitle(dayId, value){ getDay(dayId).title = value; saveState(); }
+function updateDayDate(dayId, value){ getDay(dayId).date = value; saveState(); renderOverview(); }
+function deleteDay(dayId){
+  if(!confirm('確定要刪除這一天嗎？')) return;
+  state.days = state.days.filter(function(d){ return d.id !== dayId; });
+  saveState(); renderAll();
+}
+function addDay(){
+  const maxId = state.days.reduce(function(m,d){ return Math.max(m,d.id); }, 0);
+  state.days.push({ id:maxId+1, date:todayStr(), badge:'DAY ' + String(maxId+1).padStart(2,'0'), title:'新的一天', items:[], backups:[] });
+  saveState(); renderAll();
+}
+function addBackup(dayId){
+  const v = prompt('輸入備案內容（例如：客滿時改去哪家店）：');
+  if(!v) return;
+  const d = getDay(dayId); d.backups.push(v); saveState(); renderItinerary();
+}
+function deleteBackup(dayId, idx){
+  const d = getDay(dayId); d.backups.splice(idx,1); saveState(); renderItinerary();
+}
+document.getElementById('addDayBtn').addEventListener('click', addDay);
+
+/* ====================== RENDER: EXPENSE TRACKER ====================== */
+function renderExpense(){
+  document.getElementById('personA').value = state.meta.personA;
+  document.getElementById('personB').value = state.meta.personB;
+  document.getElementById('fxRate').value = state.fxRate;
+
+  const expWho = document.getElementById('expWho');
+  expWho.innerHTML = '<option value="'+escapeAttr(state.meta.personA)+'">'+escapeHtml(state.meta.personA)+'</option><option value="'+escapeAttr(state.meta.personB)+'">'+escapeHtml(state.meta.personB)+'</option>';
+
+  const expDay = document.getElementById('expDay');
+  expDay.innerHTML = state.days.map(function(d){ return '<option value="'+d.id+'">Day'+d.id+' '+escapeHtml(d.title)+'</option>'; }).join('');
+
+  function toTWD(exp){ return exp.currency === 'JPY' ? exp.amount * state.fxRate : exp.amount; }
+
+  const totalA = state.expenses.filter(function(e){return e.who===state.meta.personA;}).reduce(function(s,e){return s+toTWD(e);},0);
+  const totalB = state.expenses.filter(function(e){return e.who===state.meta.personB;}).reduce(function(s,e){return s+toTWD(e);},0);
+  const total = totalA + totalB;
+
+  document.getElementById('summaryGrid').innerHTML =
+    '<div class="summary-card"><div class="num">NT$'+Math.round(totalA)+'</div><div class="lbl">'+escapeHtml(state.meta.personA)+' 已付</div></div>' +
+    '<div class="summary-card"><div class="num">NT$'+Math.round(totalB)+'</div><div class="lbl">'+escapeHtml(state.meta.personB)+' 已付</div></div>';
+
+  const half = total/2;
+  const diff = totalA - half;
+  let balanceMsg;
+  if(Math.abs(diff) < 1){ balanceMsg = '目前兩人花費打平 🎉'; }
+  else if(diff > 0){ balanceMsg = escapeHtml(state.meta.personB) + ' 該轉給 ' + escapeHtml(state.meta.personA) + ' NT$' + Math.round(diff); }
+  else { balanceMsg = escapeHtml(state.meta.personA) + ' 該轉給 ' + escapeHtml(state.meta.personB) + ' NT$' + Math.round(-diff); }
+  document.getElementById('balanceLine').textContent = balanceMsg + '（總花費 NT$' + Math.round(total) + '，均分計算）';
+
+  const list = document.getElementById('expenseList');
+  if(!state.expenses.length){
+    list.innerHTML = '<div style="color:var(--ink-soft); font-size:13px;">還沒有任何紀錄，新增第一筆花費吧！</div>';
+  } else {
+    list.innerHTML = state.expenses.slice().reverse().map(function(e){
+      const twd = e.currency==='JPY' ? Math.round(e.amount*state.fxRate) : e.amount;
+      return '<div class="expense-row">' +
+        '<div class="who">'+escapeHtml(e.who)+'</div>' +
+        '<div class="note">Day'+e.day+' · '+escapeHtml(e.note||'')+'</div>' +
+        '<div class="amt">'+e.amount+' '+e.currency+' <span style="color:var(--ink-soft);font-weight:400;">(≈NT$'+twd+')</span></div>' +
+        '<button class="del-x" onclick="deleteExpense(\''+e.id+'\')">✕</button>' +
+      '</div>';
+    }).join('');
+  }
+}
+
+function deleteExpense(id){
+  state.expenses = state.expenses.filter(function(e){ return e.id !== id; });
+  saveState(); renderExpense();
+}
+document.getElementById('addExpenseBtn').addEventListener('click', function(){
+  const who = document.getElementById('expWho').value;
+  const day = parseInt(document.getElementById('expDay').value, 10);
+  const amount = parseFloat(document.getElementById('expAmount').value);
+  const currency = document.getElementById('expCurrency').value;
+  const note = document.getElementById('expNote').value;
+  if(!amount || amount <= 0){ alert('請輸入正確的金額'); return; }
+  state.expenses.push({ id:'e'+Date.now(), who:who, day:day, amount:amount, currency:currency, note:note });
+  saveState();
+  document.getElementById('expAmount').value = '';
+  document.getElementById('expNote').value = '';
+  renderExpense();
+});
+document.getElementById('saveFxBtn').addEventListener('click', function(){
+  const v = parseFloat(document.getElementById('fxRate').value);
+  if(v > 0){ state.fxRate = v; saveState(); renderExpense(); }
+});
+document.getElementById('personA').addEventListener('change', function(e){ state.meta.personA = e.target.value || 'Nina'; saveState(); renderExpense(); });
+document.getElementById('personB').addEventListener('change', function(e){ state.meta.personB = e.target.value || '男友'; saveState(); renderExpense(); });
+
+/* ====================== RENDER: CHECKLIST ====================== */
+function renderChecklist(){
+  const groups = {};
+  state.checklist.forEach(function(item){
+    if(!groups[item.group]) groups[item.group] = [];
+    groups[item.group].push(item);
+  });
+  const holder = document.getElementById('checklistHolder');
+  holder.innerHTML = Object.keys(groups).map(function(g){
+    return '<div class="check-group"><h4>'+escapeHtml(g)+'</h4>' +
+      groups[g].map(function(item){
+        return '<div class="check-item' + (item.checked?' checked':'') + '" onclick="toggleCheck(\''+item.id+'\')">' +
+          '<div class="box"></div><div class="txt">'+escapeHtml(item.text)+'</div></div>';
+      }).join('') + '</div>';
+  }).join('');
+  updateProgress();
+}
+function toggleCheck(id){
+  const item = state.checklist.find(function(i){ return i.id===id; });
+  item.checked = !item.checked;
+  saveState(); renderChecklist();
+}
+function updateProgress(){
+  const total = state.checklist.length;
+  const done = state.checklist.filter(function(i){ return i.checked; }).length;
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById('pct').textContent = pct + '%';
+  document.getElementById('fill').style.width = pct + '%';
+}
+
+/* ====================== UTIL ====================== */
+function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function escapeAttr(s){ return escapeHtml(s); }
+
+function renderAll(){
+  if(!state) return;
+  renderOverview();
+  renderItinerary();
+  renderExpense();
+  renderChecklist();
+}
+</script>
+</body>
+</html>
