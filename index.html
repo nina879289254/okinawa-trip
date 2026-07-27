@@ -1,3 +1,6 @@
+
+
+Index · HTML
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -35,35 +38,35 @@
   body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-body); line-height:1.65; font-size:15px; -webkit-font-smoothing:antialiased;}
   h1,h2,h3{font-family:var(--font-display); font-weight:700; margin:0 0 8px; color:var(--ink);}
   .wrap{max-width:760px; margin:0 auto; padding:0 16px 70px;}
-
+ 
   header.hero{background:linear-gradient(180deg,#173B4C 0%,#2B5C73 100%); color:#F3ECDA; padding:22px 16px 18px;}
   header.hero .inner{max-width:760px; margin:0 auto;}
   header.hero h1{color:#FBF6E9; font-size:22px;}
   header.hero .sub{font-family:var(--font-mono); font-size:12px; color:#D9C9A8;}
   .guide-link{display:inline-block; margin-top:10px; font-family:var(--font-mono); font-size:12px; color:#FBF6E9; text-decoration:none; border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:5px 12px;}
   .guide-link:hover{background:rgba(255,255,255,.12);}
-
+ 
   nav.tabbar{position:sticky; top:0; z-index:10; background:var(--paper); border-bottom:1px solid var(--line); padding-top:8px;}
   .tabbar-scroll{max-width:760px; margin:0 auto; display:flex; gap:6px; overflow-x:auto; padding:0 16px 8px; scrollbar-width:none;}
   .tabbar-scroll::-webkit-scrollbar{display:none;}
   .tab-btn{font-weight:700; font-size:13px; color:var(--ink-soft); background:transparent; border:1px solid transparent; padding:7px 13px; border-radius:999px; white-space:nowrap; cursor:pointer;}
   .tab-btn.active{background:var(--ink); color:var(--paper); border-color:var(--ink);}
-
+ 
   section.panel{display:none; padding-top:18px;}
   section.panel.active{display:block;}
-
+ 
   .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px; margin-bottom:14px;}
   .card h3{font-size:15px;}
   .today-banner{background:var(--coral); color:#FBF1E8; border-radius:var(--radius); padding:16px; margin-bottom:16px; font-weight:700;}
   .today-banner .small{font-weight:400; font-size:12.5px; opacity:.9; margin-top:4px; font-family:var(--font-mono);}
   .today-banner button{margin-top:10px; background:#fff; color:var(--coral-ink); border:none; border-radius:999px; padding:6px 14px; font-weight:700; cursor:pointer;}
-
+ 
   .day-mini{display:flex; align-items:center; gap:10px; padding:10px 4px; border-bottom:1px dashed var(--line); cursor:pointer;}
   .day-mini:last-child{border-bottom:none;}
   .day-mini .d{font-family:var(--font-mono); font-weight:700; font-size:12px; background:#173B4C; color:#F3ECDA; border-radius:7px; padding:4px 8px;}
   .day-mini.is-today .d{background:var(--coral); color:#fff;}
   .day-mini .t{flex:1; font-size:13.5px;}
-
+ 
   .day-card{background:var(--card); border:1px solid var(--line); border-radius:16px; margin-bottom:16px; overflow:hidden;}
   .day-card.is-today{border-color:var(--coral); box-shadow:0 0 0 2px var(--coral) inset;}
   .day-head{display:flex; align-items:center; gap:12px; padding:12px 14px; cursor:pointer; background:var(--card-alt);}
@@ -73,22 +76,22 @@
   .day-head .date{font-family:var(--font-mono); font-size:10.5px; color:var(--ink-soft);}
   .day-body{display:none; padding:8px 14px 14px;}
   .day-card.open .day-body{display:block;}
-
+ 
   .item-row{display:flex; gap:6px; align-items:center; margin-bottom:6px;}
   .item-row input.t-time{width:64px; font-family:var(--font-mono); font-size:12.5px; font-weight:700; color:var(--indigo);}
   .item-row input.t-text{flex:1; font-size:13.5px;}
   .item-row input{border:1px solid var(--line); border-radius:8px; padding:6px 8px; background:var(--card); color:var(--ink); font-family:inherit;}
   .del-x{background:none; border:none; color:var(--ink-soft); cursor:pointer; font-size:15px; padding:2px 6px;}
   .add-row-btn, .add-line-btn{margin-top:6px; background:var(--card-alt); border:1px dashed var(--line-strong); color:var(--ink-soft); border-radius:8px; padding:7px 10px; font-size:12.5px; cursor:pointer; width:100%;}
-
+ 
   .backup-block{margin-top:10px; padding-top:10px; border-top:1px dashed var(--line);}
   .backup-block h4{font-size:12px; color:var(--turmeric); font-family:var(--font-mono); margin:0 0 6px;}
   .backup-item{display:flex; gap:6px; align-items:center; font-size:13px; margin-bottom:5px; background:var(--turmeric-bg); border-radius:8px; padding:5px 8px;}
   .backup-item span{flex:1;}
-
+ 
   .day-controls{display:flex; gap:8px; margin-bottom:14px;}
   .day-controls button{flex:1; background:var(--card); border:1px solid var(--line-strong); border-radius:10px; padding:9px; font-weight:700; font-size:13px; cursor:pointer; color:var(--ink);}
-
+ 
   /* expense tracker */
   .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;}
   .form-grid.full{grid-template-columns:1fr;}
@@ -96,8 +99,8 @@
   .add-expense-btn{width:100%; background:var(--coral); color:#fff; border:none; border-radius:10px; padding:10px; font-weight:700; cursor:pointer; margin-top:4px;}
   .expense-row{display:flex; align-items:center; gap:8px; padding:9px 0; border-bottom:1px solid var(--line); font-size:13.5px;}
   .expense-row:last-child{border-bottom:none;}
-  .expense-row .who{font-weight:700; width:52px; flex-shrink:0;}
-  .expense-row .note{flex:1;}
+  .expense-row .who{font-weight:700; min-width:52px; flex-shrink:0;}
+  .expense-row .note{flex:1; min-width:140px;}
   .expense-row .amt{font-family:var(--font-mono); font-weight:700; color:var(--indigo); white-space:nowrap;}
   .summary-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;}
   .summary-card{background:var(--card-alt); border-radius:var(--radius); padding:12px; text-align:center;}
@@ -108,7 +111,7 @@
   .fx-row input{width:80px; border:1px solid var(--line); border-radius:8px; padding:5px 7px; background:var(--card); color:var(--ink); font-family:var(--font-mono);}
   .names-row{display:flex; gap:8px; margin-bottom:12px;}
   .names-row input{flex:1; border:1px solid var(--line); border-radius:8px; padding:7px 9px; background:var(--card); color:var(--ink); font-weight:700;}
-
+ 
   /* checklist */
   .progress-wrap{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:12px 14px; margin-bottom:16px;}
   .progress-top{display:flex; justify-content:space-between; margin-bottom:6px;}
@@ -124,7 +127,7 @@
   .check-item.checked .box:after{content:"✓"; color:#fff; font-size:11px; font-weight:700;}
   .check-item.checked .txt{color:var(--ink-soft); text-decoration:line-through;}
   .check-item .txt{flex:1; font-size:13px;}
-
+ 
   .sync-dot{display:inline-flex; align-items:center; gap:5px; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft);}
   .sync-dot i{width:7px; height:7px; border-radius:50%; background:var(--moss); display:inline-block;}
   .sync-dot.off i{background:var(--coral);}
@@ -132,7 +135,7 @@
 </style>
 </head>
 <body>
-
+ 
 <header class="hero">
   <div class="inner">
     <h1>沖繩旅遊 App</h1>
@@ -140,7 +143,7 @@
     <a class="guide-link" href="guide.html" target="_blank" rel="noopener">📖 完整參考手冊（住宿／美食／景點／伴手禮）</a>
   </div>
 </header>
-
+ 
 <nav class="tabbar">
   <div class="tabbar-scroll" id="tabbar">
     <button class="tab-btn active" data-tab="overview">總覽</button>
@@ -149,9 +152,9 @@
     <button class="tab-btn" data-tab="prep">行前準備</button>
   </div>
 </nav>
-
+ 
 <div class="wrap">
-
+ 
   <section class="panel active" id="panel-overview">
     <div id="todayBannerHolder"></div>
     <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
@@ -159,14 +162,14 @@
     </div>
     <div class="card" style="padding:4px 12px;" id="dayMiniList"></div>
   </section>
-
+ 
   <section class="panel" id="panel-itinerary">
     <div class="day-controls">
       <button id="addDayBtn">＋ 新增一天</button>
     </div>
     <div id="dayCardsHolder"></div>
   </section>
-
+ 
   <section class="panel" id="panel-expense">
     <div class="card">
       <h3>付款人姓名</h3>
@@ -179,15 +182,15 @@
         <button id="saveFxBtn" style="margin-left:auto; font-size:11px; padding:4px 10px; border-radius:8px; border:1px solid var(--line-strong); background:var(--card-alt); cursor:pointer;">儲存</button>
       </div>
     </div>
-
+ 
     <div class="summary-grid" id="summaryGrid"></div>
     <div class="balance-line" id="balanceLine"></div>
-
+ 
     <div class="card">
       <h3>新增一筆花費</h3>
       <div class="form-grid">
         <select id="expWho"></select>
-        <select id="expDay"></select>
+        <select id="expCategory"></select>
       </div>
       <div class="form-grid">
         <input id="expAmount" type="number" placeholder="金額">
@@ -196,15 +199,27 @@
       <div class="form-grid full">
         <input id="expNote" placeholder="備註，例如：壽喜燒晚餐">
       </div>
+      <div class="form-grid full">
+        <select id="expSplitType">
+          <option value="even">平分（各一半）</option>
+          <option value="allA">全部算她的（不用分攤）</option>
+          <option value="allB">全部算他的（不用分攤）</option>
+          <option value="custom">自訂比例</option>
+        </select>
+      </div>
+      <div class="form-grid" id="customSplitRow" style="display:none;">
+        <input id="expSplitPctA" type="number" min="0" max="100" placeholder="她的%數，例如70">
+        <div style="display:flex; align-items:center; font-size:12.5px; color:var(--ink-soft);" id="customSplitBLabel">他佔 30%</div>
+      </div>
       <button class="add-expense-btn" id="addExpenseBtn">＋ 新增花費</button>
     </div>
-
+ 
     <div class="card">
       <h3>所有花費紀錄</h3>
       <div id="expenseList"></div>
     </div>
   </section>
-
+ 
   <section class="panel" id="panel-prep">
     <div class="progress-wrap">
       <div class="progress-top"><div>整體進度</div><div class="pct" id="pct">0%</div></div>
@@ -212,10 +227,10 @@
     </div>
     <div id="checklistHolder"></div>
   </section>
-
+ 
   <div class="foot">沖繩旅遊 App · 雙人同步版</div>
 </div>
-
+ 
 <!-- Firebase (compat SDK, no build tools needed) -->
 <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
@@ -233,7 +248,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const tripRef = db.collection('trips').doc('okinawa');
-
+ 
 /* ====================== SEED DATA (first-time only) ====================== */
 const SEED = {
   meta: { personA: "Nina", personB: "男友" },
@@ -334,13 +349,13 @@ const SEED = {
     {id:"pc3", group:"個人與3C", text:"防水手機袋、夾鏈袋", checked:false}
   ]
 };
-
+ 
 let state = null;
-
+ 
 /* ====================== REALTIME SYNC ====================== */
 const syncDot = document.getElementById('syncDot');
 const syncText = document.getElementById('syncText');
-
+ 
 tripRef.onSnapshot(function(doc){
   if(doc.exists){
     state = doc.data();
@@ -356,11 +371,11 @@ tripRef.onSnapshot(function(doc){
   syncText.textContent = '連線失敗（檢查網路或Firestore規則）';
   console.error(err);
 });
-
+ 
 function saveState(){
   tripRef.set(state).catch(function(e){ console.error('save failed', e); });
 }
-
+ 
 /* ====================== TAB SWITCHING ====================== */
 document.getElementById('tabbar').addEventListener('click', function(e){
   const btn = e.target.closest('.tab-btn');
@@ -371,12 +386,12 @@ document.getElementById('tabbar').addEventListener('click', function(e){
   document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
   window.scrollTo({top:0, behavior:'smooth'});
 });
-
+ 
 function switchTab(name){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id==='panel-'+name));
 }
-
+ 
 /* ====================== DATE HELPERS ====================== */
 function todayStr(){
   const d = new Date();
@@ -388,7 +403,7 @@ function findTodayDay(){
   const t = todayStr();
   return state.days.find(function(d){ return d.date === t; }) || null;
 }
-
+ 
 /* ====================== RENDER: OVERVIEW ====================== */
 function renderOverview(){
   const holder = document.getElementById('todayBannerHolder');
@@ -407,7 +422,7 @@ function renderOverview(){
   } else {
     holder.innerHTML = '';
   }
-
+ 
   const list = document.getElementById('dayMiniList');
   list.innerHTML = state.days.map(function(d){
     const isToday = today && today.id === d.id;
@@ -415,7 +430,7 @@ function renderOverview(){
       '<div class="d">D' + d.id + '</div><div class="t">' + escapeHtml(d.title) + '</div></div>';
   }).join('');
 }
-
+ 
 function jumpToDay(id){
   switchTab('itinerary');
   document.querySelectorAll('.day-card').forEach(function(c){ c.classList.remove('open'); });
@@ -423,7 +438,7 @@ function jumpToDay(id){
   if(el){ el.classList.add('open'); setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'start'}); }, 50); }
   window.scrollTo({top:0, behavior:'auto'});
 }
-
+ 
 /* ====================== RENDER: ITINERARY ====================== */
 function renderItinerary(){
   const holder = document.getElementById('dayCardsHolder');
@@ -456,13 +471,13 @@ function renderItinerary(){
     '</div>';
   }).join('');
 }
-
+ 
 function toggleDay(id){
   const el = document.getElementById('day-' + id);
   if(el) el.classList.toggle('open');
 }
 function getDay(id){ return state.days.find(function(d){ return d.id === id; }); }
-
+ 
 function updateItem(dayId, idx, field, value){
   const d = getDay(dayId); d.items[idx][field] = value; saveState();
 }
@@ -494,65 +509,115 @@ function deleteBackup(dayId, idx){
   const d = getDay(dayId); d.backups.splice(idx,1); saveState(); renderItinerary();
 }
 document.getElementById('addDayBtn').addEventListener('click', addDay);
-
+ 
 /* ====================== RENDER: EXPENSE TRACKER ====================== */
+function expCategoryOptions(){
+  const opts = [{id:'prep', label:'行前準備'}];
+  state.days.forEach(function(d){ opts.push({id:'day'+d.id, label:'Day'+d.id+' '+d.title}); });
+  opts.push({id:'other', label:'其他'});
+  return opts;
+}
+function categoryLabel(catId){
+  const found = expCategoryOptions().find(function(o){ return o.id===catId; });
+  if(found) return found.label;
+  if(catId && catId.indexOf('day')===0) return 'Day' + catId.slice(3) + '（已刪除）';
+  return '其他';
+}
+// backward-compatible getters: older entries used {who, day} with implicit even split
+function getPaidBy(e){ return e.paidBy != null ? e.paidBy : e.who; }
+function getCategory(e){ return e.category != null ? e.category : ('day' + (e.day || '')); }
+function getSplitA(e){ return e.splitA != null ? e.splitA : 0.5; }
+ 
 function renderExpense(){
   document.getElementById('personA').value = state.meta.personA;
   document.getElementById('personB').value = state.meta.personB;
   document.getElementById('fxRate').value = state.fxRate;
-
+ 
   const expWho = document.getElementById('expWho');
   expWho.innerHTML = '<option value="'+escapeAttr(state.meta.personA)+'">'+escapeHtml(state.meta.personA)+'</option><option value="'+escapeAttr(state.meta.personB)+'">'+escapeHtml(state.meta.personB)+'</option>';
-
-  const expDay = document.getElementById('expDay');
-  expDay.innerHTML = state.days.map(function(d){ return '<option value="'+d.id+'">Day'+d.id+' '+escapeHtml(d.title)+'</option>'; }).join('');
-
+ 
+  const expCategory = document.getElementById('expCategory');
+  expCategory.innerHTML = expCategoryOptions().map(function(o){ return '<option value="'+o.id+'">'+escapeHtml(o.label)+'</option>'; }).join('');
+ 
   function toTWD(exp){ return exp.currency === 'JPY' ? exp.amount * state.fxRate : exp.amount; }
-
-  const totalA = state.expenses.filter(function(e){return e.who===state.meta.personA;}).reduce(function(s,e){return s+toTWD(e);},0);
-  const totalB = state.expenses.filter(function(e){return e.who===state.meta.personB;}).reduce(function(s,e){return s+toTWD(e);},0);
-  const total = totalA + totalB;
-
+ 
+  let paidA=0, paidB=0, shareA=0, shareB=0;
+  state.expenses.forEach(function(e){
+    const twd = toTWD(e);
+    const sA = getSplitA(e);
+    const payer = getPaidBy(e);
+    if(payer === state.meta.personA) paidA += twd;
+    else if(payer === state.meta.personB) paidB += twd;
+    shareA += twd * sA;
+    shareB += twd * (1 - sA);
+  });
+  const total = paidA + paidB;
+ 
   document.getElementById('summaryGrid').innerHTML =
-    '<div class="summary-card"><div class="num">NT$'+Math.round(totalA)+'</div><div class="lbl">'+escapeHtml(state.meta.personA)+' 已付</div></div>' +
-    '<div class="summary-card"><div class="num">NT$'+Math.round(totalB)+'</div><div class="lbl">'+escapeHtml(state.meta.personB)+' 已付</div></div>';
-
-  const half = total/2;
-  const diff = totalA - half;
+    '<div class="summary-card"><div class="num">NT$'+Math.round(paidA)+'</div><div class="lbl">'+escapeHtml(state.meta.personA)+' 已付出<br>應負擔 NT$'+Math.round(shareA)+'</div></div>' +
+    '<div class="summary-card"><div class="num">NT$'+Math.round(paidB)+'</div><div class="lbl">'+escapeHtml(state.meta.personB)+' 已付出<br>應負擔 NT$'+Math.round(shareB)+'</div></div>';
+ 
+  const netA = paidA - shareA; // >0 表示A多付了，B該轉給A
   let balanceMsg;
-  if(Math.abs(diff) < 1){ balanceMsg = '目前兩人花費打平 🎉'; }
-  else if(diff > 0){ balanceMsg = escapeHtml(state.meta.personB) + ' 該轉給 ' + escapeHtml(state.meta.personA) + ' NT$' + Math.round(diff); }
-  else { balanceMsg = escapeHtml(state.meta.personA) + ' 該轉給 ' + escapeHtml(state.meta.personB) + ' NT$' + Math.round(-diff); }
-  document.getElementById('balanceLine').textContent = balanceMsg + '（總花費 NT$' + Math.round(total) + '，均分計算）';
-
+  if(Math.abs(netA) < 1){ balanceMsg = '目前兩人帳務打平 🎉'; }
+  else if(netA > 0){ balanceMsg = escapeHtml(state.meta.personB) + ' 該轉給 ' + escapeHtml(state.meta.personA) + ' NT$' + Math.round(netA); }
+  else { balanceMsg = escapeHtml(state.meta.personA) + ' 該轉給 ' + escapeHtml(state.meta.personB) + ' NT$' + Math.round(-netA); }
+  document.getElementById('balanceLine').textContent = balanceMsg + '（總花費 NT$' + Math.round(total) + '，已依每筆設定的分攤比例計算）';
+ 
   const list = document.getElementById('expenseList');
   if(!state.expenses.length){
     list.innerHTML = '<div style="color:var(--ink-soft); font-size:13px;">還沒有任何紀錄，新增第一筆花費吧！</div>';
   } else {
     list.innerHTML = state.expenses.slice().reverse().map(function(e){
-      const twd = e.currency==='JPY' ? Math.round(e.amount*state.fxRate) : e.amount;
-      return '<div class="expense-row">' +
-        '<div class="who">'+escapeHtml(e.who)+'</div>' +
-        '<div class="note">Day'+e.day+' · '+escapeHtml(e.note||'')+'</div>' +
+      const twd = Math.round(toTWD(e));
+      const sA = getSplitA(e);
+      let splitLabel;
+      if(sA === 1){ splitLabel = '全算'+escapeHtml(state.meta.personA); }
+      else if(sA === 0){ splitLabel = '全算'+escapeHtml(state.meta.personB); }
+      else if(sA === 0.5){ splitLabel = '平分'; }
+      else { splitLabel = escapeHtml(state.meta.personA)+' '+Math.round(sA*100)+'% / '+escapeHtml(state.meta.personB)+' '+Math.round((1-sA)*100)+'%'; }
+      return '<div class="expense-row" style="flex-wrap:wrap;">' +
+        '<div class="who">'+escapeHtml(getPaidBy(e))+'付</div>' +
+        '<div class="note">'+escapeHtml(categoryLabel(getCategory(e)))+' · '+escapeHtml(e.note||'')+'<br><span style="font-size:11px;color:var(--ink-soft);">分攤：'+splitLabel+'</span></div>' +
         '<div class="amt">'+e.amount+' '+e.currency+' <span style="color:var(--ink-soft);font-weight:400;">(≈NT$'+twd+')</span></div>' +
         '<button class="del-x" onclick="deleteExpense(\''+e.id+'\')">✕</button>' +
       '</div>';
     }).join('');
   }
 }
-
+ 
 function deleteExpense(id){
   state.expenses = state.expenses.filter(function(e){ return e.id !== id; });
   saveState(); renderExpense();
 }
+ 
+const splitTypeSelect = document.getElementById('expSplitType');
+const customSplitRow = document.getElementById('customSplitRow');
+const splitPctA = document.getElementById('expSplitPctA');
+const splitBLabel = document.getElementById('customSplitBLabel');
+splitTypeSelect.addEventListener('change', function(){
+  customSplitRow.style.display = (splitTypeSelect.value === 'custom') ? 'flex' : 'none';
+});
+splitPctA.addEventListener('input', function(){
+  const v = Math.max(0, Math.min(100, parseFloat(splitPctA.value) || 0));
+  splitBLabel.textContent = '他佔 ' + (100 - v) + '%';
+});
+ 
 document.getElementById('addExpenseBtn').addEventListener('click', function(){
-  const who = document.getElementById('expWho').value;
-  const day = parseInt(document.getElementById('expDay').value, 10);
+  const paidBy = document.getElementById('expWho').value;
+  const category = document.getElementById('expCategory').value;
   const amount = parseFloat(document.getElementById('expAmount').value);
   const currency = document.getElementById('expCurrency').value;
   const note = document.getElementById('expNote').value;
+  const splitType = splitTypeSelect.value;
+  let splitA;
+  if(splitType === 'even') splitA = 0.5;
+  else if(splitType === 'allA') splitA = 1;
+  else if(splitType === 'allB') splitA = 0;
+  else { splitA = Math.max(0, Math.min(100, parseFloat(splitPctA.value) || 0)) / 100; }
+ 
   if(!amount || amount <= 0){ alert('請輸入正確的金額'); return; }
-  state.expenses.push({ id:'e'+Date.now(), who:who, day:day, amount:amount, currency:currency, note:note });
+  state.expenses.push({ id:'e'+Date.now(), paidBy:paidBy, category:category, amount:amount, currency:currency, note:note, splitA:splitA });
   saveState();
   document.getElementById('expAmount').value = '';
   document.getElementById('expNote').value = '';
@@ -564,7 +629,7 @@ document.getElementById('saveFxBtn').addEventListener('click', function(){
 });
 document.getElementById('personA').addEventListener('change', function(e){ state.meta.personA = e.target.value || 'Nina'; saveState(); renderExpense(); });
 document.getElementById('personB').addEventListener('change', function(e){ state.meta.personB = e.target.value || '男友'; saveState(); renderExpense(); });
-
+ 
 /* ====================== RENDER: CHECKLIST ====================== */
 function renderChecklist(){
   const groups = {};
@@ -594,11 +659,11 @@ function updateProgress(){
   document.getElementById('pct').textContent = pct + '%';
   document.getElementById('fill').style.width = pct + '%';
 }
-
+ 
 /* ====================== UTIL ====================== */
 function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function escapeAttr(s){ return escapeHtml(s); }
-
+ 
 function renderAll(){
   if(!state) return;
   renderOverview();
@@ -609,3 +674,4 @@ function renderAll(){
 </script>
 </body>
 </html>
+ 
