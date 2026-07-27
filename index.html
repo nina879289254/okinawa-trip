@@ -35,6 +35,10 @@ Index · HTML
     }
   }
   *{box-sizing:border-box;}
+  input, select, textarea, button{max-width:100%; font-size:16px;}
+  .form-grid, .names-row, .fx-row{min-width:0;}
+  .form-grid > *, .names-row > *{min-width:0;}
+  .wrap{overflow-x:hidden;}
   body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-body); line-height:1.65; font-size:15px; -webkit-font-smoothing:antialiased;}
   h1,h2,h3{font-family:var(--font-display); font-weight:700; margin:0 0 8px; color:var(--ink);}
   .wrap{max-width:760px; margin:0 auto; padding:0 16px 70px;}
@@ -43,7 +47,7 @@ Index · HTML
   header.hero .inner{max-width:760px; margin:0 auto;}
   header.hero h1{color:#FBF6E9; font-size:22px;}
   header.hero .sub{font-family:var(--font-mono); font-size:12px; color:#D9C9A8;}
-  .guide-link{display:inline-block; margin-top:10px; font-family:var(--font-mono); font-size:12px; color:#FBF6E9; text-decoration:none; border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:5px 12px;}
+  .guide-link{display:inline-block; margin-top:10px; font-family:var(--font-mono); font-size:12px; color:#FBF6E9; text-decoration:none; border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:5px 12px; background:transparent;}
   .guide-link:hover{background:rgba(255,255,255,.12);}
  
   nav.tabbar{position:sticky; top:0; z-index:10; background:var(--paper); border-bottom:1px solid var(--line); padding-top:8px;}
@@ -77,11 +81,11 @@ Index · HTML
   .day-body{display:none; padding:8px 14px 14px;}
   .day-card.open .day-body{display:block;}
  
-  .item-row{display:flex; gap:6px; align-items:center; margin-bottom:6px;}
+  .item-row{display:flex; gap:6px; align-items:center; margin-bottom:6px; flex-wrap:wrap;}
   .item-row input.t-time{width:64px; font-family:var(--font-mono); font-size:12.5px; font-weight:700; color:var(--indigo);}
   .item-row input.t-text{flex:1; font-size:13.5px;}
   .item-row input{border:1px solid var(--line); border-radius:8px; padding:6px 8px; background:var(--card); color:var(--ink); font-family:inherit;}
-  .del-x{background:none; border:none; color:var(--ink-soft); cursor:pointer; font-size:15px; padding:2px 6px;}
+  .del-x{background:none; border:none; color:var(--ink-soft); cursor:pointer; font-size:15px; padding:2px 6px; flex-shrink:0;}
   .add-row-btn, .add-line-btn{margin-top:6px; background:var(--card-alt); border:1px dashed var(--line-strong); color:var(--ink-soft); border-radius:8px; padding:7px 10px; font-size:12.5px; cursor:pointer; width:100%;}
  
   .backup-block{margin-top:10px; padding-top:10px; border-top:1px dashed var(--line);}
@@ -95,7 +99,7 @@ Index · HTML
   /* expense tracker */
   .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;}
   .form-grid.full{grid-template-columns:1fr;}
-  .form-grid select, .form-grid input{border:1px solid var(--line); border-radius:8px; padding:8px; background:var(--card); color:var(--ink); font-family:inherit; font-size:13.5px;}
+  .form-grid select, .form-grid input{border:1px solid var(--line); border-radius:8px; padding:8px; background:var(--card); color:var(--ink); font-family:inherit; font-size:15px; width:100%;}
   .add-expense-btn{width:100%; background:var(--coral); color:#fff; border:none; border-radius:10px; padding:10px; font-weight:700; cursor:pointer; margin-top:4px;}
   .expense-row{display:flex; align-items:center; gap:8px; padding:9px 0; border-bottom:1px solid var(--line); font-size:13.5px;}
   .expense-row:last-child{border-bottom:none;}
@@ -107,7 +111,7 @@ Index · HTML
   .summary-card .num{font-family:var(--font-display); font-size:20px; color:var(--coral);}
   .summary-card .lbl{font-size:11px; color:var(--ink-soft); margin-top:2px;}
   .balance-line{background:var(--moss-bg); color:var(--moss); border-radius:10px; padding:10px 12px; font-weight:700; text-align:center; margin-bottom:14px; font-size:13.5px;}
-  .fx-row{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-soft); margin-bottom:14px;}
+  .fx-row{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-soft); margin-bottom:14px; flex-wrap:wrap;}
   .fx-row input{width:80px; border:1px solid var(--line); border-radius:8px; padding:5px 7px; background:var(--card); color:var(--ink); font-family:var(--font-mono);}
   .names-row{display:flex; gap:8px; margin-bottom:12px;}
   .names-row input{flex:1; border:1px solid var(--line); border-radius:8px; padding:7px 9px; background:var(--card); color:var(--ink); font-weight:700;}
@@ -129,8 +133,52 @@ Index · HTML
   .check-item .txt{flex:1; font-size:13px;}
  
   .sync-dot{display:inline-flex; align-items:center; gap:5px; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft);}
-  .sync-dot i{width:7px; height:7px; border-radius:50%; background:var(--moss); display:inline-block;}
-  .sync-dot.off i{background:var(--coral);}
+  .sync-dot i{width:7px; height:7px; border-radius:50%; background:var(--moss); display:inline-block; box-shadow:0 0 0 0 rgba(76,107,65,0.5); animation:syncPulse 2.2s ease-out infinite;}
+  .sync-dot.off i{background:var(--coral); box-shadow:0 0 0 0 rgba(193,80,46,0.5); animation:syncPulseOff 2.2s ease-out infinite;}
+ 
+  /* ---------- REFERENCE CONTENT (merged from the full handbook) ---------- */
+  .section-head{margin:26px 0 12px;}
+  .section-head:first-child{margin-top:0;}
+  .section-head h2{font-size:19px; font-family:var(--font-display); font-weight:700;}
+  .section-head .desc{color:var(--ink-soft); font-size:13px; margin-top:2px;}
+  .eyebrow-label{font-family:var(--font-mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--coral); margin-bottom:4px; display:block; font-weight:700;}
+  .kv-row{display:flex; gap:8px; font-size:13px; color:var(--ink-soft); margin-bottom:3px;}
+  .kv-row .k{flex-shrink:0; width:64px; font-weight:700; color:var(--ink);}
+  .tag{display:inline-block; font-size:11px; font-family:var(--font-mono); padding:2px 9px; border-radius:999px; background:var(--card-alt); color:var(--ink-soft); margin-right:6px; margin-top:4px;}
+  .tag.coral{background:rgba(193,80,46,0.13); color:var(--coral-ink);}
+  .tag.moss{background:var(--moss-bg); color:var(--moss);}
+  .tag.reserve{background:var(--turmeric-bg); color:var(--turmeric); font-weight:700;}
+  .tag.walkin{background:var(--card-alt); color:var(--ink-soft); font-weight:700;}
+  .price{font-family:var(--font-mono); font-size:11.5px; color:var(--turmeric);}
+  .souv-list{list-style:none; margin:0; padding:0;}
+  .souv-list li{padding:9px 0; border-bottom:1px dashed var(--line); font-size:13.5px; display:flex; gap:8px;}
+  .souv-list li:last-child{border-bottom:none;}
+  .souv-list li b{color:var(--ink); flex-shrink:0;}
+  .souv-list li .d{color:var(--ink-soft);}
+  .info-card{background:var(--card-alt); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; margin-bottom:14px;}
+  .info-card h3{font-size:15px; margin-bottom:8px; color:var(--coral-ink);}
+  .info-card .kv-row .k{width:84px;}
+  .callout{border-radius:var(--radius); padding:14px 16px; margin-bottom:14px; font-size:13.5px; border:1px solid var(--line);}
+  .callout.warn{background:var(--turmeric-bg); border-color:transparent; color:#5A3E10;}
+  .callout.warn b{color:var(--turmeric);}
+  @media (prefers-color-scheme: dark){ .callout.warn{color:#EAD6AC;} }
+  .ref-flash{animation:refFlash 1.6s ease-out;}
+  @keyframes refFlash{ 0%{box-shadow:0 0 0 3px var(--coral);} 100%{box-shadow:0 0 0 0 rgba(193,80,46,0);} }
+  .detail-link{display:inline-flex; align-items:center; gap:4px; font-family:var(--font-mono); font-size:11px; color:var(--indigo); text-decoration:none; border:1px solid var(--line-strong); border-radius:999px; padding:3px 10px; margin-left:6px; background:var(--card-alt); cursor:pointer;}
+  .maplink{display:inline-flex; align-items:center; gap:4px; font-family:var(--font-mono); font-size:11px; color:var(--indigo); text-decoration:none; border:1px solid var(--line-strong); border-radius:999px; padding:4px 11px; margin-top:8px; margin-right:6px; background:var(--card-alt); transition:all .15s;}
+  .maplink:hover{background:var(--indigo); color:#fff; border-color:var(--indigo);}
+  .inbox-item{display:flex; align-items:center; gap:8px; padding:9px 4px; border-bottom:1px solid var(--line); font-size:13.5px; flex-wrap:wrap;}
+  .inbox-item:last-child{border-bottom:none;}
+  .inbox-item .txt{flex:1;}
+  .inbox-item .txt a{color:var(--indigo); font-size:11.5px;}
+  .inbox-actions{display:flex; gap:6px; flex-wrap:wrap;}
+  .inbox-actions button{font-size:11px; padding:4px 9px; border-radius:8px; border:1px solid var(--line-strong); background:var(--card-alt); cursor:pointer; color:var(--ink);}
+  .wish-item{display:flex; align-items:center; gap:8px; padding:8px 2px; border-bottom:1px solid var(--line);}
+  .wish-item:last-child{border-bottom:none;}
+  .wish-item.bought .txt{text-decoration:line-through; color:var(--ink-soft);}
+  @keyframes syncPulse{ 0%{box-shadow:0 0 0 0 rgba(76,107,65,0.45);} 70%{box-shadow:0 0 0 6px rgba(76,107,65,0);} 100%{box-shadow:0 0 0 0 rgba(76,107,65,0);} }
+  @keyframes syncPulseOff{ 0%{box-shadow:0 0 0 0 rgba(193,80,46,0.45);} 70%{box-shadow:0 0 0 6px rgba(193,80,46,0);} 100%{box-shadow:0 0 0 0 rgba(193,80,46,0);} }
+  @media (prefers-reduced-motion: reduce){ .sync-dot i{animation:none;} }
   .foot{text-align:center; color:var(--ink-soft); font-size:11px; font-family:var(--font-mono); margin-top:30px;}
 </style>
 </head>
@@ -140,7 +188,7 @@ Index · HTML
   <div class="inner">
     <h1>沖繩旅遊 App</h1>
     <div class="sub" id="dateRangeLabel">2026.10.01 — 10.06</div>
-    <a class="guide-link" href="guide.html" target="_blank" rel="noopener">📖 完整參考手冊（住宿／美食／景點／伴手禮）</a>
+    <button class="guide-link" onclick="switchTab('reference')" style="cursor:pointer; font-family:var(--font-mono);">參考手冊（住宿／美食／景點／伴手禮）</button>
   </div>
 </header>
  
@@ -149,6 +197,8 @@ Index · HTML
     <button class="tab-btn active" data-tab="overview">總覽</button>
     <button class="tab-btn" data-tab="itinerary">行程</button>
     <button class="tab-btn" data-tab="expense">記帳</button>
+    <button class="tab-btn" data-tab="collect">收集箱</button>
+    <button class="tab-btn" data-tab="reference">參考手冊</button>
     <button class="tab-btn" data-tab="prep">行前準備</button>
   </div>
 </nav>
@@ -166,21 +216,19 @@ Index · HTML
   <section class="panel" id="panel-itinerary">
     <div class="day-controls">
       <button id="addDayBtn">＋ 新增一天</button>
+      <button id="autoMatchBtn">🔗 自動配對詳情連結</button>
     </div>
     <div id="dayCardsHolder"></div>
   </section>
  
   <section class="panel" id="panel-expense">
     <div class="card">
-      <h3>付款人姓名</h3>
-      <div class="names-row">
-        <input id="personA" placeholder="人物A姓名">
-        <input id="personB" placeholder="人物B姓名">
-      </div>
-      <div class="fx-row">
+      <div class="fx-row" style="margin-bottom:0;">
         匯率 1 JPY = <input id="fxRate" type="number" step="0.001"> TWD
-        <button id="saveFxBtn" style="margin-left:auto; font-size:11px; padding:4px 10px; border-radius:8px; border:1px solid var(--line-strong); background:var(--card-alt); cursor:pointer;">儲存</button>
+        <button id="saveFxBtn" style="margin-left:auto; font-size:11px; padding:4px 10px; border-radius:8px; border:1px solid var(--line-strong); background:var(--card-alt); cursor:pointer;">手動儲存</button>
+        <button id="liveFxBtn" style="font-size:11px; padding:4px 10px; border-radius:8px; border:none; background:var(--coral); color:#fff; cursor:pointer;">🔄 抓即時匯率</button>
       </div>
+      <div id="fxUpdatedLabel" style="font-size:11px; color:var(--ink-soft); margin-top:4px;"></div>
     </div>
  
     <div class="summary-grid" id="summaryGrid"></div>
@@ -193,23 +241,16 @@ Index · HTML
         <select id="expCategory"></select>
       </div>
       <div class="form-grid">
-        <input id="expAmount" type="number" placeholder="金額">
         <select id="expCurrency"><option value="JPY">日圓 JPY</option><option value="TWD">台幣 TWD</option></select>
-      </div>
-      <div class="form-grid full">
         <input id="expNote" placeholder="備註，例如：壽喜燒晚餐">
       </div>
-      <div class="form-grid full">
-        <select id="expSplitType">
-          <option value="even">平分（各一半）</option>
-          <option value="allA">全部算她的（不用分攤）</option>
-          <option value="allB">全部算他的（不用分攤）</option>
-          <option value="custom">自訂比例</option>
-        </select>
+      <div class="form-grid" style="grid-template-columns:1fr auto;">
+        <input id="expTotalHelper" type="number" placeholder="總金額（可選，快速平分用）">
+        <button id="quickSplitBtn" style="background:var(--card-alt); border:1px solid var(--line-strong); border-radius:8px; padding:0 12px; font-size:12.5px; cursor:pointer; white-space:nowrap;">平分兩份</button>
       </div>
-      <div class="form-grid" id="customSplitRow" style="display:none;">
-        <input id="expSplitPctA" type="number" min="0" max="100" placeholder="她的%數，例如70">
-        <div style="display:flex; align-items:center; font-size:12.5px; color:var(--ink-soft);" id="customSplitBLabel">他佔 30%</div>
+      <div class="form-grid">
+        <input id="expShareA" type="number" placeholder="她的金額">
+        <input id="expShareB" type="number" placeholder="他的金額">
       </div>
       <button class="add-expense-btn" id="addExpenseBtn">＋ 新增花費</button>
     </div>
@@ -218,6 +259,496 @@ Index · HTML
       <h3>所有花費紀錄</h3>
       <div id="expenseList"></div>
     </div>
+ 
+    <div class="card" id="namesCard">
+      <div id="namesView" style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:13px; color:var(--ink-soft);">付款人姓名：<b id="namesViewText" style="color:var(--ink);"></b></div>
+        <button id="namesEditBtn" style="font-size:11px; padding:4px 10px; border-radius:8px; border:1px solid var(--line-strong); background:var(--card-alt); cursor:pointer;">✎ 編輯</button>
+      </div>
+      <div id="namesEditBox" style="display:none; margin-top:10px;">
+        <div class="names-row">
+          <input id="personA" placeholder="人物A姓名">
+          <input id="personB" placeholder="人物B姓名">
+        </div>
+        <button id="namesSaveBtn" style="margin-top:8px; width:100%; background:var(--moss); color:#fff; border:none; border-radius:8px; padding:8px; font-weight:700; cursor:pointer;">儲存</button>
+      </div>
+    </div>
+  </section>
+ 
+  <section class="panel" id="panel-collect">
+    <div class="section-head">
+      <span class="eyebrow-label">Idea inbox</span>
+      <h2>收集箱</h2>
+      <div class="desc">看到想去的地方、想買的東西，先丟進來就好，不用馬上想清楚要放哪天或要不要買。之後再從這裡指派到「備案」或「想買清單」。</div>
+    </div>
+    <div class="card">
+      <div class="form-grid full"><input id="inboxText" placeholder="想法/名稱，例如：新開的抹茶店"></div>
+      <div class="form-grid full"><input id="inboxLink" placeholder="連結（可選，例如小紅書/IG貼文網址）"></div>
+      <button class="add-expense-btn" id="addInboxBtn">＋ 丟進收集箱</button>
+    </div>
+    <div class="card">
+      <h3>待整理（<span id="inboxCount">0</span>）</h3>
+      <div id="inboxList"></div>
+    </div>
+    <div class="card">
+      <h3>🎁 想買清單</h3>
+      <div id="wishList"></div>
+      <div class="form-grid full" style="margin-top:8px;"><input id="wishDirectText" placeholder="也可以直接在這裡加一項想買的東西"></div>
+      <button class="add-row-btn" id="addWishDirectBtn">＋ 加入想買清單</button>
+    </div>
+  </section>
+ 
+  <section class="panel" id="panel-reference">
+    <div class="section-head">
+      <span class="eyebrow-label">Reference</span>
+      <h2>參考手冊</h2>
+      <div class="desc">住宿、美食、景點購物、伴手禮的完整參考資料，從行程分頁點「查看詳情」也會直接跳到這裡對應的卡片。</div>
+    </div>
+    <div id="referenceContent">
+ 
+<div class="section-head">
+<span class="eyebrow-label">Where we sleep</span>
+<h2>住宿資訊</h2>
+</div>
+<div class="callout warn"><b>4間住宿、只換3次飯店</b> — Day1住國際通A、Day2住名護、Day3住北谷、Day4/5連住國際通B（Day4不用再搬一次行李）。抵達當晚(Day1)較晚(約20:00後)才會到飯店，建議訂房時備註「深夜/20:00後抵達」，避免被取消訂房。</div>
+<div class="card" id="stay-國際通住宿-A">
+<span class="tag">Day1 入住</span>
+<h3>國際通住宿 A</h3>
+<div class="kv-row"><span class="k">狀態</span><span>待確認訂房</span></div>
+<div class="kv-row"><span class="k">建議</span><span>選國際通站(牧志/縣廳前)徒步10分內，晚上20:20才會抵達，交通方便最重要</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=国際通り+那覇" rel="noopener" target="_blank">📍 國際通位置</a>
+</div>
+<div class="card" id="stay-名護住宿">
+<span class="tag">Day2 入住</span>
+<h3>名護住宿</h3>
+<div class="kv-row"><span class="k">狀態</span><span>待確認訂房</span></div>
+<div class="kv-row"><span class="k">建議</span><span>選名護市區或名護漁港周邊，隔天不用再繞遠路，且晚餐「百年古家 大家」在名護市中山，離市區近</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=名護市+ホテル" rel="noopener" target="_blank">📍 名護位置</a>
+</div>
+<div class="card" id="stay-ラ-ジェントステイ沖縄北谷-西海岸">
+<span class="tag moss">Day3 入住</span>
+<h3>ラ・ジェントステイ沖縄北谷・西海岸</h3>
+<div class="kv-row"><span class="k">停車</span><span>免費</span></div>
+<div class="kv-row"><span class="k">備案</span><span>ベッセルホテルカンパーナ沖縄（免費停車，走去美國村1分鐘）</span></div>
+<div class="kv-row"><span class="k">提醒</span><span>17:15 check-in、放行李後再去看夕陽花火，行李箱可先卸在房間不用一直提著</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=ラ・ジェントステイ沖縄北谷・西海岸" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="stay-國際通住宿-B">
+<span class="tag">Day4 / Day5 入住</span>
+<h3>國際通住宿 B</h3>
+<div class="kv-row"><span class="k">狀態</span><span>待確認訂房（與Day1不同間）</span></div>
+<div class="kv-row"><span class="k">建議</span><span>連住2晚，Day6要拖著行李箱去市場/陶器街，選有電梯、離單軌站近的更省力</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=国際通り+那覇" rel="noopener" target="_blank">📍 國際通位置</a>
+</div>
+<div class="callout warn"><b>行李小提醒</b> — Day2/Day3/Day5是「自駕搬運行李」，行李箱放後車廂即可；但Day1晚間、Day6全天要親自提著走（國際通石板路、單軌樓梯），建議大件行李用有輪子款、貴重物品用隨身包分開放。</div>
+ 
+ 
+<div class="section-head">
+<span class="eyebrow-label">Where we eat</span>
+<h2>餐廳資訊</h2>
+<div class="desc">🟡 標籤代表需要特別注意的訂位／候位狀況。</div>
+</div>
+<div class="card" id="food-お肉の一心">
+<span class="tag coral">Day1 晚餐</span> <span class="tag reserve">需前一天訂位</span>
+<h3>お肉の一心（壽喜燒）</h3>
+<div class="kv-row"><span class="k">地址</span><span>那覇市久茂地1-5-1</span></div>
+<div class="kv-row"><span class="k">特色</span><span>1985年創業，職人現場調理，完全預約制、不接受當天預約</span></div>
+<div class="kv-row"><span class="k">價位</span><span class="price">💰💰💰 高價位壽喜燒專門店，建議提前查詢當期套餐價格</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=お肉の一心+那覇市久茂地1-5-1" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-潛水員牛排">
+<span class="tag coral">Day2 午餐</span> <span class="tag walkin">不接受預約</span>
+<h3>潛水員牛排（Restaurant Flipper）</h3>
+<div class="kv-row"><span class="k">地址</span><span>名護市字宇茂佐162</span></div>
+<div class="kv-row"><span class="k">時間</span><span>10:30~14:00（僅收現金）</span></div>
+<div class="kv-row"><span class="k">推薦</span><span>菲力牛排／沙朗牛排</span></div>
+<div class="kv-row"><span class="k">價位</span><span class="price">💰💰 中價位牛排（僅收現金，出發前建議先換好日圓）</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Restaurant+Flipper+名護市宇茂佐162" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-蝦蝦飯-KOURI-SHRIMP">
+<span class="tag coral">Day2 點心</span>
+<h3>蝦蝦飯 KOURI SHRIMP（古宇利島，外帶）</h3>
+<div class="kv-row"><span class="k">介紹</span><span>古宇利島上知名蝦料理專門店，蝦仁淋上特調醬汁鋪在白飯上，是沖繩夏威夷風「Loco Moco」的蝦仁版</span></div>
+<div class="kv-row"><span class="k">推薦</span><span>蒜味蝦飯（ガーリックシュリンプ）／檸檬胡椒蝦飯，怕辣可選原味奶油口味</span></div>
+<div class="kv-row"><span class="k">時間</span><span>11:00~18:00</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=KOURI+SHRIMP+古宇利島" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-百年古家-大家">
+<span class="tag coral">Day2 晚餐</span> <span class="tag walkin">建議提前預約</span>
+<h3>百年古家 大家</h3>
+<div class="kv-row"><span class="k">地址</span><span>名護市中山90</span></div>
+<div class="kv-row"><span class="k">推薦</span><span>特選あぐーのしゃぶしゃぶ（2人份4,880円）</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=百年古家大家+名護市中山90" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-浜の家">
+<span class="tag coral">Day3 午餐</span>
+<h3>浜の家（仲泊，海鮮）</h3>
+<div class="kv-row"><span class="k">地址</span><span>恩納村字仲泊2097</span></div>
+<div class="kv-row"><span class="k">時間</span><span>11:00~21:30，全年無休</span></div>
+<div class="kv-row"><span class="k">推薦</span><span>魚のバター焼き／アバサー汁</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=浜の家+恩納村字仲泊2097" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-おきなわ養蜂">
+<span class="tag coral">Day3 冰品</span>
+<h3>おきなわ養蜂（蜂巢冰淇淋，外帶）</h3>
+<div class="kv-row"><span class="k">地址</span><span>読谷村字伊良皆695</span></div>
+<div class="kv-row"><span class="k">介紹</span><span>自家養蜂場直營，冰淇淋上插一整塊帶蜜蜂巢，可直接連巢咬下，蜂蜜濃郁不死甜</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=おきなわ養蜂+読谷村字伊良皆695" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-グルメ回転寿司市場-美浜店">
+<span class="tag coral">Day3 晚餐</span> <span class="tag walkin">不需訂位</span>
+<h3>グルメ回転寿司市場 美浜店</h3>
+<div class="kv-row"><span class="k">地址</span><span>北谷町美浜2-4-5</span></div>
+<div class="kv-row"><span class="k">時間</span><span>11:30~22:00，週三公休</span></div>
+<div class="kv-row"><span class="k">備案</span><span>タコライスcafe きじむなぁ Depo Island店</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=グルメ回転寿司市場+美浜店+北谷町美浜2-4-5" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-ポーたま">
+<span class="tag">Day4 早餐</span>
+<h3>ポーたま（Potama）美國村店</h3>
+<div class="kv-row"><span class="k">這是什麼</span><span>沖繩國民早餐「ポーク玉子飯糰」專賣店。用煎過的午餐肉（Spam）＋薄蛋皮夾在熱騰騰的白飯裡，外面用海苔包成長方形，現點現做，是沖繩人從小吃到大的國民美食</span></div>
+<div class="kv-row"><span class="k">怎麼點</span><span>菜單有十幾種口味，第一次來推薦「ツナマヨ」(鮪魚美乃滋，最順口不出錯)或「あぶらみそ」(油味噌，濃郁重口味沖繩限定風味)；怕吃太飽可以兩人分食2~3顆不同口味</span></div>
+<div class="kv-row"><span class="k">配餐</span><span>可加點サーターアンダギー（沖繩黑糖甜甜圈）或當季水果冰沙一起吃</span></div>
+<div class="kv-row"><span class="k">時間</span><span>7:00起，全年無休</span></div>
+<div class="kv-row"><span class="k">價位</span><span class="price">💰 一顆約200~350円，兩人約600~900円就能吃飽</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=ポーたま+美浜アメリカンビレッジ" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-鳥玉">
+<span class="tag">Day4 午餐</span> <span class="tag walkin">不接受預約</span>
+<h3>鳥玉（鳥と卵の専門店，PARCO CITY 2F）</h3>
+<div class="kv-row"><span class="k">時間</span><span>10:00~22:00</span></div>
+<div class="kv-row"><span class="k">推薦</span><span>黄金タルタルのチキン南蛮／親子丼</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=鳥玉+PARCO+CITY+浦添" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-Buchi-Kumojiten">
+<span class="tag coral">Day4 晚餐</span> <span class="tag reserve">需IG私訊訂位</span>
+<h3>Buchi Kumojiten（炭火焼肉ぶち久茂地店）</h3>
+<div class="kv-row"><span class="k">位置</span><span>久茂地／縣廳前站</span></div>
+<div class="kv-row"><span class="k">推薦</span><span>黑毛和牛拼盤／牛舌／土鍋飯</span></div>
+<div class="kv-row"><span class="k">價位</span><span class="price">💰💰💰 燒肉專門店，和牛拼盤價位偏高</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=炭火焼肉ぶち+久茂地店+那覇" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-豚骨一燈-沖縄あしびなー店">
+<span class="tag">Day5 午餐</span>
+<h3>豚骨一燈 沖縄あしびなー店</h3>
+<div class="kv-row"><span class="k">類型</span><span>拉麵・沾麵・餃子</span></div>
+<div class="kv-row"><span class="k">價位</span><span class="price">💰 一碗約900~1,200円</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=豚骨一燈+沖縄あしびなー店" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-Chura-Ichigo-Umikaji-Terrace">
+<span class="tag">Day5 下午茶</span>
+<h3>Chura Ichigo Umikaji Terrace（瀬長島）</h3>
+<div class="kv-row"><span class="k">類型</span><span>草莓甜點，招牌是整顆草莓堆疊的草莓奶油可麗餅／草莓大福</span></div>
+<div class="kv-row"><span class="k">備案點心</span><span>Taco Rice瀬長島店（元祖創始店）／MOTOMU'S CURRY BREAD</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Chura+Ichigo+瀬長島ウミカジテラス" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-OKINAWA-SOBA-EIBUN">
+<span class="tag coral">Day5 晚餐</span> <span class="tag walkin">人氣高，建議提早</span>
+<h3>OKINAWA SOBA EIBUN</h3>
+<div class="kv-row"><span class="k">地址</span><span>那覇市壺屋1-5-14</span></div>
+<div class="kv-row"><span class="k">推薦</span><span>BUNBUNそば（人氣No.1）</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=OKINAWA+SOBA+EIBUN+那覇市壺屋1-5-14" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-ゆうか">
+<span class="tag">Day5 宵夜</span>
+<h3>ゆうか（島唄居酒屋）</h3>
+<div class="kv-row"><span class="k">特色</span><span>19:00起現場三線演出，推薦炒麵</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=島唄居酒屋+ゆうか+那覇+国際通り" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-とんかつ小やじ那覇店">
+<span class="tag coral">Day6 午餐</span> <span class="tag walkin">不定休</span>
+<h3>とんかつ小やじ那覇店</h3>
+<div class="kv-row"><span class="k">地址</span><span>那覇市松尾2-8-34</span></div>
+<div class="kv-row"><span class="k">推薦</span><span>ロースカツ定食／ヒレカツ定食1,680円</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=とんかつ小やじ那覇店+那覇市松尾2-8-34" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-花商">
+<span class="tag">Day6 點心</span>
+<h3>花商（じーまーみ豆腐専門店）</h3>
+<div class="kv-row"><span class="k">地址</span><span>那覇市牧志・新天地市場通</span></div>
+<div class="kv-row"><span class="k">時間</span><span>モーニング9:00~11:00／ランチ11:30~17:00</span></div>
+<div class="kv-row"><span class="k">推薦</span><span>じーまーみ豆腐（花生豆腐，現場吃或外帶）</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=花商+那覇市牧志+新天地市場通" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-三矢本舗-恩納店">
+<span class="tag">順路甜點</span>
+<h3>三矢本舗 恩納店（Day3 國道58沿線）</h3>
+<div class="kv-row"><span class="k">這是什麼</span><span>沖繩傳統炸點「サーターアンダギー」(黑糖甜甜圈)專門店，現炸現賣，外酥內鬆軟不會太甜</span></div>
+<div class="kv-row"><span class="k">推薦</span><span>原味／黑糖／紅芋，怕選擇困難可買綜合口味小袋</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=琉球銘菓三矢本舗+恩納店" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-Sugar-Crepe">
+<span class="tag">順路甜點</span>
+<h3>Sugar Crepe（Day3 美國村）</h3>
+<div class="kv-row"><span class="k">這是什麼</span><span>美式風格可麗餅專賣店，餅皮偏厚實有嚼勁，可當下午茶或晚餐後甜點</span></div>
+<div class="kv-row"><span class="k">推薦</span><span>草莓卡士達／香蕉巧克力口味</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Sugar+Crepe+美浜アメリカンビレッジ" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="food-マキシプリン">
+<span class="tag">順路甜點</span>
+<h3>マキシプリン（國際通周邊）</h3>
+<div class="kv-row"><span class="k">這是什麼</span><span>那覇在地布丁專賣店，招牌是杯裝的濃厚雞蛋布丁，質地介於布丁與起司蛋糕之間</span></div>
+<div class="kv-row"><span class="k">推薦</span><span>經典原味布丁／黑糖口味，可冷藏後當國際通逛累的小點心</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=マキシプリン+那覇+国際通り" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+ 
+ 
+<div class="section-head">
+<span class="eyebrow-label">See &amp; shop</span>
+<h2>景點・購物</h2>
+<div class="desc">依天數排序，含特色、推薦店家、停車、門票／秀場資訊。</div>
+</div>
+<div class="card" id="spot-古宇利島">
+<span class="tag">Day2</span>
+<h3>古宇利島</h3>
+<div class="kv-row"><span class="k">特色</span><span>心型岩（ハートロック）、古宇利大橋跨海景觀，2km長</span></div>
+<div class="kv-row"><span class="k">推薦店家</span><span>KOURI SHRIMP蝦蝦飯（11:00~18:00）</span></div>
+<div class="kv-row"><span class="k">停車</span><span>古宇利大橋兩側有免費停車場</span></div>
+<div class="kv-row"><span class="k">門票</span><span>免費（過橋不收費，僅沖縄自動車道另計過路費）</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=古宇利島+ハートロック" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="spot-沖繩美麗海水族館">
+<span class="tag">Day2</span>
+<h3>沖繩美麗海水族館</h3>
+<div class="kv-row"><span class="k">特色</span><span>黑潮之海大水槽（鯨鯊）、海豚礁湖、海龜館（免費附設）</span></div>
+<div class="kv-row"><span class="k">秀場</span><span>海豚秀：10:30/11:30/13:00/15:00/17:00｜黑潮之海給餌秀：9:30/15:00/17:00</span></div>
+<div class="kv-row"><span class="k">付費體驗</span><span>海豚餵食體驗1,000円/份（13:30、15:30場，售完為止）</span></div>
+<div class="kv-row"><span class="k">停車</span><span>園區P7等多個停車場，免費</span></div>
+<div class="kv-row"><span class="k">門票</span><span>官網購票，建議出發前查詢當期最新票價</span></div>
+<div class="kv-row"><span class="k">時間</span><span>8:30~18:30（入館截止17:30），全年無公休</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=沖縄美ら海水族館" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="spot-青の洞窟">
+<span class="tag">Day3</span>
+<h3>青の洞窟（真栄田岬）</h3>
+<div class="kv-row"><span class="k">特色</span><span>海蝕藍色鐘乳洞，陽光反射呈現夢幻藍光</span></div>
+<div class="kv-row"><span class="k">預約店家</span><span>Diving Shop Lei（已選定，9:20船潛場）</span></div>
+<div class="kv-row"><span class="k">停車</span><span>店家於前兼久漁港駐車場集合，不需自己找車位</span></div>
+<div class="kv-row"><span class="k">費用</span><span>方案4,900円/人＋乘船費1,100円/人（現場支付，建議帶現金）</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=真栄田岬+青の洞窟" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="spot-琉球村">
+<span class="tag">Day3</span>
+<h3>琉球村</h3>
+<div class="kv-row"><span class="k">特色</span><span>10棟琉球古民家群（國登錄有形文化財）、傳統體驗區</span></div>
+<div class="kv-row"><span class="k">推薦店家</span><span>ポーポー屋（甘蔗汁）、きじむなぁ食堂</span></div>
+<div class="kv-row"><span class="k">秀場</span><span>太鼓エイサー：10:00/12:00/14:00/16:00｜島唄・琉球舞踊：11:00/12:30/13:30/15:00</span></div>
+<div class="kv-row"><span class="k">停車</span><span>園區附設停車場</span></div>
+<div class="kv-row"><span class="k">門票</span><span>官網購票，建議出發前查詢當期最新票價</span></div>
+<div class="kv-row"><span class="k">時間</span><span>9:30~17:00（門票售至16:00）</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=琉球村+恩納村" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="spot-殘波岬">
+<span class="tag">Day3</span>
+<h3>殘波岬</h3>
+<div class="kv-row"><span class="k">特色</span><span>高約30m斷崖綿延2km，紅白相間燈塔為地標</span></div>
+<div class="kv-row"><span class="k">停車</span><span>免費停車場，灯台前段有未鋪裝岩石路面，避免穿拖鞋/高跟鞋</span></div>
+<div class="kv-row"><span class="k">門票</span><span>免費</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=残波岬" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="spot-美國村">
+<span class="tag">Day3 / Day4</span>
+<h3>美國村（美浜アメリカンビレッジ）</h3>
+<div class="kv-row"><span class="k">特色</span><span>觀覽車SKYMAX60（600円/人，一圈約15分）、デポアイランド・ボードウォーク看夕陽花火</span></div>
+<div class="kv-row"><span class="k">推薦店家</span><span>焼肉RIKIO、グルメ回転寿司市場、Sugar Crepe、ポーたま</span></div>
+<div class="kv-row"><span class="k">花火</span><span>每週六20:00固定施放（約3分鐘），面向海面觀賞</span></div>
+<div class="kv-row"><span class="k">停車</span><span>周邊多處付費停車場，週六晚上花火夜較擁擠，建議停飯店後步行前往</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=美浜アメリカンビレッジ+北谷町" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="spot-波上宮">
+<span class="tag">Day4</span>
+<h3>波上宮</h3>
+<div class="kv-row"><span class="k">特色</span><span>琉球八社之首，那覇市代表神社，境內以シーサー代替一般狛犬</span></div>
+<div class="kv-row"><span class="k">停車</span><span>境內／周邊有停車場</span></div>
+<div class="kv-row"><span class="k">門票</span><span>免費參拜</span></div>
+<div class="kv-row"><span class="k">時間</span><span>授与所約9:00~17:00</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=波上宮+那覇市" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="spot-波之上海灘">
+<span class="tag">Day4</span>
+<h3>波之上海灘</h3>
+<div class="kv-row"><span class="k">特色</span><span>那覇市唯一海水浴場，2023年水質檢測AA級（最高等級）</span></div>
+<div class="kv-row"><span class="k">設施</span><span>淋浴、更衣室、躺椅陽傘出租</span></div>
+<div class="kv-row"><span class="k">游泳季節</span><span>4月下旬~10月底</span></div>
+<div class="kv-row"><span class="k">門票</span><span>免費</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=波之上ビーチ+那覇市" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="spot-PARCO-CITY">
+<span class="tag">Day4</span>
+<h3>PARCO CITY</h3>
+<div class="kv-row"><span class="k">特色</span><span>浦添最大商場，屋頂停車場有隱藏版西海岸夕陽展望台</span></div>
+<div class="kv-row"><span class="k">推薦店家</span><span>鳥玉、和スイーツカフェ、ゴンチャ、GODIVA</span></div>
+<div class="kv-row"><span class="k">ACG</span><span>namco夾娃娃機（藍色監獄／寶可夢／賽馬娘等IP）、ガシャポン旗艦店、VR ZONE Portal、電影院11廳</span></div>
+<div class="kv-row"><span class="k">停車</span><span>免費停車場約4,000格</span></div>
+<div class="kv-row"><span class="k">時間</span><span>10:00~22:00</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=PARCO+CITY+浦添市" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="spot-Ashibinaa-Outlet">
+<span class="tag">Day5</span>
+<h3>Ashibinaa Outlet</h3>
+<div class="kv-row"><span class="k">特色</span><span>南歐風建築設計，多個日本首發折扣品牌</span></div>
+<div class="kv-row"><span class="k">推薦店家</span><span>豚骨一燈、やっぱりステーキ</span></div>
+<div class="kv-row"><span class="k">停車</span><span>免費，OTS臨空豊崎營業所就在附近</span></div>
+<div class="kv-row"><span class="k">時間</span><span>店鋪10:00~20:00，餐廳10:00~20:30</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Ashibinaa+Outlet+豊見城市" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="spot-瀬長島-ウミカジテラス">
+<span class="tag">Day5</span>
+<h3>瀬長島 ウミカジテラス</h3>
+<div class="kv-row"><span class="k">特色</span><span>近距離看飛機起降（海上道路是機場跑道延伸線）；「戀之島」主題景點：恋のテラス、恋が叶う絵馬（550円）、子宝岩</span></div>
+<div class="kv-row"><span class="k">推薦店家</span><span>ポジリポ（義式）、Chura Ichigo、Taco Rice瀬長島店（元祖創始店）</span></div>
+<div class="kv-row"><span class="k">拍照點</span><span>店號5「イルカのトリックアート」、店號40「&amp;」裝置藝術</span></div>
+<div class="kv-row"><span class="k">停車</span><span>全島4處免費停車場約580台，午後易客滿</span></div>
+<div class="kv-row"><span class="k">門票</span><span>免費進入，各店家/體驗另計</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=瀬長島ウミカジテラス" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="spot-第一牧志公設市場">
+<span class="tag">Day6</span>
+<h3>第一牧志公設市場</h3>
+<div class="kv-row"><span class="k">特色</span><span>一樓生鮮市場＋二樓代客料理食堂「持ち上げ」文化</span></div>
+<div class="kv-row"><span class="k">推薦店家</span><span>御食事処ツバメ、かつ亭豊年、お食事処きらく</span></div>
+<div class="kv-row"><span class="k">費用</span><span>代客料理手續費約每人400~500円</span></div>
+<div class="kv-row"><span class="k">停車</span><span>無專屬停車場，周邊為付費停車格，浮島通為單行道</span></div>
+<div class="kv-row"><span class="k">時間</span><span>8:00~22:00（食堂L.O.20:00，一樓代客料理L.O.19:45）</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=第一牧志公設市場" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="card" id="spot-壺屋やちむん通">
+<span class="tag">Day6</span>
+<h3>壺屋やちむん通</h3>
+<div class="kv-row"><span class="k">特色</span><span>沖繩傳統陶器やちむん選物街，石疊老街風情</span></div>
+<div class="kv-row"><span class="k">推薦店家</span><span>花商（じーまーみ豆腐）</span></div>
+<div class="kv-row"><span class="k">停車</span><span>周邊付費停車場，建議步行前往（離國際通近）</span></div>
+<div class="kv-row"><span class="k">門票</span><span>免費（陶器店個別消費）</span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=壺屋やちむん通り+那覇市" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+ 
+ 
+<div class="section-head">
+<span class="eyebrow-label">Omiyage guide</span>
+<h2>伴手禮採買指南</h2>
+<div class="desc">先看「去哪裡買」再看「買什麼」，最後兩張小提醒卡片是最容易漏掉的細節。</div>
+</div>
+<div class="section-head"><span class="eyebrow-label">Where to shop</span><h2>依購買地點</h2></div>
+<div class="card" id="souv-國際通">
+<h3>國際通（本行程主戰場，Day1晚上／Day4/5連住／Day6整個早上）</h3>
+<ul class="souv-list">
+<li><b>沖繩屋 / 御菓子御殿</b><span class="d">：泡盛、黑糖、海葡萄、紅芋塔選擇最齊全的兩間大店</span></li>
+<li><b>鹽屋</b><span class="d">：專賣雪鹽相關商品，雪鹽冰淇淋、雪鹽巧克力可以先試吃再決定要不要買整盒</span></li>
+<li><b>Calbee+ 國際通店</b><span class="d">：現炸紅芋薯條只有店內吃得到，盒裝口味薯條可帶回國</span></li>
+<li><b>唐吉訶德 國際通店</b><span class="d">：24小時營業，零食/藥妝/雜貨一次補齊，適合Day1晚上或Day6早上重物採買</span></li>
+<li><b>壺屋やちむん通 / 浮島通</b><span class="d">：やちむん陶器、琉璃、手工藝品的老街小巷，適合買有質感的紀念品（詳見景點分頁）</span></li>
+</ul>
+<div class="callout warn" style="margin-top:8px; margin-bottom:0;"><b>丸子購物策略</b> — 重的東西（整箱Orion啤酒、雪鹽餅乾、罐頭）建議在國際通買，直接提回飯店放，不用一路扛著逛。</div>
+</div>
+<div class="card" id="souv-那覇機場">
+<h3>那覇機場（Day6 最後採買機會）</h3>
+<ul class="souv-list">
+<li><b>國內線候機室伴手禮區</b><span class="d">：起飛前才想到忘記買的東西幾乎都補得到，但選擇比國際通少、價格略高</span></li>
+<li><b>T Galleria by DFS</b><span class="d">：機場市區皆有據點，出發前可先線上預訂，機場提貨節省時間，適合買酒類、化妝品、精品</span></li>
+</ul>
+<div class="callout warn" style="margin-top:8px; margin-bottom:0;"><b>液體限重要注意</b> — 隨身行李內液體（含酒類、乳液、雪鹽冰淇淋伴手禮）單瓶不能超過100ml；整瓶泡盛、Orion啤酒、雪鹽罐這類大容量都務必放託運行李，不要放隨身包！</div>
+</div>
+<div class="card" id="souv-美國村-PARCO-CITY-Ashibinaa-Outlet">
+<h3>美國村 / PARCO CITY / Ashibinaa Outlet（Day3~5 沿路可買）</h3>
+<ul class="souv-list">
+<li><b>美國村</b><span class="d">：SPLASH Okinawa（貝殼／琉球玻璃飾品）、JEENAR（天然玉石珊瑚飾品）、MANGO HOUSE（Kariyushi花襯衫）</span></li>
+<li><b>PARCO CITY</b><span class="d">：GODIVA、ゴンチャ、及日系雜貨品牌，逛街累了順手買，不用特地安排時間</span></li>
+<li><b>Ashibinaa Outlet</b><span class="d">：日本國內品牌折扣，適合買給自己的衣服鞋包，不算傳統伴手禮但CP值高</span></li>
+</ul>
+</div>
+<div class="card" id="souv-連鎖超市">
+<h3>連鎖超市（順路經過就能買到，比純伴手禮店便宜）</h3>
+<ul class="souv-list">
+<li><b>唐吉訶德</b><span class="d">：零食藥妝雜貨最齊全，24小時營業最彈性</span></li>
+<li><b>RYUBO（琉貿百貨 / Palette Kumoji）</b><span class="d">：國際通旁，定位偏精緻質感超市，適合挑選有設計感的伴手禮</span></li>
+<li><b>San-A / 業務超市</b><span class="d">：本地人日常採買的超市，泡麵、調味料、零食價格最實惠</span></li>
+</ul>
+</div>
+<div class="section-head"><span class="eyebrow-label">What to buy</span><h2>熱門必買清單（依類型）</h2></div>
+<div class="card" id="souv-零食甜點類">
+<h3>🍬 零食甜點類</h3>
+<ul class="souv-list">
+<li><b>紅芋塔</b><span class="d">：認明始祖「御菓子御殿」，沖繩必買零食界的長銷冠軍</span></li>
+<li><b>ちんすこう（金楚糕）</b><span class="d">：傳統酥餅，宮古島雪鹽口味鹹甜交織最具代表性</span></li>
+<li><b>サーターアンダギー預拌粉</b><span class="d">：黑糖沖繩甜甜圈的DIY粉，回台灣自己炸來吃</span></li>
+<li><b>Calbee+ 紅芋薯條</b><span class="d">：沖繩限定紫薯口味，盒裝版適合帶回國</span></li>
+<li><b>Orion 花生豆（綜合豆）</b><span class="d">：一包三種口味（小卷／起司等），下酒零食</span></li>
+<li><b>石垣島辣油（邊銀食堂）</b><span class="d">：拌麵、沾水餃萬用神物</span></li>
+<li><b>沖繩限定福砂屋長崎蛋糕</b><span class="d">：送禮精緻款</span></li>
+</ul>
+</div>
+<div class="card" id="souv-酒類與調味料">
+<h3>🍹 酒類與調味料</h3>
+<ul class="souv-list">
+<li><b>泡盛</b><span class="d">：沖繩傳統蒸餾酒，酒精濃度高，是給長輩/懂酒朋友的體面伴手禮</span></li>
+<li><b>Orion 啤酒</b><span class="d">：沖繩在地啤酒，整箱或單罐超市都買得到</span></li>
+<li><b>香檬（シークヮーサー）果汁</b><span class="d">：沖繩香檬原汁，加水稀釋當飲料或做料理提味</span></li>
+<li><b>A1 牛排醬</b><span class="d">：沖繩人家中冰箱必備，微酸重口味，煎牛排沾醬</span></li>
+</ul>
+</div>
+<div class="card" id="souv-美妝保養">
+<h3>💄 美妝保養</h3>
+<ul class="souv-list">
+<li><b>肌研沖繩限定苦瓜化妝水</b><span class="d">：曬後保濕，質地清爽不厚重</span></li>
+<li><b>蒸氣眼罩</b><span class="d">：長途飛行/長時間開車後放鬆，薰衣草、柚子等香味可選</span></li>
+<li><b>雪鹽系列身體保養品</b><span class="d">：雪鹽的沖繩品牌常推出護手霜、身體去角質等周邊</span></li>
+</ul>
+</div>
+<div class="card" id="souv-工藝品與雜貨">
+<h3>🎨 工藝品與雜貨</h3>
+<ul class="souv-list">
+<li><b>やちむん陶器</b><span class="d">：沖繩傳統陶器，壺屋やちむん通現場挑選最有質感，碗盤杯具皆可日常使用</span></li>
+<li><b>琉球玻璃</b><span class="d">：氣泡感手工玻璃杯，色彩繽紛，美國村/國際通均有專賣店</span></li>
+<li><b>シーサー（石獅）擺飾</b><span class="d">：沖繩家家戶戶屋頂上的招福辟邪石獅小型擺飾，尺寸大小選擇多</span></li>
+<li><b>星砂紀念品</b><span class="d">：小瓶裝星形砂粒，海邊紀念品店常見的平價小物</span></li>
+</ul>
+</div>
+<div class="callout warn"><b>退稅小提醒</b> — 同一天同一店消費滿5,000円以上（未稅）可辦理退稅，需出示護照，部分大型店家（唐吉訶德、Ashibinaa Outlet、RYUBO）有專屬退稅櫃檯，結帳前記得先問「免稅/退稅」（めんぜい）。</div>
+<div class="callout warn"><b>行李箱空間提醒</b> — 這趟行程國際通逛3次（Day1、Day4、Day5晚上、Day6整個早上），很容易分批買、最後行李塞不下。建議Day1晚上先買不怕壓的乾貨零食，生鮮類（海葡萄、生冷食品）留到Day6最後一天買，確保新鮮度也不佔行李空間太久。</div>
+ 
+ 
+<div class="section-head">
+<span class="eyebrow-label">Good to know</span>
+<h2>注意事項與備案</h2>
+</div>
+<div class="callout warn"><b>Day1</b> — 一心壽喜燒完全預約制，不接受當天預約，須前一天完成訂位。</div>
+<div class="callout warn"><b>Day2</b> — 潛水員牛排只到14:00、僅收現金、不接受預約，10:30開門建議準時到。</div>
+<div class="callout warn"><b>Day3</b> — 花火每週六20:00固定施放，面向海面觀賞；美浜迴轉壽司改在花火前先吃，避開賽後排隊人潮。</div>
+<div class="callout warn"><b>Day4</b> — Buchi Kumojiten需透過IG私訊訂位，經常客滿，建議提早處理；<b>10/4剛好是週日</b>，國際通周邊部分道路週日12:00-18:00會封街辦活動、禁止一般車輛通行，若晚餐路線經過久茂地/縣廳前一帶，出發前建議先用地圖確認是否繞路。</div>
+<div class="callout warn"><b>Day5</b> — あしびなー機場免費接駁已於2012年停駛，現為付費一般公車，還車後改搭OTS免費機場接駁／或走路到Ashibinaa。瀬長島到還車點沒有免費接駁，需自行安排交通。</div>
+<div class="callout warn"><b>順路甜點</b> — 三矢本舗恩納店（Day3國道58沿線）、Sugar Crepe（Day3美國村）、マキシプリン（國際通周邊），皆可外帶邊走邊吃，不用刻意排時間。</div>
+<div class="section-head"><span class="eyebrow-label">Driving rules</span><h2>沖繩自駕規則整理</h2></div>
+<div class="callout warn"><b>靠左行駛</b> — 日本與台灣方向相反，心中默念「靠左邊、左轉小圈、右轉大圈」；方向燈撥桿在右、雨刷在左，打錯很正常，改回來就好。</div>
+<div class="callout warn"><b>公車專用道</b> — 部分路段地面漆綠色是巴士專用車道，平日07:00-09:00、17:30-19:00私家車禁止使用，看到藍色標示牌先確認限行時段。</div>
+<div class="callout warn"><b>高速公路過路費</b> — 沖繩高速公路走「一般」車道可用現金/信用卡，進站抽通行券、出站繳費；若有加購ETC卡走「ETC」車道，以時速20km內通過即可，費用會在還車時一併結算。</div>
+<div class="callout warn"><b>還車前記得加滿油</b> — 選租車公司提供的油種（多為「レギュラー」普通汽油），加滿後保留收據；還車點與加油站位置建議在Day5行程確認好。</div>
+<div class="callout warn"><b>停車</b> — 路邊多為收費停車格，商家附設的免費車位通常需內用消費，離開前確認是否有限時規定，避免超時罰款。</div>
+<div class="section-head"><span class="eyebrow-label">Money &amp; etiquette</span><h2>金錢與禮儀小提醒</h2></div>
+<div class="callout warn"><b>現金為王</b> — 日本許多小店、傳統市場、潛水/牛排等現場結帳店家只收現金，超商(7-11/Family Mart)ATM可用海外提款卡領日圓現金應急。</div>
+<div class="callout warn"><b>不用給小費</b> — 日本餐廳、計程車、飯店都沒有給小費的習慣，帳單金額就是實付金額。</div>
+<div class="callout warn"><b>插座免轉接</b> — 台灣與日本電壓、插座規格相同（雙平腳、100V），行動裝置直接充電即可，不用額外買轉接頭。</div>
+<div class="section-head"><span class="eyebrow-label">In case of emergency</span><h2>緊急聯絡資訊</h2></div>
+<div class="info-card" id="note-日本緊急電話">
+<h3>🚨 日本緊急電話</h3>
+<div class="kv-row"><span class="k">警察</span><span>110</span></div>
+<div class="kv-row"><span class="k">救護／消防</span><span>119</span></div>
+<div class="kv-row"><span class="k">說明</span><span>發生車禍即使只是小擦撞，務必先報警取得事故證明，否則保險後續可能無法理賠</span></div>
+</div>
+<div class="info-card" id="note-台北駐日經濟文化代表處-那霸分處">
+<h3>🇹🇼 台北駐日經濟文化代表處 那霸分處</h3>
+<div class="kv-row"><span class="k">地址</span><span>沖縄県那覇市久茂地3-15-9 アルテビル那覇6階</span></div>
+<div class="kv-row"><span class="k">辦公電話</span><span>+81-98-862-7008（受理時間：週一至週五 09:00-11:30、13:00-17:00）</span></div>
+<div class="kv-row"><span class="k">急難救助專線</span><span>+81-90-1942-1107<small style="display:block;">僅供車禍、搶劫、生命安危等緊急事件使用，一般事務請撥辦公電話</small></span></div>
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=台北駐日經濟文化代表處那覇分處" rel="noopener" target="_blank">📍 Google地圖</a>
+</div>
+<div class="info-card" id="note-出發前存進手機備用">
+<h3>📋 出發前存進手機備用</h3>
+<div class="kv-row"><span class="k">保單</span><span>旅平險保單號碼與24小時緊急救援電話</span></div>
+<div class="kv-row"><span class="k">租車</span><span>OTS 租車公司24小時緊急聯絡電話（租車文件上會提供）</span></div>
+<div class="kv-row"><span class="k">住宿</span><span>四間飯店的電話與地址（日文版方便問路/搭計程車）</span></div>
+</div>
+ 
+</div>
   </section>
  
   <section class="panel" id="panel-prep">
@@ -259,8 +790,8 @@ const SEED = {
         {time:"16:40", text:"台中起飛（星宇航空）"},
         {time:"19:10", text:"抵達那霸機場"},
         {time:"20:00", text:"出關，搭計程車前往國際通"},
-        {time:"20:20", text:"國際通逛街"},
-        {time:"晚餐", text:"一心壽喜燒"}
+        {time:"20:20", text:"國際通逛街", ref:"souv-國際通"},
+        {time:"晚餐", text:"一心壽喜燒", ref:"food-お肉の一心"}
       ], backups:[] },
     { id:2, date:"2026-10-02", badge:"DAY 02", title:"取車．名護牛排．美麗海水族館",
       items:[
@@ -268,61 +799,63 @@ const SEED = {
         {time:"08:30", text:"OTS赤嶺營業所取車"},
         {time:"09:15", text:"開車到名護（約1小時）"},
         {time:"10:15", text:"抵達，現場排隊（10:30開門）"},
-        {time:"10:30", text:"午餐：潛水員牛排（Flipper）"},
-        {time:"11:30", text:"開車到古宇利島"},
-        {time:"12:15", text:"古宇利島拍照，蝦蝦飯外帶車上吃"},
-        {time:"14:45", text:"美ら海水族館（15:00餵食秀／17:00海豚秀）"},
+        {time:"10:30", text:"午餐：潛水員牛排（Flipper）", ref:"food-潛水員牛排"},
+        {time:"11:30", text:"開車到古宇利島", ref:"spot-古宇利島"},
+        {time:"12:15", text:"古宇利島拍照，蝦蝦飯外帶車上吃", ref:"food-蝦蝦飯-KOURI-SHRIMP"},
+        {time:"14:45", text:"美ら海水族館（15:00餵食秀／17:00海豚秀）", ref:"spot-沖繩美麗海水族館"},
         {time:"18:30", text:"開車回名護"},
-        {time:"晚餐", text:"百年古家 大家（阿古豬涮涮鍋）"}
+        {time:"晚餐", text:"百年古家 大家（阿古豬涮涮鍋）", ref:"food-百年古家-大家"}
       ], backups:["牛排客滿備案：やっぱりステーキ 名護店"] },
     { id:3, date:"2026-10-03", badge:"DAY 03", title:"青の洞窟浮潛．琉球村．美國村花火",
       items:[
-        {time:"09:20", text:"Diving Shop Lei 集合，青の洞窟船潛"},
-        {time:"12:00", text:"午餐：浜の家（仲泊，海鮮）"},
-        {time:"13:15", text:"琉球村（14:00太鼓秀／15:00島唄秀）"},
-        {time:"16:00", text:"殘波岬快速拍照"},
-        {time:"16:30", text:"おきなわ養蜂買蜂巢冰淇淋（外帶）"},
+        {time:"09:20", text:"Diving Shop Lei 集合，青の洞窟船潛", ref:"spot-青の洞窟"},
+        {time:"12:00", text:"午餐：浜の家（仲泊，海鮮）", ref:"food-浜の家"},
+        {time:"13:15", text:"琉球村（14:00太鼓秀／15:00島唄秀）", ref:"spot-琉球村"},
+        {time:"16:00", text:"殘波岬快速拍照", ref:"spot-殘波岬"},
+        {time:"16:30", text:"おきなわ養蜂買蜂巢冰淇淋（外帶）", ref:"food-おきなわ養蜂"},
         {time:"16:45", text:"開車到北谷（車上吃冰淇淋）"},
-        {time:"17:15", text:"飯店check-in、放行李"},
+        {time:"17:15", text:"飯店check-in、放行李", ref:"stay-ラ-ジェントステイ沖縄北谷-西海岸"},
         {time:"18:00", text:"北谷公園日落海灘看夕陽"},
-        {time:"18:30", text:"晚餐：美浜迴轉壽司（先吃再看花火）"},
-        {time:"19:45", text:"デポアイランド・ボードウォーク卡位"},
+        {time:"18:30", text:"晚餐：美浜迴轉壽司（先吃再看花火）", ref:"food-グルメ回転寿司市場-美浜店"},
+        {time:"19:45", text:"デポアイランド・ボードウォーク卡位", ref:"spot-美國村"},
         {time:"20:00", text:"看花火（每週六固定施放）"}
       ], backups:["壽司客滿備案：タコライスcafe きじむなぁ Depo Island店", "住宿備案：ベッセルホテルカンパーナ沖縄"] },
     { id:4, date:"2026-10-04", badge:"DAY 04", title:"PARCO CITY．波上宮．波之上海灘",
       items:[
-        {time:"08:30", text:"早餐：ポーたま飯糰"},
-        {time:"09:00", text:"美國村伴手禮購物"},
+        {time:"08:30", text:"早餐：ポーたま飯糰", ref:"food-ポーたま"},
+        {time:"09:00", text:"美國村伴手禮購物", ref:"souv-美國村-PARCO-CITY-Ashibinaa-Outlet"},
         {time:"11:00", text:"開車到PARCO CITY"},
-        {time:"11:30", text:"PARCO CITY逛街，午餐：鳥玉（親子丼）"},
+        {time:"11:30", text:"PARCO CITY逛街，午餐：鳥玉（親子丼）", ref:"food-鳥玉"},
         {time:"16:00", text:"開車到波上宮"},
-        {time:"16:30", text:"波上宮參拜"},
-        {time:"16:50", text:"波之上海灘戲水放空"},
+        {time:"16:30", text:"波上宮參拜", ref:"spot-波上宮"},
+        {time:"16:50", text:"波之上海灘戲水放空", ref:"spot-波之上海灘"},
         {time:"18:15", text:"看夕陽"},
-        {time:"18:30", text:"晚餐：Buchi Kumojiten（久茂地燒肉）"}
+        {time:"18:30", text:"晚餐：Buchi Kumojiten（久茂地燒肉）", ref:"food-Buchi-Kumojiten"}
       ], backups:[] },
     { id:5, date:"2026-10-05", badge:"DAY 05", title:"Ashibinaa Outlet．還車．瀬長島",
       items:[
-        {time:"10:00", text:"Ashibinaa Outlet逛街，午餐：豚骨一燈"},
+        {time:"10:00", text:"Ashibinaa Outlet逛街，午餐：豚骨一燈", ref:"spot-Ashibinaa-Outlet"},
         {time:"14:30", text:"OTS臨空豊崎營業所還車"},
-        {time:"15:00", text:"移動到瀬長島"},
-        {time:"15:30", text:"瀬長島：Chura Ichigo下午茶、戀愛景點、看飛機"},
+        {time:"15:00", text:"移動到瀬長島", ref:"spot-瀬長島-ウミカジテラス"},
+        {time:"15:30", text:"瀬長島：Chura Ichigo下午茶、戀愛景點、看飛機", ref:"food-Chura-Ichigo-Umikaji-Terrace"},
         {time:"18:00", text:"看夕陽"},
-        {time:"18:15", text:"晚餐：OKINAWA SOBA EIBUN（壺屋）"},
+        {time:"18:15", text:"晚餐：OKINAWA SOBA EIBUN（壺屋）", ref:"food-OKINAWA-SOBA-EIBUN"},
         {time:"19:30", text:"搭ウミカジライナー回國際通"},
-        {time:"宵夜", text:"ゆうか島唄居酒屋"}
+        {time:"宵夜", text:"ゆうか島唄居酒屋", ref:"food-ゆうか"}
       ], backups:["下午茶備案：Taco Rice瀬長島店／MOTOMU'S CURRY BREAD"] },
     { id:6, date:"2026-10-06", badge:"DAY 06", title:"市場．陶器街．返程",
       items:[
-        {time:"08:00", text:"第一牧志公設市場，午餐：とんかつ小やじ那覇店"},
-        {time:"10:00", text:"壺屋やちむん通（陶器購物）"},
-        {time:"11:00", text:"花商（點心，じーまーみ豆腐）"},
-        {time:"11:45", text:"國際通最後採買"},
+        {time:"08:00", text:"第一牧志公設市場，午餐：とんかつ小やじ那覇店", ref:"spot-第一牧志公設市場"},
+        {time:"10:00", text:"壺屋やちむん通（陶器購物）", ref:"spot-壺屋やちむん通"},
+        {time:"11:00", text:"花商（點心，じーまーみ豆腐）", ref:"food-花商"},
+        {time:"11:45", text:"國際通最後採買", ref:"souv-國際通"},
         {time:"13:00", text:"搭車前往機場"},
         {time:"16:45", text:"起飛回台中"}
       ], backups:[] }
   ],
   expenses: [],
+  inbox: [],
+  wishlist: [],
   checklist: [
     {id:"doc1", group:"證件文件", text:"護照效期 6 個月以上", checked:false},
     {id:"doc2", group:"證件文件", text:"台灣駕照日文譯本（兩人份）", checked:false},
@@ -349,6 +882,49 @@ const SEED = {
     {id:"pc3", group:"個人與3C", text:"防水手機袋、夾鏈袋", checked:false}
   ]
 };
+ 
+// title -> reference card id, used both for the initial SEED and for the "自動配對" repair tool
+const REF_TITLES = {
+  "國際通住宿 A":"stay-國際通住宿-A","名護住宿":"stay-名護住宿","ラ・ジェントステイ沖縄北谷・西海岸":"stay-ラ-ジェントステイ沖縄北谷-西海岸","國際通住宿 B":"stay-國際通住宿-B",
+  "お肉の一心":"food-お肉の一心","潛水員牛排":"food-潛水員牛排","蝦蝦飯":"food-蝦蝦飯-KOURI-SHRIMP","百年古家 大家":"food-百年古家-大家","浜の家":"food-浜の家",
+  "おきなわ養蜂":"food-おきなわ養蜂","グルメ回転寿司市場":"food-グルメ回転寿司市場-美浜店","迴轉壽司":"food-グルメ回転寿司市場-美浜店","ポーたま":"food-ポーたま","鳥玉":"food-鳥玉",
+  "Buchi Kumojiten":"food-Buchi-Kumojiten","豚骨一燈":"food-豚骨一燈-沖縄あしびなー店","Chura Ichigo":"food-Chura-Ichigo-Umikaji-Terrace","OKINAWA SOBA EIBUN":"food-OKINAWA-SOBA-EIBUN",
+  "ゆうか":"food-ゆうか","とんかつ小やじ":"food-とんかつ小やじ那覇店","花商":"food-花商","三矢本舗":"food-三矢本舗-恩納店","Sugar Crepe":"food-Sugar-Crepe","マキシプリン":"food-マキシプリン",
+  "古宇利島":"spot-古宇利島","美ら海水族館":"spot-沖繩美麗海水族館","美麗海水族館":"spot-沖繩美麗海水族館","青の洞窟":"spot-青の洞窟","琉球村":"spot-琉球村","殘波岬":"spot-殘波岬",
+  "美國村":"spot-美國村","波上宮":"spot-波上宮","波之上海灘":"spot-波之上海灘","PARCO CITY":"spot-PARCO-CITY","Ashibinaa":"spot-Ashibinaa-Outlet","あしびなー":"spot-Ashibinaa-Outlet",
+  "瀬長島":"spot-瀬長島-ウミカジテラス","第一牧志公設市場":"spot-第一牧志公設市場","壺屋やちむん通":"spot-壺屋やちむん通",
+  "國際通":"souv-國際通","那覇機場":"souv-那覇機場"
+};
+function matchRef(text){
+  let best = null, bestLen = 0;
+  for(const name in REF_TITLES){
+    if(text.indexOf(name) !== -1 && name.length > bestLen){ best = REF_TITLES[name]; bestLen = name.length; }
+  }
+  return best;
+}
+function autoMatchRefs(){
+  let count = 0;
+  state.days.forEach(function(d){
+    d.items.forEach(function(it){
+      const m = matchRef(it.text);
+      if(m && it.ref !== m){ it.ref = m; count++; }
+    });
+  });
+  saveState(); renderItinerary();
+  alert('已自動配對 ' + count + ' 個行程項目的詳情連結');
+}
+function jumpToRef(refId){
+  if(!refId) return;
+  switchTab('reference');
+  setTimeout(function(){
+    const el = document.getElementById(refId);
+    if(el){
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+      el.classList.add('ref-flash');
+      setTimeout(function(){ el.classList.remove('ref-flash'); }, 1700);
+    }
+  }, 60);
+}
  
 let state = null;
  
@@ -404,16 +980,50 @@ function findTodayDay(){
   return state.days.find(function(d){ return d.date === t; }) || null;
 }
  
+// approximate a clock-minutes value for every itinerary item so we can guess "where we should be right now"
+function itemMinutes(item, idx, len){
+  const m = /^(\d{1,2}):(\d{2})$/.exec((item.time||'').trim());
+  if(m) return parseInt(m[1],10)*60 + parseInt(m[2],10);
+  const labelMap = {'早餐':480,'午餐':720,'下午茶':900,'晚餐':1080,'宵夜':1260};
+  if(labelMap[item.time]!=null) return labelMap[item.time];
+  return 360 + Math.round((idx/Math.max(len-1,1)) * (1320-360));
+}
+function findCurrentAndNext(day){
+  if(!day || !day.items.length) return {current:null, next:null};
+  const now = new Date();
+  const nowMin = now.getHours()*60 + now.getMinutes();
+  const withMin = day.items.map(function(it,idx){ return {item:it, idx:idx, min:itemMinutes(it, idx, day.items.length)}; });
+  let current = null, next = null;
+  for(let i=0;i<withMin.length;i++){
+    if(withMin[i].min <= nowMin) current = withMin[i];
+    else { next = withMin[i]; break; }
+  }
+  return {current: current, next: next};
+}
+function mapsNavUrl(item){
+  const q = (item && (item.place || item.text)) || '';
+  return 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(q);
+}
+ 
 /* ====================== RENDER: OVERVIEW ====================== */
 function renderOverview(){
   const holder = document.getElementById('todayBannerHolder');
   const today = findTodayDay();
   const t = todayStr();
   if(today){
+    const cn = findCurrentAndNext(today);
+    let nextHtml = '';
+    if(cn.next){
+      nextHtml = '<div class="small">下一站（' + escapeHtml(cn.next.item.time) + '）：' + escapeHtml(cn.next.item.text) + '</div>' +
+        '<button onclick="window.open(\''+mapsNavUrl(cn.next.item)+'\',\'_blank\')">🗺️ 導航到下一站</button>';
+    } else if(cn.current){
+      nextHtml = '<div class="small">今天行程都結束了，好好休息～</div>';
+    }
     holder.innerHTML =
-      '<div class="today-banner">🎉 今天是 ' + today.badge + '：' + today.title +
-      '<div class="small">' + today.date + '</div>' +
-      '<button onclick="jumpToDay(' + today.id + ')">查看今天的行程 →</button></div>';
+      '<div class="today-banner">今天是 ' + today.badge + '：' + today.title +
+      '<div class="small">' + today.date + (cn.current ? '　目前進行到：'+escapeHtml(cn.current.item.text) : '') + '</div>' +
+      nextHtml +
+      '<button onclick="jumpToDay(' + today.id + ')" style="margin-left:8px;">查看完整行程 →</button></div>';
   } else if(state.days.length && t < state.days[0].date){
     const diff = Math.ceil((new Date(state.days[0].date) - new Date(t)) / 86400000);
     holder.innerHTML = '<div class="today-banner" style="background:var(--indigo);">距離出發還有 ' + diff + ' 天</div>';
@@ -443,12 +1053,20 @@ function jumpToDay(id){
 function renderItinerary(){
   const holder = document.getElementById('dayCardsHolder');
   const today = findTodayDay();
-  holder.innerHTML = state.days.map(function(d){
+  holder.innerHTML = state.days.map(function(d, dayIdx){
     const isToday = today && today.id === d.id;
+    const cn = isToday ? findCurrentAndNext(d) : {current:null, next:null};
     const itemsHtml = d.items.map(function(it, idx){
+      const isCurrent = cn.current && cn.current.idx === idx;
+      const isNext = cn.next && cn.next.idx === idx;
+      const marker = isCurrent ? '<span style="background:var(--coral);color:#fff;font-size:10px;border-radius:6px;padding:1px 6px;margin-right:4px;">現在</span>' :
+                     (isNext ? '<span style="background:var(--turmeric);color:#fff;font-size:10px;border-radius:6px;padding:1px 6px;margin-right:4px;">下一站</span>' : '');
       return '<div class="item-row">' +
+        (marker ? '<div style="flex-basis:100%;">'+marker+'</div>' : '') +
         '<input class="t-time" value="' + escapeAttr(it.time) + '" onchange="updateItem(' + d.id + ',' + idx + ',\'time\',this.value)">' +
         '<input class="t-text" value="' + escapeAttr(it.text) + '" onchange="updateItem(' + d.id + ',' + idx + ',\'text\',this.value)">' +
+        (it.ref ? '<button class="detail-link" onclick="jumpToRef(\''+it.ref+'\')" style="margin-left:0;">📖 詳情</button>' : '') +
+        '<button class="del-x" title="導航" onclick="window.open(\''+mapsNavUrl(it)+'\',\'_blank\')">🗺️</button>' +
         '<button class="del-x" onclick="deleteItem(' + d.id + ',' + idx + ')">✕</button>' +
         '</div>';
     }).join('');
@@ -509,6 +1127,7 @@ function deleteBackup(dayId, idx){
   const d = getDay(dayId); d.backups.splice(idx,1); saveState(); renderItinerary();
 }
 document.getElementById('addDayBtn').addEventListener('click', addDay);
+document.getElementById('autoMatchBtn').addEventListener('click', autoMatchRefs);
  
 /* ====================== RENDER: EXPENSE TRACKER ====================== */
 function expCategoryOptions(){
@@ -523,33 +1142,51 @@ function categoryLabel(catId){
   if(catId && catId.indexOf('day')===0) return 'Day' + catId.slice(3) + '（已刪除）';
   return '其他';
 }
-// backward-compatible getters: older entries used {who, day} with implicit even split
+// backward-compatible getters covering every schema version this app has used
 function getPaidBy(e){ return e.paidBy != null ? e.paidBy : e.who; }
 function getCategory(e){ return e.category != null ? e.category : ('day' + (e.day || '')); }
-function getSplitA(e){ return e.splitA != null ? e.splitA : 0.5; }
+function getTotalAmount(e){
+  if(e.shareA != null || e.shareB != null) return (e.shareA||0) + (e.shareB||0);
+  return e.amount || 0;
+}
+function getShareA(e){
+  if(e.shareA != null) return e.shareA;
+  const sA = e.splitA != null ? e.splitA : 0.5;
+  return (e.amount||0) * sA;
+}
+function getShareB(e){
+  if(e.shareB != null) return e.shareB;
+  const sA = e.splitA != null ? e.splitA : 0.5;
+  return (e.amount||0) * (1 - sA);
+}
  
 function renderExpense(){
-  document.getElementById('personA').value = state.meta.personA;
-  document.getElementById('personB').value = state.meta.personB;
   document.getElementById('fxRate').value = state.fxRate;
+  document.getElementById('fxUpdatedLabel').textContent = state.fxUpdatedAt ? ('上次更新匯率：' + state.fxUpdatedAt) : '尚未抓過即時匯率，目前是預設值';
  
   const expWho = document.getElementById('expWho');
-  expWho.innerHTML = '<option value="'+escapeAttr(state.meta.personA)+'">'+escapeHtml(state.meta.personA)+'</option><option value="'+escapeAttr(state.meta.personB)+'">'+escapeHtml(state.meta.personB)+'</option>';
+  expWho.innerHTML = '<option value="'+escapeAttr(state.meta.personA)+'">'+escapeHtml(state.meta.personA)+'（付款人）</option><option value="'+escapeAttr(state.meta.personB)+'">'+escapeHtml(state.meta.personB)+'（付款人）</option>';
  
   const expCategory = document.getElementById('expCategory');
   expCategory.innerHTML = expCategoryOptions().map(function(o){ return '<option value="'+o.id+'">'+escapeHtml(o.label)+'</option>'; }).join('');
  
-  function toTWD(exp){ return exp.currency === 'JPY' ? exp.amount * state.fxRate : exp.amount; }
+  document.getElementById('expShareA').placeholder = state.meta.personA + '的金額';
+  document.getElementById('expShareB').placeholder = state.meta.personB + '的金額';
+ 
+  document.getElementById('namesViewText').textContent = state.meta.personA + ' / ' + state.meta.personB;
+ 
+  function toTWD(exp, val){ return exp.currency === 'JPY' ? val * state.fxRate : val; }
  
   let paidA=0, paidB=0, shareA=0, shareB=0;
   state.expenses.forEach(function(e){
-    const twd = toTWD(e);
-    const sA = getSplitA(e);
+    const total = getTotalAmount(e);
+    const totalTWD = toTWD(e, total);
+    const sA = getShareA(e), sB = getShareB(e);
     const payer = getPaidBy(e);
-    if(payer === state.meta.personA) paidA += twd;
-    else if(payer === state.meta.personB) paidB += twd;
-    shareA += twd * sA;
-    shareB += twd * (1 - sA);
+    if(payer === state.meta.personA) paidA += totalTWD;
+    else if(payer === state.meta.personB) paidB += totalTWD;
+    shareA += toTWD(e, sA);
+    shareB += toTWD(e, sB);
   });
   const total = paidA + paidB;
  
@@ -559,27 +1196,27 @@ function renderExpense(){
  
   const netA = paidA - shareA; // >0 表示A多付了，B該轉給A
   let balanceMsg;
-  if(Math.abs(netA) < 1){ balanceMsg = '目前兩人帳務打平 🎉'; }
+  if(Math.abs(netA) < 1){ balanceMsg = '目前兩人帳務打平'; }
   else if(netA > 0){ balanceMsg = escapeHtml(state.meta.personB) + ' 該轉給 ' + escapeHtml(state.meta.personA) + ' NT$' + Math.round(netA); }
   else { balanceMsg = escapeHtml(state.meta.personA) + ' 該轉給 ' + escapeHtml(state.meta.personB) + ' NT$' + Math.round(-netA); }
-  document.getElementById('balanceLine').textContent = balanceMsg + '（總花費 NT$' + Math.round(total) + '，已依每筆設定的分攤比例計算）';
+  document.getElementById('balanceLine').textContent = balanceMsg + '（總花費 NT$' + Math.round(total) + '）';
  
   const list = document.getElementById('expenseList');
   if(!state.expenses.length){
     list.innerHTML = '<div style="color:var(--ink-soft); font-size:13px;">還沒有任何紀錄，新增第一筆花費吧！</div>';
   } else {
     list.innerHTML = state.expenses.slice().reverse().map(function(e){
-      const twd = Math.round(toTWD(e));
-      const sA = getSplitA(e);
+      const total = getTotalAmount(e);
+      const twd = Math.round(toTWD(e, total));
+      const sA = getShareA(e), sB = getShareB(e);
       let splitLabel;
-      if(sA === 1){ splitLabel = '全算'+escapeHtml(state.meta.personA); }
+      if(sB === 0){ splitLabel = '全算'+escapeHtml(state.meta.personA); }
       else if(sA === 0){ splitLabel = '全算'+escapeHtml(state.meta.personB); }
-      else if(sA === 0.5){ splitLabel = '平分'; }
-      else { splitLabel = escapeHtml(state.meta.personA)+' '+Math.round(sA*100)+'% / '+escapeHtml(state.meta.personB)+' '+Math.round((1-sA)*100)+'%'; }
+      else { splitLabel = escapeHtml(state.meta.personA)+' '+Math.round(sA)+' / '+escapeHtml(state.meta.personB)+' '+Math.round(sB); }
       return '<div class="expense-row" style="flex-wrap:wrap;">' +
         '<div class="who">'+escapeHtml(getPaidBy(e))+'付</div>' +
-        '<div class="note">'+escapeHtml(categoryLabel(getCategory(e)))+' · '+escapeHtml(e.note||'')+'<br><span style="font-size:11px;color:var(--ink-soft);">分攤：'+splitLabel+'</span></div>' +
-        '<div class="amt">'+e.amount+' '+e.currency+' <span style="color:var(--ink-soft);font-weight:400;">(≈NT$'+twd+')</span></div>' +
+        '<div class="note">'+escapeHtml(categoryLabel(getCategory(e)))+' · '+escapeHtml(e.note||'')+'<br><span style="font-size:11px;color:var(--ink-soft);">分攤：'+splitLabel+' '+e.currency+'</span></div>' +
+        '<div class="amt">'+total+' '+e.currency+' <span style="color:var(--ink-soft);font-weight:400;">(≈NT$'+twd+')</span></div>' +
         '<button class="del-x" onclick="deleteExpense(\''+e.id+'\')">✕</button>' +
       '</div>';
     }).join('');
@@ -591,44 +1228,72 @@ function deleteExpense(id){
   saveState(); renderExpense();
 }
  
-const splitTypeSelect = document.getElementById('expSplitType');
-const customSplitRow = document.getElementById('customSplitRow');
-const splitPctA = document.getElementById('expSplitPctA');
-const splitBLabel = document.getElementById('customSplitBLabel');
-splitTypeSelect.addEventListener('change', function(){
-  customSplitRow.style.display = (splitTypeSelect.value === 'custom') ? 'flex' : 'none';
-});
-splitPctA.addEventListener('input', function(){
-  const v = Math.max(0, Math.min(100, parseFloat(splitPctA.value) || 0));
-  splitBLabel.textContent = '他佔 ' + (100 - v) + '%';
+document.getElementById('quickSplitBtn').addEventListener('click', function(){
+  const t = parseFloat(document.getElementById('expTotalHelper').value);
+  if(!t || t <= 0) return;
+  document.getElementById('expShareA').value = (t/2).toFixed(2).replace(/\.00$/,'');
+  document.getElementById('expShareB').value = (t/2).toFixed(2).replace(/\.00$/,'');
 });
  
 document.getElementById('addExpenseBtn').addEventListener('click', function(){
   const paidBy = document.getElementById('expWho').value;
   const category = document.getElementById('expCategory').value;
-  const amount = parseFloat(document.getElementById('expAmount').value);
   const currency = document.getElementById('expCurrency').value;
   const note = document.getElementById('expNote').value;
-  const splitType = splitTypeSelect.value;
-  let splitA;
-  if(splitType === 'even') splitA = 0.5;
-  else if(splitType === 'allA') splitA = 1;
-  else if(splitType === 'allB') splitA = 0;
-  else { splitA = Math.max(0, Math.min(100, parseFloat(splitPctA.value) || 0)) / 100; }
+  const shareA = parseFloat(document.getElementById('expShareA').value) || 0;
+  const shareB = parseFloat(document.getElementById('expShareB').value) || 0;
  
-  if(!amount || amount <= 0){ alert('請輸入正確的金額'); return; }
-  state.expenses.push({ id:'e'+Date.now(), paidBy:paidBy, category:category, amount:amount, currency:currency, note:note, splitA:splitA });
+  if(shareA <= 0 && shareB <= 0){ alert('請至少填一個人的金額'); return; }
+  state.expenses.push({ id:'e'+Date.now(), paidBy:paidBy, category:category, currency:currency, note:note, shareA:shareA, shareB:shareB });
   saveState();
-  document.getElementById('expAmount').value = '';
+  document.getElementById('expTotalHelper').value = '';
+  document.getElementById('expShareA').value = '';
+  document.getElementById('expShareB').value = '';
   document.getElementById('expNote').value = '';
   renderExpense();
 });
+ 
 document.getElementById('saveFxBtn').addEventListener('click', function(){
   const v = parseFloat(document.getElementById('fxRate').value);
-  if(v > 0){ state.fxRate = v; saveState(); renderExpense(); }
+  if(v > 0){ state.fxRate = v; state.fxUpdatedAt = '手動輸入'; saveState(); renderExpense(); }
 });
-document.getElementById('personA').addEventListener('change', function(e){ state.meta.personA = e.target.value || 'Nina'; saveState(); renderExpense(); });
-document.getElementById('personB').addEventListener('change', function(e){ state.meta.personB = e.target.value || '男友'; saveState(); renderExpense(); });
+ 
+document.getElementById('liveFxBtn').addEventListener('click', function(){
+  const btn = document.getElementById('liveFxBtn');
+  btn.textContent = '抓取中...';
+  fetch('https://api.frankfurter.dev/v1/latest?base=JPY&symbols=TWD')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      const rate = data && data.rates && data.rates.TWD;
+      if(rate){
+        state.fxRate = rate;
+        state.fxUpdatedAt = data.date + '（即時匯率）';
+        saveState(); renderExpense();
+      } else {
+        alert('抓取失敗，請稍後再試或手動輸入匯率');
+      }
+      btn.textContent = '🔄 抓即時匯率';
+    })
+    .catch(function(err){
+      console.error(err);
+      alert('抓取失敗（可能是網路問題），請手動輸入匯率');
+      btn.textContent = '🔄 抓即時匯率';
+    });
+});
+ 
+// names: view/edit toggle
+document.getElementById('namesEditBtn').addEventListener('click', function(){
+  document.getElementById('personA').value = state.meta.personA;
+  document.getElementById('personB').value = state.meta.personB;
+  document.getElementById('namesEditBox').style.display = 'block';
+});
+document.getElementById('namesSaveBtn').addEventListener('click', function(){
+  state.meta.personA = document.getElementById('personA').value || 'Nina';
+  state.meta.personB = document.getElementById('personB').value || '男友';
+  saveState();
+  document.getElementById('namesEditBox').style.display = 'none';
+  renderExpense();
+});
  
 /* ====================== RENDER: CHECKLIST ====================== */
 function renderChecklist(){
@@ -664,12 +1329,99 @@ function updateProgress(){
 function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function escapeAttr(s){ return escapeHtml(s); }
  
+/* ====================== RENDER: INBOX + WISHLIST ====================== */
+function renderInbox(){
+  if(!state.inbox) state.inbox = [];
+  if(!state.wishlist) state.wishlist = [];
+  document.getElementById('inboxCount').textContent = state.inbox.length;
+  const list = document.getElementById('inboxList');
+  if(!state.inbox.length){
+    list.innerHTML = '<div style="color:var(--ink-soft); font-size:13px;">收集箱是空的，看到想去/想買的先丟進來吧！</div>';
+  } else {
+    const dayOpts = state.days.map(function(d){ return '<option value="'+d.id+'">Day'+d.id+' '+escapeHtml(d.title)+'</option>'; }).join('');
+    list.innerHTML = state.inbox.map(function(it){
+      return '<div class="inbox-item">' +
+        '<div class="txt">'+escapeHtml(it.text)+(it.link?'　<a href="'+escapeAttr(it.link)+'" target="_blank" rel="noopener">連結↗</a>':'')+'</div>' +
+        '<div class="inbox-actions">' +
+        '<select id="assignDay-'+it.id+'" style="font-size:11px;border-radius:8px;padding:3px;">'+dayOpts+'</select>' +
+        '<button onclick="assignToBackup(\''+it.id+'\')">→ 備案</button>' +
+        '<button onclick="assignToWishlist(\''+it.id+'\')">→ 想買清單</button>' +
+        '<button onclick="deleteInboxItem(\''+it.id+'\')">刪除</button>' +
+        '</div></div>';
+    }).join('');
+  }
+  const wl = document.getElementById('wishList');
+  if(!state.wishlist.length){
+    wl.innerHTML = '<div style="color:var(--ink-soft); font-size:13px;">還沒有想買的東西</div>';
+  } else {
+    wl.innerHTML = state.wishlist.map(function(it){
+      return '<div class="wish-item'+(it.bought?' bought':'')+'">' +
+        '<div class="box" style="width:18px;height:18px;border:2px solid var(--line-strong);border-radius:5px;flex-shrink:0;cursor:pointer;'+(it.bought?'background:var(--moss);border-color:var(--moss);':'')+'" onclick="toggleWish(\''+it.id+'\')"></div>' +
+        '<div class="txt" style="flex:1;font-size:13.5px;">'+escapeHtml(it.text)+(it.link?' <a href="'+escapeAttr(it.link)+'" target="_blank" rel="noopener" style="font-size:11px;color:var(--indigo);">連結↗</a>':'')+'</div>' +
+        '<button class="del-x" onclick="deleteWish(\''+it.id+'\')">✕</button>' +
+      '</div>';
+    }).join('');
+  }
+}
+document.getElementById('addInboxBtn').addEventListener('click', function(){
+  const text = document.getElementById('inboxText').value.trim();
+  const link = document.getElementById('inboxLink').value.trim();
+  if(!text) return;
+  if(!state.inbox) state.inbox = [];
+  state.inbox.push({id:'i'+Date.now(), text:text, link:link});
+  saveState();
+  document.getElementById('inboxText').value = '';
+  document.getElementById('inboxLink').value = '';
+  renderInbox();
+});
+function deleteInboxItem(id){
+  state.inbox = state.inbox.filter(function(i){ return i.id !== id; });
+  saveState(); renderInbox();
+}
+function assignToBackup(id){
+  const item = state.inbox.find(function(i){ return i.id === id; });
+  if(!item) return;
+  const dayId = parseInt(document.getElementById('assignDay-'+id).value, 10);
+  const day = getDay(dayId);
+  if(!day) return;
+  day.backups.push(item.text + (item.link ? '（' + item.link + '）' : ''));
+  state.inbox = state.inbox.filter(function(i){ return i.id !== id; });
+  saveState(); renderInbox(); renderItinerary();
+}
+function assignToWishlist(id){
+  const item = state.inbox.find(function(i){ return i.id === id; });
+  if(!item) return;
+  if(!state.wishlist) state.wishlist = [];
+  state.wishlist.push({id:'w'+Date.now(), text:item.text, link:item.link, bought:false});
+  state.inbox = state.inbox.filter(function(i){ return i.id !== id; });
+  saveState(); renderInbox();
+}
+function toggleWish(id){
+  const item = state.wishlist.find(function(i){ return i.id === id; });
+  item.bought = !item.bought;
+  saveState(); renderInbox();
+}
+function deleteWish(id){
+  state.wishlist = state.wishlist.filter(function(i){ return i.id !== id; });
+  saveState(); renderInbox();
+}
+document.getElementById('addWishDirectBtn').addEventListener('click', function(){
+  const text = document.getElementById('wishDirectText').value.trim();
+  if(!text) return;
+  if(!state.wishlist) state.wishlist = [];
+  state.wishlist.push({id:'w'+Date.now(), text:text, link:'', bought:false});
+  saveState();
+  document.getElementById('wishDirectText').value = '';
+  renderInbox();
+});
+ 
 function renderAll(){
   if(!state) return;
   renderOverview();
   renderItinerary();
   renderExpense();
   renderChecklist();
+  renderInbox();
 }
 </script>
 </body>
