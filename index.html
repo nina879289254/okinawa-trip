@@ -1,6 +1,3 @@
-
-
-Index · HTML
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -42,35 +39,35 @@ Index · HTML
   body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-body); line-height:1.65; font-size:15px; -webkit-font-smoothing:antialiased;}
   h1,h2,h3{font-family:var(--font-display); font-weight:700; margin:0 0 8px; color:var(--ink);}
   .wrap{max-width:760px; margin:0 auto; padding:0 16px 70px;}
- 
+
   header.hero{background:linear-gradient(180deg,#173B4C 0%,#2B5C73 100%); color:#F3ECDA; padding:22px 16px 18px;}
   header.hero .inner{max-width:760px; margin:0 auto;}
   header.hero h1{color:#FBF6E9; font-size:22px;}
   header.hero .sub{font-family:var(--font-mono); font-size:12px; color:#D9C9A8;}
   .guide-link{display:inline-block; margin-top:10px; font-family:var(--font-mono); font-size:12px; color:#FBF6E9; text-decoration:none; border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:5px 12px; background:transparent;}
   .guide-link:hover{background:rgba(255,255,255,.12);}
- 
+
   nav.tabbar{position:sticky; top:0; z-index:10; background:var(--paper); border-bottom:1px solid var(--line); padding-top:8px;}
   .tabbar-scroll{max-width:760px; margin:0 auto; display:flex; gap:6px; overflow-x:auto; padding:0 16px 8px; scrollbar-width:none;}
   .tabbar-scroll::-webkit-scrollbar{display:none;}
   .tab-btn{font-weight:700; font-size:13px; color:var(--ink-soft); background:transparent; border:1px solid transparent; padding:7px 13px; border-radius:999px; white-space:nowrap; cursor:pointer;}
   .tab-btn.active{background:var(--ink); color:var(--paper); border-color:var(--ink);}
- 
+
   section.panel{display:none; padding-top:18px;}
   section.panel.active{display:block;}
- 
+
   .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px; margin-bottom:14px;}
   .card h3{font-size:15px;}
   .today-banner{background:var(--coral); color:#FBF1E8; border-radius:var(--radius); padding:16px; margin-bottom:16px; font-weight:700;}
   .today-banner .small{font-weight:400; font-size:12.5px; opacity:.9; margin-top:4px; font-family:var(--font-mono);}
   .today-banner button{margin-top:10px; background:#fff; color:var(--coral-ink); border:none; border-radius:999px; padding:6px 14px; font-weight:700; cursor:pointer;}
- 
+
   .day-mini{display:flex; align-items:center; gap:10px; padding:10px 4px; border-bottom:1px dashed var(--line); cursor:pointer;}
   .day-mini:last-child{border-bottom:none;}
   .day-mini .d{font-family:var(--font-mono); font-weight:700; font-size:12px; background:#173B4C; color:#F3ECDA; border-radius:7px; padding:4px 8px;}
   .day-mini.is-today .d{background:var(--coral); color:#fff;}
   .day-mini .t{flex:1; font-size:13.5px;}
- 
+
   .day-card{background:var(--card); border:1px solid var(--line); border-radius:16px; margin-bottom:16px; overflow:hidden;}
   .day-card.is-today{border-color:var(--coral); box-shadow:0 0 0 2px var(--coral) inset;}
   .day-head{display:flex; align-items:center; gap:12px; padding:12px 14px; cursor:pointer; background:var(--card-alt);}
@@ -80,22 +77,22 @@ Index · HTML
   .day-head .date{font-family:var(--font-mono); font-size:10.5px; color:var(--ink-soft);}
   .day-body{display:none; padding:8px 14px 14px;}
   .day-card.open .day-body{display:block;}
- 
+
   .item-row{display:flex; gap:6px; align-items:center; margin-bottom:6px; flex-wrap:wrap;}
   .item-row input.t-time{width:64px; font-family:var(--font-mono); font-size:12.5px; font-weight:700; color:var(--indigo);}
   .item-row input.t-text{flex:1; font-size:13.5px;}
   .item-row input{border:1px solid var(--line); border-radius:8px; padding:6px 8px; background:var(--card); color:var(--ink); font-family:inherit;}
   .del-x{background:none; border:none; color:var(--ink-soft); cursor:pointer; font-size:15px; padding:2px 6px; flex-shrink:0;}
   .add-row-btn, .add-line-btn{margin-top:6px; background:var(--card-alt); border:1px dashed var(--line-strong); color:var(--ink-soft); border-radius:8px; padding:7px 10px; font-size:12.5px; cursor:pointer; width:100%;}
- 
+
   .backup-block{margin-top:10px; padding-top:10px; border-top:1px dashed var(--line);}
   .backup-block h4{font-size:12px; color:var(--turmeric); font-family:var(--font-mono); margin:0 0 6px;}
   .backup-item{display:flex; gap:6px; align-items:center; font-size:13px; margin-bottom:5px; background:var(--turmeric-bg); border-radius:8px; padding:5px 8px;}
   .backup-item span{flex:1;}
- 
+
   .day-controls{display:flex; gap:8px; margin-bottom:14px;}
   .day-controls button{flex:1; background:var(--card); border:1px solid var(--line-strong); border-radius:10px; padding:9px; font-weight:700; font-size:13px; cursor:pointer; color:var(--ink);}
- 
+
   /* expense tracker */
   .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;}
   .form-grid.full{grid-template-columns:1fr;}
@@ -115,7 +112,7 @@ Index · HTML
   .fx-row input{width:80px; border:1px solid var(--line); border-radius:8px; padding:5px 7px; background:var(--card); color:var(--ink); font-family:var(--font-mono);}
   .names-row{display:flex; gap:8px; margin-bottom:12px;}
   .names-row input{flex:1; border:1px solid var(--line); border-radius:8px; padding:7px 9px; background:var(--card); color:var(--ink); font-weight:700;}
- 
+
   /* checklist */
   .progress-wrap{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:12px 14px; margin-bottom:16px;}
   .progress-top{display:flex; justify-content:space-between; margin-bottom:6px;}
@@ -131,11 +128,11 @@ Index · HTML
   .check-item.checked .box:after{content:"✓"; color:#fff; font-size:11px; font-weight:700;}
   .check-item.checked .txt{color:var(--ink-soft); text-decoration:line-through;}
   .check-item .txt{flex:1; font-size:13px;}
- 
+
   .sync-dot{display:inline-flex; align-items:center; gap:5px; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft);}
   .sync-dot i{width:7px; height:7px; border-radius:50%; background:var(--moss); display:inline-block; box-shadow:0 0 0 0 rgba(76,107,65,0.5); animation:syncPulse 2.2s ease-out infinite;}
   .sync-dot.off i{background:var(--coral); box-shadow:0 0 0 0 rgba(193,80,46,0.5); animation:syncPulseOff 2.2s ease-out infinite;}
- 
+
   /* ---------- REFERENCE CONTENT (merged from the full handbook) ---------- */
   .section-head{margin:26px 0 12px;}
   .section-head:first-child{margin-top:0;}
@@ -183,7 +180,7 @@ Index · HTML
 </style>
 </head>
 <body>
- 
+
 <header class="hero">
   <div class="inner">
     <h1>沖繩旅遊 App</h1>
@@ -191,7 +188,7 @@ Index · HTML
     <button class="guide-link" onclick="switchTab('reference')" style="cursor:pointer; font-family:var(--font-mono);">參考手冊（住宿／美食／景點／伴手禮）</button>
   </div>
 </header>
- 
+
 <nav class="tabbar">
   <div class="tabbar-scroll" id="tabbar">
     <button class="tab-btn active" data-tab="overview">總覽</button>
@@ -202,9 +199,9 @@ Index · HTML
     <button class="tab-btn" data-tab="prep">行前準備</button>
   </div>
 </nav>
- 
+
 <div class="wrap">
- 
+
   <section class="panel active" id="panel-overview">
     <div id="todayBannerHolder"></div>
     <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
@@ -212,7 +209,7 @@ Index · HTML
     </div>
     <div class="card" style="padding:4px 12px;" id="dayMiniList"></div>
   </section>
- 
+
   <section class="panel" id="panel-itinerary">
     <div class="day-controls">
       <button id="addDayBtn">＋ 新增一天</button>
@@ -220,7 +217,7 @@ Index · HTML
     </div>
     <div id="dayCardsHolder"></div>
   </section>
- 
+
   <section class="panel" id="panel-expense">
     <div class="card">
       <div class="fx-row" style="margin-bottom:0;">
@@ -230,10 +227,10 @@ Index · HTML
       </div>
       <div id="fxUpdatedLabel" style="font-size:11px; color:var(--ink-soft); margin-top:4px;"></div>
     </div>
- 
+
     <div class="summary-grid" id="summaryGrid"></div>
     <div class="balance-line" id="balanceLine"></div>
- 
+
     <div class="card">
       <h3>新增一筆花費</h3>
       <div class="form-grid">
@@ -254,12 +251,12 @@ Index · HTML
       </div>
       <button class="add-expense-btn" id="addExpenseBtn">＋ 新增花費</button>
     </div>
- 
+
     <div class="card">
       <h3>所有花費紀錄</h3>
       <div id="expenseList"></div>
     </div>
- 
+
     <div class="card" id="namesCard">
       <div id="namesView" style="display:flex; justify-content:space-between; align-items:center;">
         <div style="font-size:13px; color:var(--ink-soft);">付款人姓名：<b id="namesViewText" style="color:var(--ink);"></b></div>
@@ -274,7 +271,7 @@ Index · HTML
       </div>
     </div>
   </section>
- 
+
   <section class="panel" id="panel-collect">
     <div class="section-head">
       <span class="eyebrow-label">Idea inbox</span>
@@ -297,7 +294,7 @@ Index · HTML
       <button class="add-row-btn" id="addWishDirectBtn">＋ 加入想買清單</button>
     </div>
   </section>
- 
+
   <section class="panel" id="panel-reference">
     <div class="section-head">
       <span class="eyebrow-label">Reference</span>
@@ -305,7 +302,7 @@ Index · HTML
       <div class="desc">住宿、美食、景點購物、伴手禮的完整參考資料，從行程分頁點「查看詳情」也會直接跳到這裡對應的卡片。</div>
     </div>
     <div id="referenceContent">
- 
+
 <div class="section-head">
 <span class="eyebrow-label">Where we sleep</span>
 <h2>住宿資訊</h2>
@@ -341,8 +338,8 @@ Index · HTML
 <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=国際通り+那覇" rel="noopener" target="_blank">📍 國際通位置</a>
 </div>
 <div class="callout warn"><b>行李小提醒</b> — Day2/Day3/Day5是「自駕搬運行李」，行李箱放後車廂即可；但Day1晚間、Day6全天要親自提著走（國際通石板路、單軌樓梯），建議大件行李用有輪子款、貴重物品用隨身包分開放。</div>
- 
- 
+
+
 <div class="section-head">
 <span class="eyebrow-label">Where we eat</span>
 <h2>餐廳資訊</h2>
@@ -491,8 +488,8 @@ Index · HTML
 <div class="kv-row"><span class="k">推薦</span><span>經典原味布丁／黑糖口味，可冷藏後當國際通逛累的小點心</span></div>
 <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=マキシプリン+那覇+国際通り" rel="noopener" target="_blank">📍 Google地圖</a>
 </div>
- 
- 
+
+
 <div class="section-head">
 <span class="eyebrow-label">See &amp; shop</span>
 <h2>景點・購物</h2>
@@ -621,8 +618,8 @@ Index · HTML
 <div class="kv-row"><span class="k">門票</span><span>免費（陶器店個別消費）</span></div>
 <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=壺屋やちむん通り+那覇市" rel="noopener" target="_blank">📍 Google地圖</a>
 </div>
- 
- 
+
+
 <div class="section-head">
 <span class="eyebrow-label">Omiyage guide</span>
 <h2>伴手禮採買指南</h2>
@@ -705,8 +702,8 @@ Index · HTML
 </div>
 <div class="callout warn"><b>退稅小提醒</b> — 同一天同一店消費滿5,000円以上（未稅）可辦理退稅，需出示護照，部分大型店家（唐吉訶德、Ashibinaa Outlet、RYUBO）有專屬退稅櫃檯，結帳前記得先問「免稅/退稅」（めんぜい）。</div>
 <div class="callout warn"><b>行李箱空間提醒</b> — 這趟行程國際通逛3次（Day1、Day4、Day5晚上、Day6整個早上），很容易分批買、最後行李塞不下。建議Day1晚上先買不怕壓的乾貨零食，生鮮類（海葡萄、生冷食品）留到Day6最後一天買，確保新鮮度也不佔行李空間太久。</div>
- 
- 
+
+
 <div class="section-head">
 <span class="eyebrow-label">Good to know</span>
 <h2>注意事項與備案</h2>
@@ -747,10 +744,10 @@ Index · HTML
 <div class="kv-row"><span class="k">租車</span><span>OTS 租車公司24小時緊急聯絡電話（租車文件上會提供）</span></div>
 <div class="kv-row"><span class="k">住宿</span><span>四間飯店的電話與地址（日文版方便問路/搭計程車）</span></div>
 </div>
- 
+
 </div>
   </section>
- 
+
   <section class="panel" id="panel-prep">
     <div class="progress-wrap">
       <div class="progress-top"><div>整體進度</div><div class="pct" id="pct">0%</div></div>
@@ -758,10 +755,10 @@ Index · HTML
     </div>
     <div id="checklistHolder"></div>
   </section>
- 
+
   <div class="foot">沖繩旅遊 App · 雙人同步版</div>
 </div>
- 
+
 <!-- Firebase (compat SDK, no build tools needed) -->
 <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
@@ -779,7 +776,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const tripRef = db.collection('trips').doc('okinawa');
- 
+
 /* ====================== SEED DATA (first-time only) ====================== */
 const SEED = {
   meta: { personA: "Nina", personB: "男友" },
@@ -882,7 +879,7 @@ const SEED = {
     {id:"pc3", group:"個人與3C", text:"防水手機袋、夾鏈袋", checked:false}
   ]
 };
- 
+
 // title -> reference card id, used both for the initial SEED and for the "自動配對" repair tool
 const REF_TITLES = {
   "國際通住宿 A":"stay-國際通住宿-A","名護住宿":"stay-名護住宿","ラ・ジェントステイ沖縄北谷・西海岸":"stay-ラ-ジェントステイ沖縄北谷-西海岸","國際通住宿 B":"stay-國際通住宿-B",
@@ -925,13 +922,13 @@ function jumpToRef(refId){
     }
   }, 60);
 }
- 
+
 let state = null;
- 
+
 /* ====================== REALTIME SYNC ====================== */
 const syncDot = document.getElementById('syncDot');
 const syncText = document.getElementById('syncText');
- 
+
 tripRef.onSnapshot(function(doc){
   if(doc.exists){
     state = doc.data();
@@ -947,11 +944,11 @@ tripRef.onSnapshot(function(doc){
   syncText.textContent = '連線失敗（檢查網路或Firestore規則）';
   console.error(err);
 });
- 
+
 function saveState(){
   tripRef.set(state).catch(function(e){ console.error('save failed', e); });
 }
- 
+
 /* ====================== TAB SWITCHING ====================== */
 document.getElementById('tabbar').addEventListener('click', function(e){
   const btn = e.target.closest('.tab-btn');
@@ -962,12 +959,12 @@ document.getElementById('tabbar').addEventListener('click', function(e){
   document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
   window.scrollTo({top:0, behavior:'smooth'});
 });
- 
+
 function switchTab(name){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id==='panel-'+name));
 }
- 
+
 /* ====================== DATE HELPERS ====================== */
 function todayStr(){
   const d = new Date();
@@ -979,7 +976,7 @@ function findTodayDay(){
   const t = todayStr();
   return state.days.find(function(d){ return d.date === t; }) || null;
 }
- 
+
 // approximate a clock-minutes value for every itinerary item so we can guess "where we should be right now"
 function itemMinutes(item, idx, len){
   const m = /^(\d{1,2}):(\d{2})$/.exec((item.time||'').trim());
@@ -1004,7 +1001,7 @@ function mapsNavUrl(item){
   const q = (item && (item.place || item.text)) || '';
   return 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(q);
 }
- 
+
 /* ====================== RENDER: OVERVIEW ====================== */
 function renderOverview(){
   const holder = document.getElementById('todayBannerHolder');
@@ -1032,7 +1029,7 @@ function renderOverview(){
   } else {
     holder.innerHTML = '';
   }
- 
+
   const list = document.getElementById('dayMiniList');
   list.innerHTML = state.days.map(function(d){
     const isToday = today && today.id === d.id;
@@ -1040,7 +1037,7 @@ function renderOverview(){
       '<div class="d">D' + d.id + '</div><div class="t">' + escapeHtml(d.title) + '</div></div>';
   }).join('');
 }
- 
+
 function jumpToDay(id){
   switchTab('itinerary');
   document.querySelectorAll('.day-card').forEach(function(c){ c.classList.remove('open'); });
@@ -1048,7 +1045,7 @@ function jumpToDay(id){
   if(el){ el.classList.add('open'); setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'start'}); }, 50); }
   window.scrollTo({top:0, behavior:'auto'});
 }
- 
+
 /* ====================== RENDER: ITINERARY ====================== */
 function renderItinerary(){
   const holder = document.getElementById('dayCardsHolder');
@@ -1089,13 +1086,13 @@ function renderItinerary(){
     '</div>';
   }).join('');
 }
- 
+
 function toggleDay(id){
   const el = document.getElementById('day-' + id);
   if(el) el.classList.toggle('open');
 }
 function getDay(id){ return state.days.find(function(d){ return d.id === id; }); }
- 
+
 function updateItem(dayId, idx, field, value){
   const d = getDay(dayId); d.items[idx][field] = value; saveState();
 }
@@ -1128,7 +1125,7 @@ function deleteBackup(dayId, idx){
 }
 document.getElementById('addDayBtn').addEventListener('click', addDay);
 document.getElementById('autoMatchBtn').addEventListener('click', autoMatchRefs);
- 
+
 /* ====================== RENDER: EXPENSE TRACKER ====================== */
 function expCategoryOptions(){
   const opts = [{id:'prep', label:'行前準備'}];
@@ -1159,24 +1156,24 @@ function getShareB(e){
   const sA = e.splitA != null ? e.splitA : 0.5;
   return (e.amount||0) * (1 - sA);
 }
- 
+
 function renderExpense(){
   document.getElementById('fxRate').value = state.fxRate;
   document.getElementById('fxUpdatedLabel').textContent = state.fxUpdatedAt ? ('上次更新匯率：' + state.fxUpdatedAt) : '尚未抓過即時匯率，目前是預設值';
- 
+
   const expWho = document.getElementById('expWho');
   expWho.innerHTML = '<option value="'+escapeAttr(state.meta.personA)+'">'+escapeHtml(state.meta.personA)+'（付款人）</option><option value="'+escapeAttr(state.meta.personB)+'">'+escapeHtml(state.meta.personB)+'（付款人）</option>';
- 
+
   const expCategory = document.getElementById('expCategory');
   expCategory.innerHTML = expCategoryOptions().map(function(o){ return '<option value="'+o.id+'">'+escapeHtml(o.label)+'</option>'; }).join('');
- 
+
   document.getElementById('expShareA').placeholder = state.meta.personA + '的金額';
   document.getElementById('expShareB').placeholder = state.meta.personB + '的金額';
- 
+
   document.getElementById('namesViewText').textContent = state.meta.personA + ' / ' + state.meta.personB;
- 
+
   function toTWD(exp, val){ return exp.currency === 'JPY' ? val * state.fxRate : val; }
- 
+
   let paidA=0, paidB=0, shareA=0, shareB=0;
   state.expenses.forEach(function(e){
     const total = getTotalAmount(e);
@@ -1189,18 +1186,18 @@ function renderExpense(){
     shareB += toTWD(e, sB);
   });
   const total = paidA + paidB;
- 
+
   document.getElementById('summaryGrid').innerHTML =
     '<div class="summary-card"><div class="num">NT$'+Math.round(paidA)+'</div><div class="lbl">'+escapeHtml(state.meta.personA)+' 已付出<br>應負擔 NT$'+Math.round(shareA)+'</div></div>' +
     '<div class="summary-card"><div class="num">NT$'+Math.round(paidB)+'</div><div class="lbl">'+escapeHtml(state.meta.personB)+' 已付出<br>應負擔 NT$'+Math.round(shareB)+'</div></div>';
- 
+
   const netA = paidA - shareA; // >0 表示A多付了，B該轉給A
   let balanceMsg;
   if(Math.abs(netA) < 1){ balanceMsg = '目前兩人帳務打平'; }
   else if(netA > 0){ balanceMsg = escapeHtml(state.meta.personB) + ' 該轉給 ' + escapeHtml(state.meta.personA) + ' NT$' + Math.round(netA); }
   else { balanceMsg = escapeHtml(state.meta.personA) + ' 該轉給 ' + escapeHtml(state.meta.personB) + ' NT$' + Math.round(-netA); }
   document.getElementById('balanceLine').textContent = balanceMsg + '（總花費 NT$' + Math.round(total) + '）';
- 
+
   const list = document.getElementById('expenseList');
   if(!state.expenses.length){
     list.innerHTML = '<div style="color:var(--ink-soft); font-size:13px;">還沒有任何紀錄，新增第一筆花費吧！</div>';
@@ -1222,19 +1219,19 @@ function renderExpense(){
     }).join('');
   }
 }
- 
+
 function deleteExpense(id){
   state.expenses = state.expenses.filter(function(e){ return e.id !== id; });
   saveState(); renderExpense();
 }
- 
+
 document.getElementById('quickSplitBtn').addEventListener('click', function(){
   const t = parseFloat(document.getElementById('expTotalHelper').value);
   if(!t || t <= 0) return;
   document.getElementById('expShareA').value = (t/2).toFixed(2).replace(/\.00$/,'');
   document.getElementById('expShareB').value = (t/2).toFixed(2).replace(/\.00$/,'');
 });
- 
+
 document.getElementById('addExpenseBtn').addEventListener('click', function(){
   const paidBy = document.getElementById('expWho').value;
   const category = document.getElementById('expCategory').value;
@@ -1242,7 +1239,7 @@ document.getElementById('addExpenseBtn').addEventListener('click', function(){
   const note = document.getElementById('expNote').value;
   const shareA = parseFloat(document.getElementById('expShareA').value) || 0;
   const shareB = parseFloat(document.getElementById('expShareB').value) || 0;
- 
+
   if(shareA <= 0 && shareB <= 0){ alert('請至少填一個人的金額'); return; }
   state.expenses.push({ id:'e'+Date.now(), paidBy:paidBy, category:category, currency:currency, note:note, shareA:shareA, shareB:shareB });
   saveState();
@@ -1252,12 +1249,12 @@ document.getElementById('addExpenseBtn').addEventListener('click', function(){
   document.getElementById('expNote').value = '';
   renderExpense();
 });
- 
+
 document.getElementById('saveFxBtn').addEventListener('click', function(){
   const v = parseFloat(document.getElementById('fxRate').value);
   if(v > 0){ state.fxRate = v; state.fxUpdatedAt = '手動輸入'; saveState(); renderExpense(); }
 });
- 
+
 document.getElementById('liveFxBtn').addEventListener('click', function(){
   const btn = document.getElementById('liveFxBtn');
   btn.textContent = '抓取中...';
@@ -1280,7 +1277,7 @@ document.getElementById('liveFxBtn').addEventListener('click', function(){
       btn.textContent = '🔄 抓即時匯率';
     });
 });
- 
+
 // names: view/edit toggle
 document.getElementById('namesEditBtn').addEventListener('click', function(){
   document.getElementById('personA').value = state.meta.personA;
@@ -1294,7 +1291,7 @@ document.getElementById('namesSaveBtn').addEventListener('click', function(){
   document.getElementById('namesEditBox').style.display = 'none';
   renderExpense();
 });
- 
+
 /* ====================== RENDER: CHECKLIST ====================== */
 function renderChecklist(){
   const groups = {};
@@ -1324,11 +1321,11 @@ function updateProgress(){
   document.getElementById('pct').textContent = pct + '%';
   document.getElementById('fill').style.width = pct + '%';
 }
- 
+
 /* ====================== UTIL ====================== */
 function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function escapeAttr(s){ return escapeHtml(s); }
- 
+
 /* ====================== RENDER: INBOX + WISHLIST ====================== */
 function renderInbox(){
   if(!state.inbox) state.inbox = [];
@@ -1414,7 +1411,7 @@ document.getElementById('addWishDirectBtn').addEventListener('click', function()
   document.getElementById('wishDirectText').value = '';
   renderInbox();
 });
- 
+
 function renderAll(){
   if(!state) return;
   renderOverview();
@@ -1426,4 +1423,3 @@ function renderAll(){
 </script>
 </body>
 </html>
- 
