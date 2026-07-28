@@ -82,6 +82,8 @@
   .item-row input.t-time{width:64px; font-family:var(--font-mono); font-size:12.5px; font-weight:700; color:var(--indigo);}
   .item-row input.t-text{flex:1; font-size:13.5px;}
   .item-row input{border:1px solid var(--line); border-radius:8px; padding:6px 8px; background:var(--card); color:var(--ink); font-family:inherit;}
+  .item-row span.t-time{font-family:var(--font-mono); font-weight:700; color:var(--indigo); font-size:12.5px;}
+  .item-row span.t-text{font-size:13.5px; color:var(--ink);}
   .del-x{background:none; border:none; color:var(--ink-soft); cursor:pointer; font-size:15px; padding:2px 6px; flex-shrink:0;}
   .add-row-btn, .add-line-btn{margin-top:6px; background:var(--card-alt); border:1px dashed var(--line-strong); color:var(--ink-soft); border-radius:8px; padding:7px 10px; font-size:12.5px; cursor:pointer; width:100%;}
 
@@ -161,6 +163,10 @@
   @media (prefers-color-scheme: dark){ .callout.warn{color:#EAD6AC;} }
   .ref-flash{animation:refFlash 1.6s ease-out;}
   @keyframes refFlash{ 0%{box-shadow:0 0 0 3px var(--coral);} 100%{box-shadow:0 0 0 0 rgba(193,80,46,0);} }
+  .ref-subtabs{display:flex; gap:6px; overflow-x:auto; padding-bottom:10px; margin-bottom:14px; border-bottom:1px solid var(--line); scrollbar-width:none;}
+  .ref-subtabs::-webkit-scrollbar{display:none;}
+  .ref-subtab-btn{font-weight:700; font-size:12.5px; color:var(--ink-soft); background:var(--card-alt); border:1px solid transparent; padding:6px 12px; border-radius:999px; white-space:nowrap; cursor:pointer;}
+  .ref-subtab-btn.active{background:var(--indigo); color:#fff;}
   .detail-link{display:inline-flex; align-items:center; gap:4px; font-family:var(--font-mono); font-size:11px; color:var(--indigo); text-decoration:none; border:1px solid var(--line-strong); border-radius:999px; padding:3px 10px; margin-left:6px; background:var(--card-alt); cursor:pointer;}
   .maplink{display:inline-flex; align-items:center; gap:4px; font-family:var(--font-mono); font-size:11px; color:var(--indigo); text-decoration:none; border:1px solid var(--line-strong); border-radius:999px; padding:4px 11px; margin-top:8px; margin-right:6px; background:var(--card-alt); transition:all .15s;}
   .maplink:hover{background:var(--indigo); color:#fff; border-color:var(--indigo);}
@@ -207,13 +213,28 @@
     <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
       <span class="sync-dot" id="syncDot"><i></i> <span id="syncText">連線中...</span></span>
     </div>
+    <div class="card">
+      <div id="testModeView" style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:12px; color:var(--ink-soft);">🧪 測試模式：<span id="testModeStatus">關閉（使用真實時間）</span></div>
+        <button id="testModeToggleBtn" style="font-size:11px; padding:4px 10px; border-radius:8px; border:1px solid var(--line-strong); background:var(--card-alt); cursor:pointer;">開啟</button>
+      </div>
+      <div id="testModeBox" style="display:none; margin-top:10px;">
+        <div class="desc" style="margin-bottom:8px;">模擬「現在」是哪個時間點，用來測試「今天是Day X」「目前進行到／下一站」這些跟時間有關的功能。這只會影響你自己這次瀏覽，不會動到真正的行程資料。</div>
+        <div class="form-grid full"><input id="simDateTime" type="datetime-local"></div>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <button id="applySimBtn" style="flex:1; background:var(--coral); color:#fff; border:none; border-radius:8px; padding:8px; font-weight:700; cursor:pointer;">套用模擬時間</button>
+          <button id="clearSimBtn" style="flex:1; background:var(--card-alt); border:1px solid var(--line-strong); border-radius:8px; padding:8px; font-weight:700; cursor:pointer;">恢復真實時間</button>
+        </div>
+      </div>
+    </div>
     <div class="card" style="padding:4px 12px;" id="dayMiniList"></div>
   </section>
 
   <section class="panel" id="panel-itinerary">
     <div class="day-controls">
-      <button id="addDayBtn">＋ 新增一天</button>
-      <button id="autoMatchBtn">🔗 自動配對詳情連結</button>
+      <button id="editModeBtn">✎ 開啟編輯模式</button>
+      <button id="addDayBtn" style="display:none;">＋ 新增一天</button>
+      <button id="autoMatchBtn" style="display:none;">🔗 自動配對詳情連結</button>
     </div>
     <div id="dayCardsHolder"></div>
   </section>
@@ -301,8 +322,14 @@
       <h2>參考手冊</h2>
       <div class="desc">住宿、美食、景點購物、伴手禮的完整參考資料，從行程分頁點「查看詳情」也會直接跳到這裡對應的卡片。</div>
     </div>
-    <div id="referenceContent">
-
+    <div id="referenceContent"><div class="ref-subtabs" id="refSubtabs">
+<button class="ref-subtab-btn active" data-refsec="stay">住宿</button>
+<button class="ref-subtab-btn" data-refsec="food">美食</button>
+<button class="ref-subtab-btn" data-refsec="spots">景點購物</button>
+<button class="ref-subtab-btn" data-refsec="souv">伴手禮</button>
+<button class="ref-subtab-btn" data-refsec="notes">注意事項</button>
+</div>
+<div class="ref-section" data-ref-section="stay" id="refsec-stay" style="display:block;">
 <div class="section-head">
 <span class="eyebrow-label">Where we sleep</span>
 <h2>住宿資訊</h2>
@@ -340,6 +367,9 @@
 <div class="callout warn"><b>行李小提醒</b> — Day2/Day3/Day5是「自駕搬運行李」，行李箱放後車廂即可；但Day1晚間、Day6全天要親自提著走（國際通石板路、單軌樓梯），建議大件行李用有輪子款、貴重物品用隨身包分開放。</div>
 
 
+
+</div>
+<div class="ref-section" data-ref-section="food" id="refsec-food" style="display:none;">
 <div class="section-head">
 <span class="eyebrow-label">Where we eat</span>
 <h2>餐廳資訊</h2>
@@ -490,6 +520,9 @@
 </div>
 
 
+
+</div>
+<div class="ref-section" data-ref-section="spots" id="refsec-spots" style="display:none;">
 <div class="section-head">
 <span class="eyebrow-label">See &amp; shop</span>
 <h2>景點・購物</h2>
@@ -620,6 +653,9 @@
 </div>
 
 
+
+</div>
+<div class="ref-section" data-ref-section="souv" id="refsec-souv" style="display:none;">
 <div class="section-head">
 <span class="eyebrow-label">Omiyage guide</span>
 <h2>伴手禮採買指南</h2>
@@ -704,6 +740,9 @@
 <div class="callout warn"><b>行李箱空間提醒</b> — 這趟行程國際通逛3次（Day1、Day4、Day5晚上、Day6整個早上），很容易分批買、最後行李塞不下。建議Day1晚上先買不怕壓的乾貨零食，生鮮類（海葡萄、生冷食品）留到Day6最後一天買，確保新鮮度也不佔行李空間太久。</div>
 
 
+
+</div>
+<div class="ref-section" data-ref-section="notes" id="refsec-notes" style="display:none;">
 <div class="section-head">
 <span class="eyebrow-label">Good to know</span>
 <h2>注意事項與備案</h2>
@@ -746,7 +785,9 @@
 </div>
 
 </div>
-  </section>
+  
+</div>
+</section>
 
   <section class="panel" id="panel-prep">
     <div class="progress-wrap">
@@ -916,14 +957,51 @@ function jumpToRef(refId){
   setTimeout(function(){
     const el = document.getElementById(refId);
     if(el){
-      el.scrollIntoView({behavior:'smooth', block:'start'});
-      el.classList.add('ref-flash');
-      setTimeout(function(){ el.classList.remove('ref-flash'); }, 1700);
+      const sec = el.closest('.ref-section');
+      if(sec) switchRefSection(sec.dataset.refSection);
+      setTimeout(function(){
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+        el.classList.add('ref-flash');
+        setTimeout(function(){ el.classList.remove('ref-flash'); }, 1700);
+      }, 30);
     }
   }, 60);
 }
+function switchRefSection(name){
+  document.querySelectorAll('.ref-section').forEach(function(s){ s.style.display = (s.dataset.refSection===name) ? 'block' : 'none'; });
+  document.querySelectorAll('.ref-subtab-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.refsec===name); });
+}
+document.getElementById('refSubtabs').addEventListener('click', function(e){
+  const btn = e.target.closest('.ref-subtab-btn');
+  if(!btn) return;
+  switchRefSection(btn.dataset.refsec);
+  document.getElementById('panel-reference').scrollIntoView({behavior:'smooth', block:'start'});
+});
 
 let state = null;
+
+document.getElementById('testModeToggleBtn').addEventListener('click', function(){
+  const box = document.getElementById('testModeBox');
+  const showing = box.style.display !== 'none';
+  box.style.display = showing ? 'none' : 'block';
+  if(!showing && !document.getElementById('simDateTime').value){
+    // pre-fill with the trip's first day at 09:00 as a convenient starting guess
+    const firstDate = (state && state.days[0] && state.days[0].date) || todayStr();
+    document.getElementById('simDateTime').value = firstDate + 'T09:00';
+  }
+});
+document.getElementById('applySimBtn').addEventListener('click', function(){
+  const v = document.getElementById('simDateTime').value;
+  if(!v) return;
+  simulatedNow = new Date(v);
+  document.getElementById('testModeStatus').textContent = '開啟中（模擬 ' + v.replace('T',' ') + '）';
+  renderAll();
+});
+document.getElementById('clearSimBtn').addEventListener('click', function(){
+  simulatedNow = null;
+  document.getElementById('testModeStatus').textContent = '關閉（使用真實時間）';
+  renderAll();
+});
 
 /* ====================== REALTIME SYNC ====================== */
 const syncDot = document.getElementById('syncDot');
@@ -966,8 +1044,11 @@ function switchTab(name){
 }
 
 /* ====================== DATE HELPERS ====================== */
+let simulatedNow = null; // testing aid: when set, the whole app pretends "now" is this Date instead of the real clock
+function getNow(){ return simulatedNow || new Date(); }
+
 function todayStr(){
-  const d = new Date();
+  const d = getNow();
   const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
   return y+'-'+m+'-'+day;
 }
@@ -987,7 +1068,7 @@ function itemMinutes(item, idx, len){
 }
 function findCurrentAndNext(day){
   if(!day || !day.items.length) return {current:null, next:null};
-  const now = new Date();
+  const now = getNow();
   const nowMin = now.getHours()*60 + now.getMinutes();
   const withMin = day.items.map(function(it,idx){ return {item:it, idx:idx, min:itemMinutes(it, idx, day.items.length)}; });
   let current = null, next = null;
@@ -1047,45 +1128,81 @@ function jumpToDay(id){
 }
 
 /* ====================== RENDER: ITINERARY ====================== */
+let itineraryEditMode = false; // default to read-only browsing view; toggle reveals editing controls
+
 function renderItinerary(){
   const holder = document.getElementById('dayCardsHolder');
   const today = findTodayDay();
   holder.innerHTML = state.days.map(function(d, dayIdx){
     const isToday = today && today.id === d.id;
     const cn = isToday ? findCurrentAndNext(d) : {current:null, next:null};
+
     const itemsHtml = d.items.map(function(it, idx){
       const isCurrent = cn.current && cn.current.idx === idx;
       const isNext = cn.next && cn.next.idx === idx;
       const marker = isCurrent ? '<span style="background:var(--coral);color:#fff;font-size:10px;border-radius:6px;padding:1px 6px;margin-right:4px;">現在</span>' :
                      (isNext ? '<span style="background:var(--turmeric);color:#fff;font-size:10px;border-radius:6px;padding:1px 6px;margin-right:4px;">下一站</span>' : '');
-      return '<div class="item-row">' +
+      if(itineraryEditMode){
+        return '<div class="item-row">' +
+          (marker ? '<div style="flex-basis:100%;">'+marker+'</div>' : '') +
+          '<input class="t-time" value="' + escapeAttr(it.time) + '" onchange="updateItem(' + d.id + ',' + idx + ',\'time\',this.value)">' +
+          '<input class="t-text" value="' + escapeAttr(it.text) + '" onchange="updateItem(' + d.id + ',' + idx + ',\'text\',this.value)">' +
+          (it.ref ? '<button class="detail-link" onclick="jumpToRef(\''+it.ref+'\')" style="margin-left:0;">📖 詳情</button>' : '') +
+          '<button class="del-x" title="導航" onclick="window.open(\''+mapsNavUrl(it)+'\',\'_blank\')">🗺️</button>' +
+          '<button class="del-x" onclick="deleteItem(' + d.id + ',' + idx + ')">✕</button>' +
+          '</div>';
+      }
+      const clickable = it.ref ? ' style="cursor:pointer;" onclick="jumpToRef(\''+it.ref+'\')"' : '';
+      return '<div class="item-row"' + clickable + '>' +
         (marker ? '<div style="flex-basis:100%;">'+marker+'</div>' : '') +
-        '<input class="t-time" value="' + escapeAttr(it.time) + '" onchange="updateItem(' + d.id + ',' + idx + ',\'time\',this.value)">' +
-        '<input class="t-text" value="' + escapeAttr(it.text) + '" onchange="updateItem(' + d.id + ',' + idx + ',\'text\',this.value)">' +
-        (it.ref ? '<button class="detail-link" onclick="jumpToRef(\''+it.ref+'\')" style="margin-left:0;">📖 詳情</button>' : '') +
-        '<button class="del-x" title="導航" onclick="window.open(\''+mapsNavUrl(it)+'\',\'_blank\')">🗺️</button>' +
-        '<button class="del-x" onclick="deleteItem(' + d.id + ',' + idx + ')">✕</button>' +
+        '<span class="t-time">' + escapeHtml(it.time) + '</span>' +
+        '<span class="t-text">' + escapeHtml(it.text) + '</span>' +
+        (it.ref ? '<span style="font-size:11px;color:var(--indigo);">📖</span>' : '') +
+        '<button class="del-x" title="導航" onclick="event.stopPropagation(); window.open(\''+mapsNavUrl(it)+'\',\'_blank\')">🗺️</button>' +
         '</div>';
     }).join('');
+
     const backupsHtml = d.backups.map(function(b, idx){
-      return '<div class="backup-item"><span>' + escapeHtml(b) + '</span><button class="del-x" onclick="deleteBackup(' + d.id + ',' + idx + ')">✕</button></div>';
+      if(itineraryEditMode){
+        return '<div class="backup-item"><span>' + escapeHtml(b) + '</span><button class="del-x" onclick="deleteBackup(' + d.id + ',' + idx + ')">✕</button></div>';
+      }
+      return '<div class="backup-item"><span>' + escapeHtml(b) + '</span></div>';
     }).join('');
+
+    const titleHtml = itineraryEditMode ?
+      '<input class="ttl-input" style="border:none;background:none;font-weight:700;font-size:15px;color:inherit;width:100%;padding:0;" value="' + escapeAttr(d.title) + '" onclick="event.stopPropagation()" onchange="updateDayTitle(' + d.id + ', this.value)">' :
+      '<div style="font-weight:700;font-size:15px;">' + escapeHtml(d.title) + '</div>';
+    const dateHtml = itineraryEditMode ?
+      '<div class="date-row" style="display:flex;gap:6px;align-items:center;"><input type="date" value="' + d.date + '" onclick="event.stopPropagation()" onchange="updateDayDate(' + d.id + ', this.value)" style="font-family:var(--font-mono);font-size:11px;border:none;background:none;color:var(--ink-soft);"></div>' :
+      '<div style="font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);">' + d.date + '</div>';
+    const deleteDayBtn = itineraryEditMode ? '<button class="del-x" onclick="event.stopPropagation(); deleteDay(' + d.id + ')" title="刪除這一天">🗑</button>' : '';
+    const addItemBtn = itineraryEditMode ? '<button class="add-line-btn" onclick="addItem(' + d.id + ')">＋ 新增一個行程項目</button>' : '';
+    const addBackupBtn = itineraryEditMode ? '<button class="add-row-btn" onclick="addBackup(' + d.id + ')">＋ 新增備案</button>' : '';
+    const backupsBlock = (backupsHtml || itineraryEditMode) ? '<div class="backup-block"><h4>備案清單</h4>' + backupsHtml + addBackupBtn + '</div>' : '';
+
     return '<div class="day-card' + (isToday?' open is-today':'') + '" id="day-' + d.id + '">' +
       '<div class="day-head" onclick="toggleDay(' + d.id + ')">' +
         '<div class="badge">' + d.badge + '</div>' +
-        '<div class="info"><input class="ttl-input" style="border:none;background:none;font-weight:700;font-size:15px;color:inherit;width:100%;padding:0;" value="' + escapeAttr(d.title) + '" onclick="event.stopPropagation()" onchange="updateDayTitle(' + d.id + ', this.value)">' +
-        '<div class="date-row" style="display:flex;gap:6px;align-items:center;"><input type="date" value="' + d.date + '" onclick="event.stopPropagation()" onchange="updateDayDate(' + d.id + ', this.value)" style="font-family:var(--font-mono);font-size:11px;border:none;background:none;color:var(--ink-soft);"></div></div>' +
-        '<button class="del-x" onclick="event.stopPropagation(); deleteDay(' + d.id + ')" title="刪除這一天">🗑</button>' +
+        '<div class="info">' + titleHtml + dateHtml + '</div>' +
+        deleteDayBtn +
       '</div>' +
       '<div class="day-body">' +
         itemsHtml +
-        '<button class="add-line-btn" onclick="addItem(' + d.id + ')">＋ 新增一個行程項目</button>' +
-        '<div class="backup-block"><h4>備案清單</h4>' + backupsHtml +
-        '<button class="add-row-btn" onclick="addBackup(' + d.id + ')">＋ 新增備案</button></div>' +
+        addItemBtn +
+        backupsBlock +
       '</div>' +
     '</div>';
   }).join('');
 }
+
+document.getElementById('editModeBtn').addEventListener('click', function(){
+  itineraryEditMode = !itineraryEditMode;
+  const btn = document.getElementById('editModeBtn');
+  btn.textContent = itineraryEditMode ? '✓ 完成編輯（切換回瀏覽）' : '✎ 開啟編輯模式';
+  document.getElementById('addDayBtn').style.display = itineraryEditMode ? '' : 'none';
+  document.getElementById('autoMatchBtn').style.display = itineraryEditMode ? '' : 'none';
+  renderItinerary();
+});
 
 function toggleDay(id){
   const el = document.getElementById('day-' + id);
@@ -1258,23 +1375,37 @@ document.getElementById('saveFxBtn').addEventListener('click', function(){
 document.getElementById('liveFxBtn').addEventListener('click', function(){
   const btn = document.getElementById('liveFxBtn');
   btn.textContent = '抓取中...';
-  fetch('https://api.frankfurter.dev/v1/latest?base=JPY&symbols=TWD')
+  fetch('https://open.er-api.com/v6/latest/JPY')
     .then(function(r){ return r.json(); })
     .then(function(data){
       const rate = data && data.rates && data.rates.TWD;
       if(rate){
         state.fxRate = rate;
-        state.fxUpdatedAt = data.date + '（即時匯率）';
+        state.fxUpdatedAt = (data.time_last_update_utc || '今天') + '（即時匯率）';
         saveState(); renderExpense();
+        btn.textContent = '🔄 抓即時匯率';
       } else {
-        alert('抓取失敗，請稍後再試或手動輸入匯率');
+        throw new Error('no TWD rate in response');
       }
-      btn.textContent = '🔄 抓即時匯率';
     })
     .catch(function(err){
-      console.error(err);
-      alert('抓取失敗（可能是網路問題），請手動輸入匯率');
-      btn.textContent = '🔄 抓即時匯率';
+      console.error('primary FX source failed', err);
+      // fallback provider
+      fetch('https://api.frankfurter.dev/v2/rates?base=JPY&quotes=TWD')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          const rate = data && data.rates && data.rates.TWD;
+          if(!rate) throw new Error('no TWD rate from fallback either');
+          state.fxRate = rate;
+          state.fxUpdatedAt = (data.date || '今天') + '（即時匯率，備援來源）';
+          saveState(); renderExpense();
+          btn.textContent = '🔄 抓即時匯率';
+        })
+        .catch(function(err2){
+          console.error('fallback FX source also failed', err2);
+          alert('兩個匯率來源都抓取失敗（可能是網路問題），請手動輸入匯率');
+          btn.textContent = '🔄 抓即時匯率';
+        });
     });
 });
 
